@@ -486,15 +486,18 @@ svg {
 
 .modal {
   width: min(92vw, 520px);
+  max-width: calc(100vw - 24px);
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--text);
+  overflow: visible;
 }
 
 .modal.wide,
 .modal-panel.wide {
   width: min(92vw, 760px);
+  max-width: calc(100vw - 24px);
 }
 
 .modal::backdrop {
@@ -507,6 +510,8 @@ svg {
   gap: 18px;
   padding: 18px;
   border-radius: 8px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .modal-head {
@@ -523,6 +528,7 @@ svg {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  min-width: 0;
 }
 
 menu {
@@ -582,5 +588,15 @@ body.locked .editable-hint {
   .task-grid,
   .settings-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-panel {
+    padding: 16px;
   }
 }
