@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-19T11:15:14.521Z",
+  "updatedAt": "2026-05-19T11:21:17.547Z",
   "stages": [
     "done",
     "environment",
@@ -19,7 +19,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_01.png",
       "notes": "",
-      "updatedAt": "2026-05-19T11:15:14.521Z",
+      "updatedAt": "2026-05-19T11:21:17.547Z",
       "tasks": {
         "done": false,
         "environment": false,
@@ -38,7 +38,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_02.png",
       "notes": "",
-      "updatedAt": "",
+      "updatedAt": "2026-05-19T11:21:16.379Z",
       "tasks": {
         "done": false,
         "environment": false,
