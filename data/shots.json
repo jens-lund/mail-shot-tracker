@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-19T14:57:48.410Z",
+  "updatedAt": "2026-05-19T14:57:54.485Z",
   "stages": [
     "done",
     "environment",
@@ -475,7 +475,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_01.png",
       "notes": "",
-      "updatedAt": "2026-05-19T14:57:36.662Z",
+      "updatedAt": "2026-05-19T14:57:54.485Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -494,7 +494,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_02.png",
       "notes": "",
-      "updatedAt": "2026-05-19T14:57:45.791Z",
+      "updatedAt": "2026-05-19T14:57:53.887Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -513,12 +513,12 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_03.png",
       "notes": "",
-      "updatedAt": "2026-05-19T14:57:48.410Z",
+      "updatedAt": "2026-05-19T14:57:51.856Z",
       "tasks": {
         "done": false,
         "environment": true,
         "characters": true,
-        "assets": false,
+        "assets": true,
         "animation": false,
         "lighting": false,
         "camera": false,
@@ -532,12 +532,12 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_04.png",
       "notes": "",
-      "updatedAt": "",
+      "updatedAt": "2026-05-19T14:57:51.360Z",
       "tasks": {
         "done": false,
-        "environment": false,
-        "characters": false,
-        "assets": false,
+        "environment": true,
+        "characters": true,
+        "assets": true,
         "animation": false,
         "lighting": false,
         "camera": false,
