@@ -1,0 +1,296 @@
+{
+  "project": "Mail",
+  "updatedAt": "",
+  "stages": [
+    "done",
+    "environment",
+    "characters",
+    "assets",
+    "animation",
+    "lighting",
+    "camera",
+    "render",
+    "compositing"
+  ],
+  "shots": [
+    {
+      "id": "scene_01_shot_01",
+      "title": "scene_01_shot_01",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_01.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_02",
+      "title": "scene_01_shot_02",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_02.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_03",
+      "title": "scene_01_shot_03",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_03.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_04",
+      "title": "scene_01_shot_04",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_04.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_05",
+      "title": "scene_01_shot_05",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_05.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_06",
+      "title": "scene_01_shot_06",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_06.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_07",
+      "title": "scene_01_shot_07",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_07.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_08",
+      "title": "scene_01_shot_08",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_08.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_01_shot_09",
+      "title": "scene_01_shot_09",
+      "scene": "Scene 01",
+      "image": "images/scene_01_shot_09.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_01",
+      "title": "scene_02_shot_01",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_01.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_02",
+      "title": "scene_02_shot_02",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_02.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_03",
+      "title": "scene_02_shot_03",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_03.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_04",
+      "title": "scene_02_shot_04",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_04.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_05",
+      "title": "scene_02_shot_05",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_05.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_07",
+      "title": "scene_02_shot_07",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_07.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_08",
+      "title": "scene_02_shot_08",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_08.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_09",
+      "title": "scene_02_shot_09",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_09.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_10",
+      "title": "scene_02_shot_10",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_10.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_11",
+      "title": "scene_02_shot_11",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_11.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_12",
+      "title": "scene_02_shot_12",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_12.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_02_shot_13",
+      "title": "scene_02_shot_13",
+      "scene": "Scene 02",
+      "image": "images/scene_02_shot_13.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_03_shot_01",
+      "title": "scene_03_shot_01",
+      "scene": "Scene 03",
+      "image": "images/scene_03_shot_01.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_03_shot_02",
+      "title": "scene_03_shot_02",
+      "scene": "Scene 03",
+      "image": "images/scene_03_shot_02.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_03_shot_03",
+      "title": "scene_03_shot_03",
+      "scene": "Scene 03",
+      "image": "images/scene_03_shot_03.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_01",
+      "title": "scene_04_shot_01",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_01.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_02",
+      "title": "scene_04_shot_02",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_02.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_03",
+      "title": "scene_04_shot_03",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_03.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_04",
+      "title": "scene_04_shot_04",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_04.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_05",
+      "title": "scene_04_shot_05",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_05.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_06",
+      "title": "scene_04_shot_06",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_06.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    },
+    {
+      "id": "scene_04_shot_07",
+      "title": "scene_04_shot_07",
+      "scene": "Scene 04",
+      "image": "images/scene_04_shot_07.png",
+      "notes": "",
+      "updatedAt": "",
+      "tasks": {}
+    }
+  ]
+}

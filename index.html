@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mail Shot Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">M</span>
+        <div>
+          <p class="eyebrow">3D production tracker</p>
+          <h1>Mail</h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-button" id="refreshButton" title="Oppdater fra GitHub">
+          <i data-lucide="refresh-cw"></i>
+        </button>
+        <button class="icon-button" id="settingsButton" title="Synk og innstillinger">
+          <i data-lucide="settings"></i>
+        </button>
+        <button class="primary-button" id="unlockButton">
+          <i data-lucide="lock-keyhole"></i>
+          Rediger
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="overview">
+        <div class="summary-block">
+          <span>Total progress</span>
+          <strong id="totalProgress">0%</strong>
+          <div class="large-progress">
+            <span id="totalProgressBar"></span>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div>
+            <span>Shots</span>
+            <strong id="shotCount">0</strong>
+          </div>
+          <div>
+            <span>Done</span>
+            <strong id="doneCount">0</strong>
+          </div>
+          <div>
+            <span>Pågår</span>
+            <strong id="activeCount">0</strong>
+          </div>
+          <div>
+            <span>Needs attention</span>
+            <strong id="attentionCount">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Filter og sortering">
+        <label class="search-field">
+          <i data-lucide="search"></i>
+          <input id="searchInput" type="search" placeholder="Søk etter shot eller scene">
+        </label>
+        <div class="segmented" id="filterButtons">
+          <button data-filter="all" class="active">Alle</button>
+          <button data-filter="not-started">Ikke startet</button>
+          <button data-filter="in-progress">Pågår</button>
+          <button data-filter="almost">Nesten ferdig</button>
+          <button data-filter="done">Done</button>
+        </div>
+        <label class="select-field">
+          <span>Sorter</span>
+          <select id="sortSelect">
+            <option value="chronological">Kronologisk</option>
+            <option value="low">Lavest progress</option>
+            <option value="high">Høyest progress</option>
+            <option value="attention">Needs attention</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="sync-strip" id="syncStrip">
+        <span id="syncStatus">Lokal visning er klar.</span>
+      </section>
+
+      <section class="shot-grid" id="shotGrid" aria-live="polite"></section>
+    </main>
+
+    <dialog class="modal" id="unlockDialog">
+      <form method="dialog" class="modal-panel" id="unlockForm">
+        <div class="modal-head">
+          <h2>Redigeringsmodus</h2>
+          <button class="icon-button" value="cancel" title="Lukk">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <p>Skriv passordet for å åpne redigering på denne maskinen.</p>
+        <label class="stacked-field">
+          <span>Passord</span>
+          <input id="passwordInput" type="password" autocomplete="current-password">
+        </label>
+        <menu>
+          <button value="cancel">Avbryt</button>
+          <button class="primary-button" value="default">Lås opp</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="settingsDialog">
+      <form method="dialog" class="modal-panel wide" id="settingsForm">
+        <div class="modal-head">
+          <h2>GitHub-synk</h2>
+          <button class="icon-button" value="cancel" title="Lukk">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <p>For online redigering må hver redaktør bruke en GitHub-token med tilgang til repoet. Token lagres bare i nettleseren deres.</p>
+        <div class="settings-grid">
+          <label class="stacked-field">
+            <span>Owner</span>
+            <input id="ownerInput" placeholder="github-bruker eller org">
+          </label>
+          <label class="stacked-field">
+            <span>Repo</span>
+            <input id="repoInput" placeholder="repo-navn">
+          </label>
+          <label class="stacked-field">
+            <span>Branch</span>
+            <input id="branchInput" placeholder="main">
+          </label>
+          <label class="stacked-field">
+            <span>Datafil</span>
+            <input id="dataPathInput" placeholder="data/shots.json">
+          </label>
+        </div>
+        <label class="stacked-field">
+          <span>GitHub-token</span>
+          <input id="tokenInput" type="password" placeholder="github_pat_...">
+        </label>
+        <menu>
+          <button id="clearTokenButton" type="button">Fjern token</button>
+          <button value="cancel">Lukk</button>
+          <button class="primary-button" value="default">Lagre</button>
+        </menu>
+      </form>
+    </dialog>
+  </body>
+</html>
