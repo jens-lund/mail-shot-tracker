@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-19T11:49:19.759Z",
+  "updatedAt": "2026-05-19T11:49:35.851Z",
   "stages": [
     "done",
     "environment",
@@ -19,15 +19,15 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_01.png",
       "notes": "",
-      "updatedAt": "2026-05-19T11:49:19.759Z",
+      "updatedAt": "2026-05-19T11:49:35.851Z",
       "tasks": {
-        "done": false,
-        "environment": false,
-        "characters": false,
-        "assets": false,
-        "animation": false,
+        "done": true,
+        "environment": true,
+        "characters": true,
+        "assets": true,
+        "animation": true,
         "lighting": true,
-        "camera": false,
+        "camera": true,
         "render": true,
         "compositing": true
       }
