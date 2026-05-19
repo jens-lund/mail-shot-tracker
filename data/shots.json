@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "",
+  "updatedAt": "2026-05-19T11:02:18.086Z",
   "stages": [
     "done",
     "environment",
@@ -19,8 +19,18 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_01.png",
       "notes": "",
-      "updatedAt": "",
-      "tasks": {}
+      "updatedAt": "2026-05-19T11:02:18.086Z",
+      "tasks": {
+        "done": true,
+        "environment": true,
+        "characters": true,
+        "assets": true,
+        "animation": true,
+        "lighting": true,
+        "camera": true,
+        "render": true,
+        "compositing": true
+      }
     },
     {
       "id": "scene_01_shot_02",
@@ -29,7 +39,17 @@
       "image": "images/scene_01_shot_02.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_03",
@@ -38,7 +58,17 @@
       "image": "images/scene_01_shot_03.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_04",
@@ -47,7 +77,17 @@
       "image": "images/scene_01_shot_04.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_05",
@@ -56,7 +96,17 @@
       "image": "images/scene_01_shot_05.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_06",
@@ -65,7 +115,17 @@
       "image": "images/scene_01_shot_06.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_07",
@@ -74,7 +134,17 @@
       "image": "images/scene_01_shot_07.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_08",
@@ -83,7 +153,17 @@
       "image": "images/scene_01_shot_08.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_01_shot_09",
@@ -92,7 +172,17 @@
       "image": "images/scene_01_shot_09.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_01",
@@ -101,7 +191,17 @@
       "image": "images/scene_02_shot_01.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_02",
@@ -110,7 +210,17 @@
       "image": "images/scene_02_shot_02.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_03",
@@ -119,7 +229,17 @@
       "image": "images/scene_02_shot_03.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_04",
@@ -128,7 +248,17 @@
       "image": "images/scene_02_shot_04.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_05",
@@ -137,7 +267,17 @@
       "image": "images/scene_02_shot_05.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_07",
@@ -146,7 +286,17 @@
       "image": "images/scene_02_shot_07.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_08",
@@ -155,7 +305,17 @@
       "image": "images/scene_02_shot_08.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_09",
@@ -164,7 +324,17 @@
       "image": "images/scene_02_shot_09.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_10",
@@ -173,7 +343,17 @@
       "image": "images/scene_02_shot_10.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_11",
@@ -182,7 +362,17 @@
       "image": "images/scene_02_shot_11.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_12",
@@ -191,7 +381,17 @@
       "image": "images/scene_02_shot_12.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_02_shot_13",
@@ -200,7 +400,17 @@
       "image": "images/scene_02_shot_13.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_03_shot_01",
@@ -209,7 +419,17 @@
       "image": "images/scene_03_shot_01.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_03_shot_02",
@@ -218,7 +438,17 @@
       "image": "images/scene_03_shot_02.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_03_shot_03",
@@ -227,7 +457,17 @@
       "image": "images/scene_03_shot_03.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_01",
@@ -236,7 +476,17 @@
       "image": "images/scene_04_shot_01.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_02",
@@ -245,7 +495,17 @@
       "image": "images/scene_04_shot_02.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_03",
@@ -254,7 +514,17 @@
       "image": "images/scene_04_shot_03.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_04",
@@ -263,7 +533,17 @@
       "image": "images/scene_04_shot_04.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_05",
@@ -272,7 +552,17 @@
       "image": "images/scene_04_shot_05.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_06",
@@ -281,7 +571,17 @@
       "image": "images/scene_04_shot_06.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     },
     {
       "id": "scene_04_shot_07",
@@ -290,7 +590,17 @@
       "image": "images/scene_04_shot_07.png",
       "notes": "",
       "updatedAt": "",
-      "tasks": {}
+      "tasks": {
+        "done": false,
+        "environment": false,
+        "characters": false,
+        "assets": false,
+        "animation": false,
+        "lighting": false,
+        "camera": false,
+        "render": false,
+        "compositing": false
+      }
     }
   ]
 }
