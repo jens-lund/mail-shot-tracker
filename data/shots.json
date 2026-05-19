@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-19T11:53:00.205Z",
+  "updatedAt": "2026-05-19T12:02:10.713Z",
   "stages": [
     "done",
     "environment",
@@ -19,10 +19,10 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_01.png",
       "notes": "",
-      "updatedAt": "2026-05-19T11:49:46.846Z",
+      "updatedAt": "2026-05-19T11:47:55.238Z",
       "tasks": {
         "done": false,
-        "environment": false,
+        "environment": true,
         "characters": false,
         "assets": false,
         "animation": false,
@@ -190,17 +190,17 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_01.png",
       "notes": "",
-      "updatedAt": "",
+      "updatedAt": "2026-05-19T11:52:56.145Z",
       "tasks": {
-        "done": false,
-        "environment": false,
-        "characters": false,
-        "assets": false,
-        "animation": false,
-        "lighting": false,
-        "camera": false,
-        "render": false,
-        "compositing": false
+        "done": true,
+        "environment": true,
+        "characters": true,
+        "assets": true,
+        "animation": true,
+        "lighting": true,
+        "camera": true,
+        "render": true,
+        "compositing": true
       }
     },
     {
@@ -209,17 +209,17 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_02.png",
       "notes": "",
-      "updatedAt": "",
+      "updatedAt": "2026-05-19T11:52:54.814Z",
       "tasks": {
-        "done": false,
-        "environment": false,
-        "characters": false,
-        "assets": false,
-        "animation": false,
-        "lighting": false,
-        "camera": false,
-        "render": false,
-        "compositing": false
+        "done": true,
+        "environment": true,
+        "characters": true,
+        "assets": true,
+        "animation": true,
+        "lighting": true,
+        "camera": true,
+        "render": true,
+        "compositing": true
       }
     },
     {
@@ -228,17 +228,17 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_03.png",
       "notes": "",
-      "updatedAt": "",
+      "updatedAt": "2026-05-19T11:52:58.360Z",
       "tasks": {
-        "done": false,
-        "environment": false,
-        "characters": false,
-        "assets": false,
-        "animation": false,
-        "lighting": false,
-        "camera": false,
-        "render": false,
-        "compositing": false
+        "done": true,
+        "environment": true,
+        "characters": true,
+        "assets": true,
+        "animation": true,
+        "lighting": true,
+        "camera": true,
+        "render": true,
+        "compositing": true
       }
     },
     {
@@ -247,15 +247,15 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_04.png",
       "notes": "",
-      "updatedAt": "2026-05-19T11:53:00.205Z",
+      "updatedAt": "2026-05-19T12:02:10.713Z",
       "tasks": {
         "done": false,
-        "environment": false,
-        "characters": true,
+        "environment": true,
+        "characters": false,
         "assets": true,
-        "animation": true,
+        "animation": false,
         "lighting": false,
-        "camera": true,
+        "camera": false,
         "render": false,
         "compositing": false
       }
