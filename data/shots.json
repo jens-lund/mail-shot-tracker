@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-20T15:15:22.383Z",
+  "updatedAt": "2026-05-20T15:20:34.882Z",
   "stages": [
     "done",
     "environment",
@@ -399,7 +399,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_13.png",
       "notes": "",
-      "updatedAt": "2026-05-20T15:15:22.383Z",
+      "updatedAt": "2026-05-20T15:20:34.882Z",
       "tasks": {
         "done": false,
         "environment": false,
@@ -407,7 +407,7 @@
         "assets": true,
         "animation": false,
         "lighting": false,
-        "camera": false,
+        "camera": true,
         "render": false,
         "compositing": true
       }
