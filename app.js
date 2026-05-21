@@ -380,7 +380,7 @@ function renderShotCard(shot) {
   const statusClass = progress >= 75 ? "high" : progress >= 35 ? "mid" : "low";
   const statusText = progress === 100 ? "Done" : progress === 0 ? "Ikke startet" : `${progress}%`;
   const disabled = state.unlocked ? "" : "disabled";
-  const folderLink = shot.onedriveUrl
+  const folderLink = state.unlocked && shot.onedriveUrl
     ? `<a class="folder-link" href="${escapeAttr(shot.onedriveUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="folder-open"></i>Mappe</a>`
     : "";
   const taskHtml = STAGES.map((stage) => `
