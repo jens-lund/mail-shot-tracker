@@ -39,6 +39,19 @@ body.preview-open {
   padding-left: min(50vw, 860px);
 }
 
+body.auth-gated {
+  overflow: hidden;
+}
+
+body.auth-gated main,
+body.auth-gated .preview-dock {
+  visibility: hidden;
+}
+
+body.auth-gated .header-actions {
+  visibility: hidden;
+}
+
 button,
 input,
 select,
@@ -682,8 +695,8 @@ svg {
 }
 
 .modal::backdrop {
-  background: rgba(0, 0, 0, 0.68);
-  backdrop-filter: blur(7px);
+  background: rgba(8, 9, 8, 0.92);
+  backdrop-filter: blur(10px);
 }
 
 .modal-panel {

@@ -4,11 +4,7 @@ Statisk GitHub Pages-side for å følge shot-status på 3D-filmen `Mail`.
 
 ## Bruk
 
-Åpne siden, trykk `Rediger`, og bruk passordet:
-
-```text
-mail
-```
+Åpne siden og skriv inn prosjektpassordet som er delt internt i teamet.
 
 Deretter kan dere endre shot-navn, scene, notater og huke av:
 

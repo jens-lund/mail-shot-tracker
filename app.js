@@ -57,7 +57,7 @@ const state = {
   filter: "all",
   search: "",
   sort: "chronological",
-  unlocked: sessionStorage.getItem(STORAGE_KEYS.unlocked) === "true",
+  unlocked: false,
   remoteSha: "",
   saveTimer: null,
   isSaving: false,
@@ -108,6 +108,7 @@ async function init() {
   wireEvents();
   await loadData();
   render();
+  showPasswordGate();
   refreshIcons();
 }
 
@@ -161,6 +162,18 @@ function wireEvents() {
     setTimeout(() => els.passwordInput.focus(), 40);
   });
 
+  els.unlockDialog.addEventListener("cancel", (event) => {
+    if (!state.unlocked) {
+      event.preventDefault();
+    }
+  });
+
+  els.unlockDialog.addEventListener("close", () => {
+    if (!state.unlocked) {
+      showPasswordGate();
+    }
+  });
+
   els.unlockForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const ok = await verifyPassword(els.passwordInput.value);
@@ -170,7 +183,6 @@ function wireEvents() {
       return;
     }
     state.unlocked = true;
-    sessionStorage.setItem(STORAGE_KEYS.unlocked, "true");
     els.unlockDialog.close();
     setLockedClass();
     render();
@@ -629,18 +641,26 @@ async function sha256(value) {
 
 function lockEditing() {
   state.unlocked = false;
-  sessionStorage.removeItem(STORAGE_KEYS.unlocked);
   setLockedClass();
   render();
-  setSyncStatus("Redigering er låst.", "good");
+  showPasswordGate();
+  setSyncStatus("Siden er låst.", "good");
 }
 
 function setLockedClass() {
   document.body.classList.toggle("locked", !state.unlocked);
+  document.body.classList.toggle("auth-gated", !state.unlocked);
   els.unlockButton.innerHTML = state.unlocked
     ? '<i data-lucide="lock"></i>Lås'
     : '<i data-lucide="lock-keyhole"></i>Rediger';
   refreshIcons();
+}
+
+function showPasswordGate() {
+  if (state.unlocked || els.unlockDialog.open) return;
+  els.passwordInput.value = "";
+  els.unlockDialog.showModal();
+  setTimeout(() => els.passwordInput.focus(), 40);
 }
 
 function setSyncStatus(message, tone = "") {
