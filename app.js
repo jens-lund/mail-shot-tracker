@@ -399,11 +399,9 @@ function renderShotCard(shot) {
       <div class="shot-body">
         <div class="shot-card-head">
           <input class="shot-title-input" data-field="title" data-shot="${shot.id}" value="${escapeAttr(shot.title)}" ${disabled}>
-          <div class="shot-actions">
-            ${folderLink}
-            <input class="shot-scene-input" data-field="scene" data-shot="${shot.id}" value="${escapeAttr(shot.scene)}" ${disabled}>
-          </div>
+          <input class="shot-scene-input" data-field="scene" data-shot="${shot.id}" value="${escapeAttr(shot.scene)}" ${disabled}>
         </div>
+        ${folderLink ? `<div class="shot-folder-row">${folderLink}</div>` : ""}
         <div class="card-progress-row">
           <div class="card-progress"><span style="width: ${progress}%"></span></div>
           <span class="percent">${progress}%</span>

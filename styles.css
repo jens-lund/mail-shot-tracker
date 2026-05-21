@@ -544,7 +544,7 @@ svg {
   align-items: start;
 }
 
-.shot-actions {
+.shot-folder-row {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -556,7 +556,8 @@ svg {
   justify-content: center;
   gap: 7px;
   min-height: 36px;
-  padding: 0 11px;
+  width: 100%;
+  padding: 0 12px;
   border: 1px solid rgba(104, 197, 189, 0.28);
   border-radius: 8px;
   background: rgba(104, 197, 189, 0.08);
@@ -783,15 +784,11 @@ body.locked .editable-hint {
   }
 
   .shot-card-head {
-    grid-template-columns: 1fr;
-  }
-
-  .shot-actions {
-    align-items: stretch;
+    grid-template-columns: 1fr auto;
   }
 
   .shot-scene-input {
-    max-width: none;
+    max-width: 112px;
   }
 }
 
