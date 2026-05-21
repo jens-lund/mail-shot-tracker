@@ -89,7 +89,16 @@ const els = {
   branchInput: document.getElementById("branchInput"),
   dataPathInput: document.getElementById("dataPathInput"),
   tokenInput: document.getElementById("tokenInput"),
-  clearTokenButton: document.getElementById("clearTokenButton")
+  clearTokenButton: document.getElementById("clearTokenButton"),
+  previewToggle: document.getElementById("previewToggle"),
+  previewCollapseButton: document.getElementById("previewCollapseButton"),
+  previsVideo: document.getElementById("previsVideo"),
+  videoFrame: document.querySelector(".video-frame"),
+  videoOverlayButton: document.getElementById("videoOverlayButton"),
+  videoPlayButton: document.getElementById("videoPlayButton"),
+  videoTimeline: document.getElementById("videoTimeline"),
+  videoCurrentTime: document.getElementById("videoCurrentTime"),
+  videoDuration: document.getElementById("videoDuration")
 };
 
 init();
@@ -203,6 +212,21 @@ function wireEvents() {
     await loadData({ forceRemote: true });
     render();
   });
+
+  els.previewToggle.addEventListener("click", togglePreview);
+  els.previewCollapseButton.addEventListener("click", closePreview);
+  els.videoOverlayButton.addEventListener("click", toggleVideoPlayback);
+  els.videoPlayButton.addEventListener("click", toggleVideoPlayback);
+  els.previsVideo.addEventListener("click", toggleVideoPlayback);
+  els.previsVideo.addEventListener("loadedmetadata", updateVideoUi);
+  els.previsVideo.addEventListener("timeupdate", updateVideoUi);
+  els.previsVideo.addEventListener("play", updateVideoUi);
+  els.previsVideo.addEventListener("pause", updateVideoUi);
+  els.videoTimeline.addEventListener("input", () => {
+    if (!Number.isFinite(els.previsVideo.duration)) return;
+    els.previsVideo.currentTime = (Number(els.videoTimeline.value) / 1000) * els.previsVideo.duration;
+  });
+  updateVideoUi();
 }
 
 async function loadData({ forceRemote = false } = {}) {
@@ -253,6 +277,7 @@ function buildDefaultData() {
       title: id,
       scene: sceneFromId(id),
       image: `images/${id}.png`,
+      onedriveUrl: "",
       notes: "",
       updatedAt: "",
       tasks: {}
@@ -278,6 +303,7 @@ function normalizeData(data) {
       order: shot.order ?? index + 1,
       scene: shot.scene || sceneFromId(shot.id),
       title: shot.title || shot.id,
+      onedriveUrl: shot.onedriveUrl || "",
       notes: shot.notes || "",
       updatedAt: shot.updatedAt || "",
       tasks
@@ -354,6 +380,9 @@ function renderShotCard(shot) {
   const statusClass = progress >= 75 ? "high" : progress >= 35 ? "mid" : "low";
   const statusText = progress === 100 ? "Done" : progress === 0 ? "Ikke startet" : `${progress}%`;
   const disabled = state.unlocked ? "" : "disabled";
+  const folderLink = shot.onedriveUrl
+    ? `<a class="folder-link" href="${escapeAttr(shot.onedriveUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="folder-open"></i>Mappe</a>`
+    : "";
   const taskHtml = STAGES.map((stage) => `
     <label class="task-toggle">
       <input type="checkbox" data-shot="${shot.id}" data-task="${stage.id}" ${shot.tasks[stage.id] ? "checked" : ""} ${disabled}>
@@ -370,7 +399,10 @@ function renderShotCard(shot) {
       <div class="shot-body">
         <div class="shot-card-head">
           <input class="shot-title-input" data-field="title" data-shot="${shot.id}" value="${escapeAttr(shot.title)}" ${disabled}>
-          <input class="shot-scene-input" data-field="scene" data-shot="${shot.id}" value="${escapeAttr(shot.scene)}" ${disabled}>
+          <div class="shot-actions">
+            ${folderLink}
+            <input class="shot-scene-input" data-field="scene" data-shot="${shot.id}" value="${escapeAttr(shot.scene)}" ${disabled}>
+          </div>
         </div>
         <div class="card-progress-row">
           <div class="card-progress"><span style="width: ${progress}%"></span></div>
@@ -479,11 +511,12 @@ function stripRuntimeFields(data) {
     project: data.project || CONFIG.projectName || "Mail",
     updatedAt: data.updatedAt || "",
     stages: STAGES.map((stage) => stage.id),
-    shots: data.shots.map(({ id, title, scene, image, notes, updatedAt, tasks }) => ({
+    shots: data.shots.map(({ id, title, scene, image, onedriveUrl, notes, updatedAt, tasks }) => ({
       id,
       title,
       scene,
       image,
+      onedriveUrl,
       notes,
       updatedAt,
       tasks
@@ -524,6 +557,45 @@ function contentsUrl() {
 
 function getToken() {
   return localStorage.getItem(STORAGE_KEYS.token) || "";
+}
+
+function togglePreview() {
+  document.body.classList.toggle("preview-open");
+  updateVideoUi();
+  refreshIcons();
+}
+
+function closePreview() {
+  document.body.classList.remove("preview-open");
+  refreshIcons();
+}
+
+function toggleVideoPlayback() {
+  if (els.previsVideo.paused) {
+    els.previsVideo.play();
+  } else {
+    els.previsVideo.pause();
+  }
+}
+
+function updateVideoUi() {
+  const duration = Number.isFinite(els.previsVideo.duration) ? els.previsVideo.duration : 0;
+  const progress = duration ? (els.previsVideo.currentTime / duration) * 1000 : 0;
+  els.videoTimeline.value = String(Math.round(progress));
+  els.videoCurrentTime.textContent = formatTime(els.previsVideo.currentTime);
+  els.videoDuration.textContent = formatTime(duration);
+  els.videoFrame.classList.toggle("playing", !els.previsVideo.paused);
+  const icon = els.previsVideo.paused ? "play" : "pause";
+  els.videoOverlayButton.innerHTML = `<i data-lucide="${icon}"></i>`;
+  els.videoPlayButton.innerHTML = `<i data-lucide="${icon}"></i>`;
+  refreshIcons();
+}
+
+function formatTime(seconds) {
+  const safeSeconds = Math.max(0, Math.floor(seconds || 0));
+  const minutes = Math.floor(safeSeconds / 60);
+  const remainder = safeSeconds % 60;
+  return `${minutes}:${String(remainder).padStart(2, "0")}`;
 }
 
 function getProgress(shot) {

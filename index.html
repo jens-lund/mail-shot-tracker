@@ -35,6 +35,37 @@
       </div>
     </header>
 
+    <aside class="preview-dock" id="previewDock" aria-label="Previs video player">
+      <button class="preview-toggle" id="previewToggle" title="Vis/skjul previs player">
+        <i data-lucide="panel-left-open"></i>
+      </button>
+      <div class="preview-panel">
+        <div class="preview-head">
+          <div>
+            <span>Previs</span>
+            <strong>Scene preview</strong>
+          </div>
+          <button class="icon-button" id="previewCollapseButton" title="Skjul player">
+            <i data-lucide="panel-left-close"></i>
+          </button>
+        </div>
+        <div class="video-frame">
+          <video id="previsVideo" src="previs/previs_scenes_shots_web.mp4" preload="metadata" playsinline muted></video>
+          <button class="video-play-overlay" id="videoOverlayButton" title="Play/pause">
+            <i data-lucide="play"></i>
+          </button>
+        </div>
+        <div class="video-controls">
+          <button class="icon-button" id="videoPlayButton" title="Play/pause">
+            <i data-lucide="play"></i>
+          </button>
+          <span id="videoCurrentTime">0:00</span>
+          <input id="videoTimeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Video timeline">
+          <span id="videoDuration">0:00</span>
+        </div>
+      </div>
+    </aside>
+
     <main>
       <section class="overview">
         <div class="summary-block">
