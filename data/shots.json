@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-22T13:57:21.223Z",
+  "updatedAt": "2026-05-22T13:57:23.935Z",
   "stages": [
     "done",
     "environment",
@@ -39,8 +39,8 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_02?csf=1&web=1&e=3jTpMY",
-      "notes": "Edit: Har satt opp kar",
-      "updatedAt": "2026-05-22T13:57:21.223Z",
+      "notes": "Edit: Har satt opp karakterer",
+      "updatedAt": "2026-05-22T13:57:23.935Z",
       "tasks": {
         "done": false,
         "environment": true,
