@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-25T15:14:03.760Z",
+  "updatedAt": "2026-05-25T20:20:20.909Z",
   "stages": [
     "done",
     "environment",
@@ -420,10 +420,10 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_12?csf=1&web=1&e=UFZYGw",
       "assignee": "nicolai",
       "notes": "",
-      "updatedAt": "2026-05-25T15:14:03.760Z",
+      "updatedAt": "2026-05-25T20:20:20.909Z",
       "tasks": {
         "done": false,
-        "environment": false,
+        "environment": true,
         "characters": true,
         "assets": true,
         "animation": false,
