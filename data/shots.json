@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-25T10:58:51.854Z",
+  "updatedAt": "2026-05-25T10:58:55.117Z",
   "stages": [
     "done",
     "environment",
@@ -251,8 +251,8 @@
       "image": "images/scene_02_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_03?csf=1&web=1&e=r95Jno",
       "assignee": "jens",
-      "notes": "Armor and Sword",
-      "updatedAt": "2026-05-25T10:58:51.854Z",
+      "notes": "Shogun Armor and Sword",
+      "updatedAt": "2026-05-25T10:58:55.117Z",
       "tasks": {
         "done": true,
         "environment": true,
