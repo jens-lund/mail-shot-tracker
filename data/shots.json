@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-24T11:54:28.416Z",
+  "updatedAt": "2026-05-25T10:42:56.145Z",
   "stages": [
     "done",
     "environment",
@@ -19,8 +19,9 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_01?csf=1&web=1&e=J6Jmok",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-24T11:54:28.416Z",
+      "updatedAt": "2026-05-25T10:42:56.145Z",
       "tasks": {
         "done": true,
         "environment": true,
@@ -31,8 +32,7 @@
         "camera": true,
         "render": true,
         "compositing": true
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_02",
@@ -40,6 +40,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_02?csf=1&web=1&e=3jTpMY",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-22T13:58:04.127Z",
       "tasks": {
@@ -52,8 +53,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_03",
@@ -61,6 +61,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_03?csf=1&web=1&e=G4ytlT",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:33.965Z",
       "tasks": {
@@ -73,8 +74,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_04",
@@ -82,6 +82,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_04.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_04?csf=1&web=1&e=swMX4w",
+      "assignee": "",
       "notes": "Edit: Har satt opp karakterer og start poses",
       "updatedAt": "2026-05-22T13:58:01.439Z",
       "tasks": {
@@ -94,8 +95,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_05",
@@ -103,6 +103,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_05.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_05?csf=1&web=1&e=Bwo23j",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:36.832Z",
       "tasks": {
@@ -115,8 +116,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_06",
@@ -124,6 +124,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_06.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_06?csf=1&web=1&e=SPeDfP",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:37.464Z",
       "tasks": {
@@ -136,8 +137,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_07",
@@ -145,6 +145,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_07.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_07?csf=1&web=1&e=w2agDB",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T16:31:30.115Z",
       "tasks": {
@@ -157,8 +158,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_08",
@@ -166,6 +166,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_08.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_08?csf=1&web=1&e=neZOmj",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:38.376Z",
       "tasks": {
@@ -178,8 +179,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_01_shot_09",
@@ -187,6 +187,7 @@
       "scene": "Scene 01",
       "image": "images/scene_01_shot_09.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_09?csf=1&web=1&e=0dADXq",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:40.610Z",
       "tasks": {
@@ -199,8 +200,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_01",
@@ -208,6 +208,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_01?csf=1&web=1&e=dSjRa0",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T11:52:56.145Z",
       "tasks": {
@@ -220,8 +221,7 @@
         "camera": true,
         "render": true,
         "compositing": true
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_02",
@@ -229,6 +229,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_02?csf=1&web=1&e=rxaydr",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T11:52:54.814Z",
       "tasks": {
@@ -241,8 +242,7 @@
         "camera": true,
         "render": true,
         "compositing": true
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_03",
@@ -250,6 +250,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_03?csf=1&web=1&e=r95Jno",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T11:52:58.360Z",
       "tasks": {
@@ -262,8 +263,7 @@
         "camera": true,
         "render": true,
         "compositing": true
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_04",
@@ -271,6 +271,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_04.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_04?csf=1&web=1&e=H2MIOP",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T12:02:20.897Z",
       "tasks": {
@@ -283,8 +284,7 @@
         "camera": true,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_05",
@@ -292,6 +292,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_05.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_05?csf=1&web=1&e=cavKyc",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T12:02:29.152Z",
       "tasks": {
@@ -304,8 +305,7 @@
         "camera": true,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_07",
@@ -313,6 +313,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_07.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_07?csf=1&web=1&e=6KV3zd",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-21T14:04:13.567Z",
       "tasks": {
@@ -325,8 +326,7 @@
         "camera": true,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_08",
@@ -334,6 +334,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_08.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_08?csf=1&web=1&e=6ihrLb",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:58.010Z",
       "tasks": {
@@ -346,8 +347,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_09",
@@ -355,6 +355,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_09.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_09?csf=1&web=1&e=wEltVp",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:56.680Z",
       "tasks": {
@@ -367,8 +368,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_10",
@@ -376,6 +376,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_10.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_10?csf=1&web=1&e=hJTXkp",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:56.088Z",
       "tasks": {
@@ -388,8 +389,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_11",
@@ -397,6 +397,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_11.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_11?csf=1&web=1&e=OojMUT",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:55.451Z",
       "tasks": {
@@ -409,8 +410,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_12",
@@ -418,6 +418,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_12.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_12?csf=1&web=1&e=UFZYGw",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:56:54.803Z",
       "tasks": {
@@ -430,8 +431,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_02_shot_13",
@@ -439,6 +439,7 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_13.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_13?csf=1&web=1&e=jrSwNh",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-20T15:20:40.940Z",
       "tasks": {
@@ -451,8 +452,7 @@
         "camera": true,
         "render": false,
         "compositing": true
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_03_shot_01",
@@ -460,6 +460,7 @@
       "scene": "Scene 03",
       "image": "images/scene_03_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_03_all/scene_03_shot_01?csf=1&web=1&e=OyxgyY",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-20T15:13:06.577Z",
       "tasks": {
@@ -472,8 +473,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_03_shot_02",
@@ -481,6 +481,7 @@
       "scene": "Scene 03",
       "image": "images/scene_03_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_03_all/scene_03_shot_02?csf=1&web=1&e=2yTDKR",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-20T15:13:02.340Z",
       "tasks": {
@@ -493,8 +494,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_03_shot_03",
@@ -502,6 +502,7 @@
       "scene": "Scene 03",
       "image": "images/scene_03_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_03_all/scene_03_shot_03?csf=1&web=1&e=uVXPmO",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:57:23.210Z",
       "tasks": {
@@ -514,8 +515,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_01",
@@ -523,6 +523,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_01?csf=1&web=1&e=HPeFbq",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:57:59.138Z",
       "tasks": {
@@ -535,8 +536,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_02",
@@ -544,6 +544,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_02?csf=1&web=1&e=0wMDuc",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:57:59.573Z",
       "tasks": {
@@ -556,8 +557,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_03",
@@ -565,6 +565,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_03?csf=1&web=1&e=cPxW6V",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:57:51.856Z",
       "tasks": {
@@ -577,8 +578,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_04",
@@ -586,6 +586,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_04.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_04?csf=1&web=1&e=zM6HNQ",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:57:51.360Z",
       "tasks": {
@@ -598,8 +599,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_05",
@@ -607,6 +607,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_05.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_05?csf=1&web=1&e=PmJglI",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:58:03.115Z",
       "tasks": {
@@ -619,8 +620,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_06",
@@ -628,6 +628,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_06.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_06?csf=1&web=1&e=NYtYMX",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:58:04.595Z",
       "tasks": {
@@ -640,8 +641,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     },
     {
       "id": "scene_04_shot_07",
@@ -649,6 +649,7 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_07.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_07?csf=1&web=1&e=8K6VKF",
+      "assignee": "",
       "notes": "",
       "updatedAt": "2026-05-19T14:58:05.773Z",
       "tasks": {
@@ -661,8 +662,7 @@
         "camera": false,
         "render": false,
         "compositing": false
-      },
-      "assignee": ""
+      }
     }
   ]
 }
