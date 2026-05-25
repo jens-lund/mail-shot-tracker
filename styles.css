@@ -643,12 +643,24 @@ svg {
   font-size: 0.84rem;
   font-weight: 700;
   outline: none;
+  color-scheme: dark;
 }
 
 .assignee-select.assigned {
   border-color: rgba(216, 180, 95, 0.48);
   background: rgba(216, 180, 95, 0.13);
   color: #ffe4ac;
+}
+
+.assignee-select option {
+  background: #181917;
+  color: #f3f1e8;
+  font-weight: 640;
+}
+
+.assignee-select option:checked {
+  background: #2b3b34;
+  color: #ffffff;
 }
 
 .assignee-select:focus {
