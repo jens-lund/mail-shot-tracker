@@ -328,6 +328,7 @@ svg {
 .summary-block,
 .stats-grid > div,
 .toolbar,
+.assignment-board,
 .sync-strip,
 .shot-card,
 .modal-panel {
@@ -474,6 +475,70 @@ svg {
   padding: 0 14px;
 }
 
+.assignment-board {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.assignment-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 48px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(18, 19, 17, 0.72);
+}
+
+.assignment-person strong,
+.assignment-person span {
+  display: block;
+}
+
+.assignment-person strong {
+  font-weight: 690;
+}
+
+.assignment-person span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.assignment-shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  min-width: 0;
+}
+
+.assignment-chip,
+.assignment-empty {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  max-width: 100%;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.assignment-chip {
+  border: 1px solid rgba(127, 211, 139, 0.25);
+  background: rgba(127, 211, 139, 0.08);
+  color: #dff7e3;
+}
+
+.assignment-empty {
+  color: var(--soft);
+}
+
 .sync-strip {
   justify-content: space-between;
   min-height: 42px;
@@ -563,6 +628,34 @@ svg {
   align-items: center;
 }
 
+.assignee-row {
+  display: grid;
+}
+
+.assignee-select {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(217, 107, 95, 0.46);
+  border-radius: 8px;
+  background: rgba(217, 107, 95, 0.13);
+  color: #ffd8d3;
+  font-size: 0.84rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.assignee-select.assigned {
+  border-color: rgba(216, 180, 95, 0.48);
+  background: rgba(216, 180, 95, 0.13);
+  color: #ffe4ac;
+}
+
+.assignee-select:focus {
+  border-color: rgba(255, 212, 207, 0.72);
+  box-shadow: 0 0 0 3px rgba(217, 107, 95, 0.13);
+}
+
 .folder-link {
   display: inline-flex;
   align-items: center;
@@ -605,6 +698,7 @@ svg {
 
 .shot-title-input:disabled,
 .shot-scene-input:disabled,
+.assignee-select:disabled,
 .notes-field:disabled {
   opacity: 1;
   color: inherit;

@@ -11,6 +11,12 @@ const STAGES = [
   { id: "compositing", label: "Compositing" }
 ];
 
+const ASSIGNEES = [
+  { id: "jens", label: "Jens", rowLabel: "Jens" },
+  { id: "nicolai", label: "Nicolai", rowLabel: "Nico" },
+  { id: "kevin", label: "Kevin", rowLabel: "Kevin" }
+];
+
 const DEFAULT_SHOT_IDS = [
   "scene_01_shot_01",
   "scene_01_shot_02",
@@ -55,6 +61,7 @@ const STORAGE_KEYS = {
 const state = {
   data: null,
   filter: "all",
+  assigneeFilter: "all",
   search: "",
   sort: "chronological",
   unlocked: false,
@@ -73,8 +80,10 @@ const els = {
   attentionCount: document.getElementById("attentionCount"),
   shotGrid: document.getElementById("shotGrid"),
   syncStatus: document.getElementById("syncStatus"),
+  assignmentBoard: document.getElementById("assignmentBoard"),
   searchInput: document.getElementById("searchInput"),
   sortSelect: document.getElementById("sortSelect"),
+  assigneeFilter: document.getElementById("assigneeFilter"),
   filterButtons: document.getElementById("filterButtons"),
   unlockButton: document.getElementById("unlockButton"),
   refreshButton: document.getElementById("refreshButton"),
@@ -139,6 +148,11 @@ function wireEvents() {
 
   els.sortSelect.addEventListener("change", (event) => {
     state.sort = event.target.value;
+    renderShots();
+  });
+
+  els.assigneeFilter.addEventListener("change", (event) => {
+    state.assigneeFilter = event.target.value;
     renderShots();
   });
 
@@ -290,6 +304,7 @@ function buildDefaultData() {
       scene: sceneFromId(id),
       image: `images/${id}.png`,
       onedriveUrl: "",
+      assignee: "",
       notes: "",
       updatedAt: "",
       tasks: {}
@@ -316,6 +331,7 @@ function normalizeData(data) {
       scene: shot.scene || sceneFromId(shot.id),
       title: shot.title || shot.id,
       onedriveUrl: shot.onedriveUrl || "",
+      assignee: normalizeAssignee(shot.assignee),
       notes: shot.notes || "",
       updatedAt: shot.updatedAt || "",
       tasks
@@ -331,6 +347,7 @@ function sceneFromId(id) {
 
 function render() {
   renderOverview();
+  renderAssignmentBoard();
   renderShots();
   setLockedClass();
   refreshIcons();
@@ -355,6 +372,32 @@ function renderOverview() {
   els.attentionCount.textContent = attention;
 }
 
+function renderAssignmentBoard() {
+  const groups = [
+    ...ASSIGNEES,
+    { id: "unassigned", label: "Ikke markert", rowLabel: "Ikke markert" }
+  ];
+
+  els.assignmentBoard.innerHTML = groups.map((group) => {
+    const shots = state.data.shots
+      .filter((shot) => group.id === "unassigned" ? !shot.assignee : shot.assignee === group.id)
+      .sort((a, b) => compareShotIds(a.id, b.id));
+    const shotChips = shots.length
+      ? shots.map((shot) => `<span class="assignment-chip">${escapeHtml(shot.title)}</span>`).join("")
+      : `<span class="assignment-empty">Ingen shots</span>`;
+
+    return `
+      <div class="assignment-row" data-assignee="${group.id}">
+        <div class="assignment-person">
+          <strong>${escapeHtml(group.rowLabel)}</strong>
+          <span>${shots.length} ${shots.length === 1 ? "shot" : "shots"}</span>
+        </div>
+        <div class="assignment-shots">${shotChips}</div>
+      </div>
+    `;
+  }).join("");
+}
+
 function formatPercent(value) {
   if (value > 0 && value < 1) return `${value.toFixed(1)}%`;
   return `${Math.round(value)}%`;
@@ -376,8 +419,10 @@ function getVisibleShots() {
       if (state.filter === "in-progress" && (progress === 0 || progress === 100)) return false;
       if (state.filter === "almost" && (progress < 70 || progress === 100)) return false;
       if (state.filter === "done" && progress !== 100) return false;
+      if (state.assigneeFilter === "unassigned" && shot.assignee) return false;
+      if (state.assigneeFilter !== "all" && state.assigneeFilter !== "unassigned" && shot.assignee !== state.assigneeFilter) return false;
       if (!query) return true;
-      return `${shot.title} ${shot.scene} ${shot.notes}`.toLowerCase().includes(query);
+      return `${shot.title} ${shot.scene} ${getAssigneeLabel(shot.assignee)} ${shot.notes}`.toLowerCase().includes(query);
     })
     .sort((a, b) => {
       if (state.sort === "low") return getProgress(a) - getProgress(b);
@@ -395,6 +440,12 @@ function renderShotCard(shot) {
   const folderLink = state.unlocked && shot.onedriveUrl
     ? `<a class="folder-link" href="${escapeAttr(shot.onedriveUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="folder-open"></i>Mappe</a>`
     : "";
+  const assigneeOptions = [
+    `<option value="">Jobbes med av</option>`,
+    ...ASSIGNEES.map((person) => (
+      `<option value="${person.id}" ${shot.assignee === person.id ? "selected" : ""}>Jobbes med av ${escapeHtml(person.label)}</option>`
+    ))
+  ].join("");
   const taskHtml = STAGES.map((stage) => `
     <label class="task-toggle">
       <input type="checkbox" data-shot="${shot.id}" data-task="${stage.id}" ${shot.tasks[stage.id] ? "checked" : ""} ${disabled}>
@@ -414,6 +465,11 @@ function renderShotCard(shot) {
           <input class="shot-scene-input" data-field="scene" data-shot="${shot.id}" value="${escapeAttr(shot.scene)}" ${disabled}>
         </div>
         ${folderLink ? `<div class="shot-folder-row">${folderLink}</div>` : ""}
+        <div class="assignee-row">
+          <select class="assignee-select ${shot.assignee ? "assigned" : "unassigned"}" data-assignee-shot="${shot.id}" ${disabled} aria-label="Jobbes med av">
+            ${assigneeOptions}
+          </select>
+        </div>
         <div class="card-progress-row">
           <div class="card-progress"><span style="width: ${progress}%"></span></div>
           <span class="percent">${progress}%</span>
@@ -455,6 +511,16 @@ function bindShotControls() {
       persistChange({ rerender: false });
     });
     field.addEventListener("blur", render);
+  });
+
+  els.shotGrid.querySelectorAll("[data-assignee-shot]").forEach((select) => {
+    select.addEventListener("change", () => {
+      const shot = findShot(select.dataset.assigneeShot);
+      shot.assignee = normalizeAssignee(select.value);
+      markUpdated(shot);
+      persistChange();
+      render();
+    });
   });
 }
 
@@ -521,12 +587,13 @@ function stripRuntimeFields(data) {
     project: data.project || CONFIG.projectName || "Mail",
     updatedAt: data.updatedAt || "",
     stages: STAGES.map((stage) => stage.id),
-    shots: data.shots.map(({ id, title, scene, image, onedriveUrl, notes, updatedAt, tasks }) => ({
+    shots: data.shots.map(({ id, title, scene, image, onedriveUrl, assignee, notes, updatedAt, tasks }) => ({
       id,
       title,
       scene,
       image,
       onedriveUrl,
+      assignee: normalizeAssignee(assignee),
       notes,
       updatedAt,
       tasks
@@ -567,6 +634,16 @@ function contentsUrl() {
 
 function getToken() {
   return localStorage.getItem(STORAGE_KEYS.token) || "";
+}
+
+function normalizeAssignee(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  if (normalized === "nico") return "nicolai";
+  return ASSIGNEES.some((person) => person.id === normalized) ? normalized : "";
+}
+
+function getAssigneeLabel(value) {
+  return ASSIGNEES.find((person) => person.id === value)?.label || "";
 }
 
 function togglePreview() {

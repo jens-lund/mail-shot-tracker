@@ -31,7 +31,8 @@
         "camera": true,
         "render": true,
         "compositing": true
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_02",
@@ -51,7 +52,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_03",
@@ -71,7 +73,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_04",
@@ -91,7 +94,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_05",
@@ -111,7 +115,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_06",
@@ -131,7 +136,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_07",
@@ -151,7 +157,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_08",
@@ -171,7 +178,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_01_shot_09",
@@ -191,7 +199,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_01",
@@ -211,7 +220,8 @@
         "camera": true,
         "render": true,
         "compositing": true
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_02",
@@ -231,7 +241,8 @@
         "camera": true,
         "render": true,
         "compositing": true
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_03",
@@ -251,7 +262,8 @@
         "camera": true,
         "render": true,
         "compositing": true
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_04",
@@ -271,7 +283,8 @@
         "camera": true,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_05",
@@ -291,7 +304,8 @@
         "camera": true,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_07",
@@ -311,7 +325,8 @@
         "camera": true,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_08",
@@ -331,7 +346,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_09",
@@ -351,7 +367,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_10",
@@ -371,7 +388,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_11",
@@ -391,7 +409,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_12",
@@ -411,7 +430,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_02_shot_13",
@@ -431,7 +451,8 @@
         "camera": true,
         "render": false,
         "compositing": true
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_03_shot_01",
@@ -451,7 +472,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_03_shot_02",
@@ -471,7 +493,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_03_shot_03",
@@ -491,7 +514,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_01",
@@ -511,7 +535,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_02",
@@ -531,7 +556,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_03",
@@ -551,7 +577,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_04",
@@ -571,7 +598,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_05",
@@ -591,7 +619,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_06",
@@ -611,7 +640,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     },
     {
       "id": "scene_04_shot_07",
@@ -631,7 +661,8 @@
         "camera": false,
         "render": false,
         "compositing": false
-      }
+      },
+      "assignee": ""
     }
   ]
 }

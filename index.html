@@ -116,7 +116,19 @@
             <option value="attention">Needs attention</option>
           </select>
         </label>
+        <label class="select-field">
+          <span>Jobbes med</span>
+          <select id="assigneeFilter">
+            <option value="all">Alle</option>
+            <option value="jens">Jens</option>
+            <option value="nicolai">Nico</option>
+            <option value="kevin">Kevin</option>
+            <option value="unassigned">Ikke markert</option>
+          </select>
+        </label>
       </section>
+
+      <section class="assignment-board" id="assignmentBoard" aria-label="Hvem jobber på shots"></section>
 
       <section class="sync-strip" id="syncStrip">
         <span id="syncStatus">Lokal visning er klar.</span>
