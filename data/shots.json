@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-25T10:43:16.150Z",
+  "updatedAt": "2026-05-25T10:43:27.036Z",
   "stages": [
     "done",
     "environment",
@@ -313,9 +313,9 @@
       "scene": "Scene 02",
       "image": "images/scene_02_shot_07.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_07?csf=1&web=1&e=6KV3zd",
-      "assignee": "",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-21T14:04:13.567Z",
+      "updatedAt": "2026-05-25T10:43:27.036Z",
       "tasks": {
         "done": false,
         "environment": true,
