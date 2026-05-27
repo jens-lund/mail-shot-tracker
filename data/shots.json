@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T15:19:20.963Z",
+  "updatedAt": "2026-05-27T15:19:38.612Z",
   "stages": [
     "done",
     "environment",
@@ -523,9 +523,9 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_01?csf=1&web=1&e=HPeFbq",
-      "assignee": "",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:09.697Z",
+      "updatedAt": "2026-05-27T15:19:35.218Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -544,9 +544,9 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_02?csf=1&web=1&e=0wMDuc",
-      "assignee": "",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:08.704Z",
+      "updatedAt": "2026-05-27T15:19:36.239Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -565,9 +565,9 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_03?csf=1&web=1&e=cPxW6V",
-      "assignee": "",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:13.235Z",
+      "updatedAt": "2026-05-27T15:19:37.424Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -586,9 +586,9 @@
       "scene": "Scene 04",
       "image": "images/scene_04_shot_04.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_04?csf=1&web=1&e=zM6HNQ",
-      "assignee": "",
+      "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:16.109Z",
+      "updatedAt": "2026-05-27T15:19:38.612Z",
       "tasks": {
         "done": false,
         "environment": true,
