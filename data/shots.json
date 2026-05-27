@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T15:16:06.441Z",
+  "updatedAt": "2026-05-27T15:16:09.697Z",
   "stages": [
     "done",
     "environment",
@@ -525,14 +525,14 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_01?csf=1&web=1&e=HPeFbq",
       "assignee": "",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:02.894Z",
+      "updatedAt": "2026-05-27T15:16:09.697Z",
       "tasks": {
         "done": false,
         "environment": true,
         "characters": true,
         "assets": true,
         "animation": true,
-        "lighting": false,
+        "lighting": true,
         "camera": true,
         "render": false,
         "compositing": false
@@ -546,15 +546,15 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_02?csf=1&web=1&e=0wMDuc",
       "assignee": "",
       "notes": "",
-      "updatedAt": "2026-05-27T15:16:06.441Z",
+      "updatedAt": "2026-05-27T15:16:08.704Z",
       "tasks": {
         "done": false,
         "environment": true,
         "characters": true,
         "assets": true,
         "animation": true,
-        "lighting": false,
-        "camera": false,
+        "lighting": true,
+        "camera": true,
         "render": false,
         "compositing": false
       }
