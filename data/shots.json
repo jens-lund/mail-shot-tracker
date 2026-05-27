@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T07:47:39.268Z",
+  "updatedAt": "2026-05-27T07:48:10.976Z",
   "stages": [
     "done",
     "environment",
@@ -314,8 +314,8 @@
       "image": "images/scene_02_shot_07.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_07?csf=1&web=1&e=6KV3zd",
       "assignee": "jens",
-      "notes": "Jeg laget at faren smeller kniven i bordet, snur seg sakte mot jenta. Mangler at hun går mot kamera",
-      "updatedAt": "2026-05-25T11:00:15.637Z",
+      "notes": "Jeg laget at faren smeller kniven i bordet, snur seg sakte mot jenta. Mangler at han går mot kamera",
+      "updatedAt": "2026-05-27T07:48:10.976Z",
       "tasks": {
         "done": true,
         "environment": true,
