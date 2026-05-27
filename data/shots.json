@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T07:48:10.976Z",
+  "updatedAt": "2026-05-27T09:16:13.910Z",
   "stages": [
     "done",
     "environment",
@@ -84,13 +84,13 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_01_all/scene_01_shot_04?csf=1&web=1&e=swMX4w",
       "assignee": "kevin",
       "notes": "Edit: Har satt opp karakterer og start poses",
-      "updatedAt": "2026-05-26T21:15:27.577Z",
+      "updatedAt": "2026-05-27T09:16:13.910Z",
       "tasks": {
         "done": false,
         "environment": true,
         "characters": true,
         "assets": true,
-        "animation": false,
+        "animation": true,
         "lighting": false,
         "camera": true,
         "render": false,
