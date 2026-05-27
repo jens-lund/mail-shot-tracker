@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T21:58:41.048Z",
+  "updatedAt": "2026-05-27T21:58:55.123Z",
   "stages": [
     "done",
     "environment",
@@ -481,9 +481,9 @@
       "scene": "Scene 03",
       "image": "images/scene_03_shot_02.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_03_all/scene_03_shot_02?csf=1&web=1&e=2yTDKR",
-      "assignee": "jens",
+      "assignee": "nicolai",
       "notes": "",
-      "updatedAt": "2026-05-27T15:19:19.526Z",
+      "updatedAt": "2026-05-27T21:58:53.654Z",
       "tasks": {
         "done": false,
         "environment": true,
@@ -502,9 +502,9 @@
       "scene": "Scene 03",
       "image": "images/scene_03_shot_03.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_03_all/scene_03_shot_03?csf=1&web=1&e=uVXPmO",
-      "assignee": "jens",
+      "assignee": "nicolai",
       "notes": "",
-      "updatedAt": "2026-05-27T15:19:20.963Z",
+      "updatedAt": "2026-05-27T21:58:55.123Z",
       "tasks": {
         "done": false,
         "environment": true,
