@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-05-27T21:58:38.323Z",
+  "updatedAt": "2026-05-27T21:58:41.048Z",
   "stages": [
     "done",
     "environment",
@@ -567,17 +567,17 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_03?csf=1&web=1&e=cPxW6V",
       "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:19:37.424Z",
+      "updatedAt": "2026-05-27T21:58:40.587Z",
       "tasks": {
-        "done": false,
+        "done": true,
         "environment": true,
         "characters": true,
         "assets": true,
         "animation": true,
         "lighting": true,
         "camera": true,
-        "render": false,
-        "compositing": false
+        "render": true,
+        "compositing": true
       }
     },
     {
@@ -588,17 +588,17 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_04?csf=1&web=1&e=zM6HNQ",
       "assignee": "jens",
       "notes": "",
-      "updatedAt": "2026-05-27T15:19:38.612Z",
+      "updatedAt": "2026-05-27T21:58:41.048Z",
       "tasks": {
-        "done": false,
+        "done": true,
         "environment": true,
         "characters": true,
         "assets": true,
         "animation": true,
         "lighting": true,
         "camera": true,
-        "render": false,
-        "compositing": false
+        "render": true,
+        "compositing": true
       }
     },
     {
