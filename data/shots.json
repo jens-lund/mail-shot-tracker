@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-06-03T12:29:27.256Z",
+  "updatedAt": "2026-06-03T22:29:46.795Z",
   "stages": [
     "done",
     "environment",
@@ -336,17 +336,17 @@
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_02_all/scene_02_shot_08?csf=1&web=1&e=6ihrLb",
       "assignee": "kevin",
       "notes": "",
-      "updatedAt": "2026-06-03T12:29:27.256Z",
+      "updatedAt": "2026-06-03T22:29:46.795Z",
       "tasks": {
-        "done": false,
+        "done": true,
         "environment": true,
         "characters": true,
         "assets": true,
         "animation": true,
         "lighting": true,
         "camera": true,
-        "render": false,
-        "compositing": false
+        "render": true,
+        "compositing": true
       }
     },
     {
