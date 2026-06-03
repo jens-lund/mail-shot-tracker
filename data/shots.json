@@ -1,6 +1,6 @@
 {
   "project": "Mail",
-  "updatedAt": "2026-06-02T15:12:24.202Z",
+  "updatedAt": "2026-06-03T09:02:18.717Z",
   "stages": [
     "done",
     "environment",
@@ -524,8 +524,8 @@
       "image": "images/scene_04_shot_01.png",
       "onedriveUrl": "https://egms-my.sharepoint.com/:f:/r/personal/jelu006_egms_no/Documents/MAIL/Shots/scene_04_all/scene_04_shot_01?csf=1&web=1&e=HPeFbq",
       "assignee": "jens",
-      "notes": "",
-      "updatedAt": "2026-05-27T21:58:37.394Z",
+      "notes": "CLOTH TEXTURE er feil nå",
+      "updatedAt": "2026-06-03T09:02:18.717Z",
       "tasks": {
         "done": true,
         "environment": true,
