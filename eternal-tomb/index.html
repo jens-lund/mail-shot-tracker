@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111211">
+  <meta name="description" content="Eternal Tomb — asset and cinematic production tracker. Plan the work, build the world, finish the film.">
+  <title>Eternal Tomb · Production tracker</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="seed.js" defer></script>
+  <script src="core.js" defer></script>
+  <script src="media.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="#overview" aria-label="Eternal Tomb overview"><span class="brand-mark">E</span><span><small>3D PRODUCTION TRACKER</small><strong id="brandTitle">Eternal Tomb</strong></span></a>
+    <div class="header-actions"><a class="project-switch" href="../">Mail <span aria-hidden="true">↗</span></a><button id="previewButton" class="button subtle">▷ <span>Previs</span></button><button id="settingsButton" class="button">Settings & sync</button></div>
+  </header>
+  <main>
+    <section class="project-hero">
+      <div class="hero-copy"><span class="eyebrow"><span class="tiny-dot"></span> DARK FANTASY / SHORT FILM</span><h1 id="projectTitle">Eternal Tomb</h1><p>A wounded knight. A hidden cavern.<br>A home, a prison, a terrible ritual.</p></div>
+      <span class="concept-label">CONCEPT REFERENCE · AI GENERATED</span>
+    </section>
+    <div class="project-meta"><span id="phaseLabel">Phase 01 · Story & animatic</span><span id="deadlineLabel">Set a delivery date in Settings</span></div>
+    <nav class="tabs" aria-label="Project sections"><a href="#overview" data-tab="overview">Overview</a><a href="#assets" data-tab="assets">Assets <span>6</span></a><a href="#cinematic" data-tab="cinematic">Cinematic <span>5</span></a><a href="#versions" data-tab="versions">Versions & feedback</a><a href="#milestones" data-tab="milestones">Milestones</a></nav>
+    <section class="metrics" id="metrics" aria-label="Production progress"></section>
+    <div class="sync-strip"><span><span id="saveDot" class="tiny-dot"></span><span id="saveStatus" role="status">Loading project…</span></span><button id="refreshButton" class="text-button">↻ Refresh</button></div>
+    <section id="view" aria-label="Project content"></section>
+    <footer><span>BUILD THE WORLD. FINISH THE FILM.</span><div><button class="text-button" id="exportButton">Export backup ↓</button><button class="text-button" id="importButton">Import backup ↑</button><a href="https://github.com/jens-lund/mail-shot-tracker" target="_blank" rel="noopener noreferrer">Repository ↗</a></div></footer>
+  </main>
+  <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
+  <dialog id="settingsDialog"><form id="settingsForm" class="dialog-content">
+    <div class="dialog-head"><div><span class="eyebrow">PROJECT</span><h2>Settings & team sync</h2></div><button type="button" class="close-button" data-close="settingsDialog" aria-label="Close settings">×</button></div>
+    <div class="field-grid"><label>Project title<input name="title" required maxlength="80"></label><label>Delivery date<input name="deadline" type="date"></label></div>
+    <label>Team members <span class="muted">— separated by commas</span><input name="team" required maxlength="300"></label>
+    <label>Your name for feedback<select name="identity"></select></label>
+    <label>Latest animatic / previs URL<input name="preview" type="url" placeholder="https://…"></label>
+    <p class="help">Use a direct MP4 or WebM link to play it here, or link to your shared video page.</p>
+    <div class="setting-divider"><h3>Shared saving</h3><p class="help">Changes save to this browser immediately. Connect a personal GitHub token with Contents read/write access to this repository to share updates with your team. A saved Mail token is reused automatically. Keep a backup before switching browsers.</p></div>
+    <label>GitHub token<input name="token" type="password" autocomplete="off" placeholder="Optional · saved only in this browser"></label>
+    <p class="help">Shared file: <code>eternal-tomb/data/project.json</code>. Project data and links in this public repository are public.</p>
+    <div class="dialog-actions"><button type="button" class="button" data-close="settingsDialog">Cancel</button><button class="button primary" type="submit">Save settings</button></div>
+  </form></dialog>
+  <dialog id="previewDialog"><div class="dialog-content"><div class="dialog-head"><h2>Latest previs</h2><button class="close-button" data-close="previewDialog" aria-label="Close preview">×</button></div><div id="previewContent"></div></div></dialog>
+  <dialog id="newVersionDialog"><form class="dialog-content" id="newVersionForm"><div class="dialog-head"><div><span class="eyebrow">ITERATE TOGETHER</span><h2>Create a version</h2></div><button type="button" class="close-button" data-close="newVersionDialog" aria-label="Close new version">×</button></div><label>Version name<input name="title" placeholder="v002 · Clothing and proportions" required maxlength="150"></label><label>What changed / what needs feedback?<textarea name="summary" placeholder="What have you improved? What should Jens or Kevin look at?" maxlength="4000"></textarea></label><label>Owner<select name="owner"></select></label><p class="help">The new version starts with an empty image set. Upload your current character sheet, angles, clothing and progress below. Earlier versions stay available for comparison.</p><div class="dialog-actions"><button class="button primary" type="submit">Create version</button></div></form></dialog>
+  <dialog id="imageDialog" class="image-dialog"><div class="dialog-content"><div class="dialog-head"><h2 id="imageTitle">Image</h2><button class="close-button" data-close="imageDialog" aria-label="Close image">×</button></div><img id="largeImage" alt=""></div></dialog>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <noscript><p>This tracker needs JavaScript enabled to save and display your project.</p></noscript>
+</body>
+</html>

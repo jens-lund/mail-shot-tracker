@@ -1,0 +1,776 @@
+{
+  "schemaVersion": 1,
+  "title": "Eternal Tomb",
+  "deadline": "",
+  "preview": "",
+  "team": [
+    "Jens",
+    "Nicolai",
+    "Kevin"
+  ],
+  "updatedAt": "",
+  "assets": [
+    {
+      "id": "knight",
+      "name": "The wounded knight",
+      "category": "MAIN CHARACTER",
+      "description": "Battered armour, a weary silhouette and a believable injured performance.",
+      "image": "knight",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Keep injury readable through pose, pace and silhouette. Build only the detail the approved cameras need.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "design",
+          "label": "Design",
+          "description": "Approve silhouette, armour, cape and injury references.",
+          "status": "todo"
+        },
+        {
+          "id": "model",
+          "label": "Model",
+          "description": "Finish visible armour, body, sword and cape geometry.",
+          "status": "todo"
+        },
+        {
+          "id": "materials",
+          "label": "Materials",
+          "description": "Worn steel, cloth and injury detail; check under cave lighting.",
+          "status": "todo"
+        },
+        {
+          "id": "rig",
+          "label": "Rig",
+          "description": "Test shoulder, hip and knee deformation; sword contact.",
+          "status": "todo"
+        },
+        {
+          "id": "motion",
+          "label": "Motion test",
+          "description": "Test injured walk, stumble, breathing and scouting pose.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Approve the character in the cliff approach and reaction cameras.",
+          "status": "todo"
+        }
+      ],
+      "versions": [],
+      "cover": ""
+    },
+    {
+      "id": "troll",
+      "name": "The imprisoned giant",
+      "category": "TROLL CHARACTER",
+      "description": "A terrifying ancient cook. His cavern is both his home and his eternal prison.",
+      "image": "troll",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Chains must clearly anchor him to the cave. The cooking ritual should feel familiar and unsettling.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "design",
+          "label": "Design",
+          "description": "Approve giant silhouette, proportions, face and restraint placement.",
+          "status": "todo"
+        },
+        {
+          "id": "model",
+          "label": "Model",
+          "description": "Sculpt and prepare body, visible hands, face and shackles.",
+          "status": "todo"
+        },
+        {
+          "id": "materials",
+          "label": "Materials",
+          "description": "Weathered skin and iron; test the orange potion bounce light.",
+          "status": "todo"
+        },
+        {
+          "id": "rig",
+          "label": "Rig",
+          "description": "Rig cooking poses, hand contact and restrained body movement.",
+          "status": "todo"
+        },
+        {
+          "id": "motion",
+          "label": "Motion test",
+          "description": "Test slow stirring, weight shifts, breathing and chain movement.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Approve silhouette and giant scale in the wide reveal.",
+          "status": "todo"
+        }
+      ],
+      "versions": [
+        {
+          "id": "concept_v001",
+          "title": "v001 · Concept direction",
+          "summary": "AI-generated starting reference, not production progress. Review the giant silhouette, cave-home/prison, ragged waist wrap and shackles. Create v002 for the actual model and upload your renders there.",
+          "owner": "",
+          "status": "reference",
+          "createdAt": "2026-10-05T19:00:00.000Z",
+          "images": [
+            {
+              "id": "concept_sheet",
+              "path": "images/troll-sheet.webp",
+              "role": "sheet",
+              "caption": "Concept character sheet · Front / Back / Left / Right"
+            },
+            {
+              "id": "concept_clothing",
+              "path": "images/troll-clothing.webp",
+              "role": "clothing",
+              "caption": "Concept clothing · rough waist wrap, patches and fabric"
+            },
+            {
+              "id": "concept_home",
+              "path": "images/troll.webp",
+              "role": "reference",
+              "caption": "Cave-home and eternal prison · cooking ritual"
+            }
+          ],
+          "comments": []
+        }
+      ],
+      "cover": ""
+    },
+    {
+      "id": "environment",
+      "name": "The cavern home",
+      "category": "ENVIRONMENT",
+      "description": "A grand interior cliff overlooks a blue-violet cavern, a lived-in home and prison.",
+      "image": "reveal",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "The reveal stays inside the cave: ceiling, walls and stalactites frame the giant. Include a sleeping alcove, table and shelves. No open sky.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "design",
+          "label": "Design",
+          "description": "Approve the cave-home reference, composition and cool/warm palette.",
+          "status": "todo"
+        },
+        {
+          "id": "blockout",
+          "label": "Blockout",
+          "description": "Place approach ledge, chasm, troll, pot, cave ceiling and camera path.",
+          "status": "todo"
+        },
+        {
+          "id": "model",
+          "label": "Model",
+          "description": "Build visible rock formations, home alcoves and prison anchors.",
+          "status": "todo"
+        },
+        {
+          "id": "materials",
+          "label": "Materials",
+          "description": "Rock, damp surfaces, restrained magical accents and domestic materials.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Light test",
+          "description": "Blue/purple atmosphere versus orange potion; keep the reveal readable.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Check scale, cave enclosure, depth and all approved camera compositions.",
+          "status": "todo"
+        }
+      ],
+      "versions": [],
+      "cover": ""
+    },
+    {
+      "id": "props",
+      "name": "Cauldron & restraints",
+      "category": "HERO PROPS",
+      "description": "The glowing pot, heavy chains and domestic objects that tell the story.",
+      "image": "troll",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Prioritise cauldron rim, stirring tool, shackles and readable rock anchors. Reuse chain links.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "design",
+          "label": "Design",
+          "description": "Set pot proportions and chain scale against the giant.",
+          "status": "todo"
+        },
+        {
+          "id": "blockout",
+          "label": "Blockout",
+          "description": "Test pot, stirring tool, restraints, table and jars in layout.",
+          "status": "todo"
+        },
+        {
+          "id": "model",
+          "label": "Model",
+          "description": "Finish camera-visible hero geometry and reusable chain system.",
+          "status": "todo"
+        },
+        {
+          "id": "materials",
+          "label": "Materials",
+          "description": "Aged iron, soot, rough wood and warm reflected potion light.",
+          "status": "todo"
+        },
+        {
+          "id": "test",
+          "label": "Scene test",
+          "description": "Check hand contact, chain attachment and pot/FX intersections.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Approve props in both wide reveal and close-up cameras.",
+          "status": "todo"
+        }
+      ],
+      "versions": [],
+      "cover": ""
+    },
+    {
+      "id": "bodies",
+      "name": "The suspended humans",
+      "category": "REUSABLE ASSET",
+      "description": "A small set of human silhouettes, slowly carried down the magical spiral.",
+      "image": "reveal",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Use one base with a few pose and clothing variations. Silhouette matters more than small detail; avoid unnecessary gore.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "design",
+          "label": "Design",
+          "description": "Set visible body count, scale and silhouette references.",
+          "status": "todo"
+        },
+        {
+          "id": "model",
+          "label": "Base mesh",
+          "description": "Prepare one efficient human base with simple clothing.",
+          "status": "todo"
+        },
+        {
+          "id": "materials",
+          "label": "Materials",
+          "description": "Create a few muted clothing and surface variations.",
+          "status": "todo"
+        },
+        {
+          "id": "poses",
+          "label": "Pose variants",
+          "description": "Make distinct hanging poses readable at reveal distance.",
+          "status": "todo"
+        },
+        {
+          "id": "test",
+          "label": "Motion test",
+          "description": "Test drifting, rotation and spacing along the spiral.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Approve silhouettes and body/potion transitions in the shot.",
+          "status": "todo"
+        }
+      ],
+      "versions": [],
+      "cover": ""
+    },
+    {
+      "id": "fx",
+      "name": "Magic & atmosphere",
+      "category": "FX / LOOK DEVELOPMENT",
+      "description": "Violet levitation, thick golden potion and a cold, otherworldly cavern.",
+      "image": "reveal",
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Prototype the spiral and potion early. Prefer controllable geometry/shaders to costly simulation where possible.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "reference",
+          "label": "Reference",
+          "description": "Approve blue/purple magic and thick yellow-orange potion references.",
+          "status": "todo"
+        },
+        {
+          "id": "prototype",
+          "label": "Prototype",
+          "description": "Build an adjustable spiral path, body drift and potion surface.",
+          "status": "todo"
+        },
+        {
+          "id": "look",
+          "label": "Look dev",
+          "description": "Test glow, viscosity, particles and volumetric cave haze.",
+          "status": "todo"
+        },
+        {
+          "id": "integration",
+          "label": "Integrate",
+          "description": "Connect humans, pot, giant and lighting without intersections.",
+          "status": "todo"
+        },
+        {
+          "id": "test",
+          "label": "Shot test",
+          "description": "Test motion readability, flicker and sample/render cost.",
+          "status": "todo"
+        },
+        {
+          "id": "ready",
+          "label": "Scene ready",
+          "description": "Approve FX at final framing and planned render settings.",
+          "status": "todo"
+        }
+      ],
+      "versions": [],
+      "cover": ""
+    }
+  ],
+  "shots": [
+    {
+      "id": "shot01",
+      "name": "The approach",
+      "description": "The injured knight struggles along a rocky ledge inside the cave.",
+      "dependencies": [
+        "knight",
+        "environment"
+      ],
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Establish injury and scale before the reveal.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "layout",
+          "label": "Layout",
+          "description": "Approve camera framing and timing in the animatic.",
+          "status": "todo"
+        },
+        {
+          "id": "animation",
+          "label": "Animation",
+          "description": "Approve character performance and contact.",
+          "status": "todo"
+        },
+        {
+          "id": "fx",
+          "label": "FX",
+          "description": "Integrate required effects and atmosphere.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Lighting",
+          "description": "Approve shot lighting and continuity.",
+          "status": "todo"
+        },
+        {
+          "id": "render",
+          "label": "Render",
+          "description": "Check samples, flicker and the final image sequence.",
+          "status": "todo"
+        },
+        {
+          "id": "composite",
+          "label": "Composite",
+          "description": "Finish compositing, grade and transitions.",
+          "status": "todo"
+        },
+        {
+          "id": "approved",
+          "label": "Approved",
+          "description": "Review this shot in the complete edit with sound.",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "shot02",
+      "name": "At the edge",
+      "description": "He reaches the interior cliff, catches his breath and scouts the cavern.",
+      "dependencies": [
+        "knight",
+        "environment"
+      ],
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Leave a pause for anticipation. Decide the eyeline in the animatic.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "layout",
+          "label": "Layout",
+          "description": "Approve camera framing and timing in the animatic.",
+          "status": "todo"
+        },
+        {
+          "id": "animation",
+          "label": "Animation",
+          "description": "Approve character performance and contact.",
+          "status": "todo"
+        },
+        {
+          "id": "fx",
+          "label": "FX",
+          "description": "Integrate required effects and atmosphere.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Lighting",
+          "description": "Approve shot lighting and continuity.",
+          "status": "todo"
+        },
+        {
+          "id": "render",
+          "label": "Render",
+          "description": "Check samples, flicker and the final image sequence.",
+          "status": "todo"
+        },
+        {
+          "id": "composite",
+          "label": "Composite",
+          "description": "Finish compositing, grade and transitions.",
+          "status": "todo"
+        },
+        {
+          "id": "approved",
+          "label": "Approved",
+          "description": "Review this shot in the complete edit with sound.",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "shot03",
+      "name": "The cavern reveal",
+      "description": "Across the chasm: an enormous blue-violet cave, a captive giant and his glowing cooking pot.",
+      "dependencies": [
+        "troll",
+        "environment",
+        "props",
+        "bodies",
+        "fx"
+      ],
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "The cave ceiling must stay visible. Domestic home cues and rock-anchored chains should read together.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "layout",
+          "label": "Layout",
+          "description": "Approve camera framing and timing in the animatic.",
+          "status": "todo"
+        },
+        {
+          "id": "animation",
+          "label": "Animation",
+          "description": "Approve character performance and contact.",
+          "status": "todo"
+        },
+        {
+          "id": "fx",
+          "label": "FX",
+          "description": "Integrate required effects and atmosphere.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Lighting",
+          "description": "Approve shot lighting and continuity.",
+          "status": "todo"
+        },
+        {
+          "id": "render",
+          "label": "Render",
+          "description": "Check samples, flicker and the final image sequence.",
+          "status": "todo"
+        },
+        {
+          "id": "composite",
+          "label": "Composite",
+          "description": "Finish compositing, grade and transitions.",
+          "status": "todo"
+        },
+        {
+          "id": "approved",
+          "label": "Approved",
+          "description": "Review this shot in the complete edit with sound.",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "shot04",
+      "name": "The terrible ritual",
+      "description": "Suspended human silhouettes spiral down into thick orange magical potion as the giant cooks.",
+      "dependencies": [
+        "troll",
+        "props",
+        "bodies",
+        "fx"
+      ],
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Focus on pot, stirring and suspended silhouettes. Keep the horror implied.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "layout",
+          "label": "Layout",
+          "description": "Approve camera framing and timing in the animatic.",
+          "status": "todo"
+        },
+        {
+          "id": "animation",
+          "label": "Animation",
+          "description": "Approve character performance and contact.",
+          "status": "todo"
+        },
+        {
+          "id": "fx",
+          "label": "FX",
+          "description": "Integrate required effects and atmosphere.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Lighting",
+          "description": "Approve shot lighting and continuity.",
+          "status": "todo"
+        },
+        {
+          "id": "render",
+          "label": "Render",
+          "description": "Check samples, flicker and the final image sequence.",
+          "status": "todo"
+        },
+        {
+          "id": "composite",
+          "label": "Composite",
+          "description": "Finish compositing, grade and transitions.",
+          "status": "todo"
+        },
+        {
+          "id": "approved",
+          "label": "Approved",
+          "description": "Review this shot in the complete edit with sound.",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "shot05",
+      "name": "The final beat",
+      "description": "The knight reacts. A final ominous moment holds, then cuts to black.",
+      "dependencies": [
+        "knight",
+        "environment"
+      ],
+      "owner": "",
+      "due": "",
+      "blocked": false,
+      "blocker": "",
+      "notes": "Choose the ending in the animatic: knight reaction or an unsettling giant beat.",
+      "file": "",
+      "tasks": [
+        {
+          "id": "layout",
+          "label": "Layout",
+          "description": "Approve camera framing and timing in the animatic.",
+          "status": "todo"
+        },
+        {
+          "id": "animation",
+          "label": "Animation",
+          "description": "Approve character performance and contact.",
+          "status": "todo"
+        },
+        {
+          "id": "fx",
+          "label": "FX",
+          "description": "Integrate required effects and atmosphere.",
+          "status": "todo"
+        },
+        {
+          "id": "lighting",
+          "label": "Lighting",
+          "description": "Approve shot lighting and continuity.",
+          "status": "todo"
+        },
+        {
+          "id": "render",
+          "label": "Render",
+          "description": "Check samples, flicker and the final image sequence.",
+          "status": "todo"
+        },
+        {
+          "id": "composite",
+          "label": "Composite",
+          "description": "Finish compositing, grade and transitions.",
+          "status": "todo"
+        },
+        {
+          "id": "approved",
+          "label": "Approved",
+          "description": "Review this shot in the complete edit with sound.",
+          "status": "todo"
+        }
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "id": "story",
+      "name": "Story & animatic",
+      "description": "Lock the teaser before building detail.",
+      "checks": [
+        {
+          "id": "scope",
+          "label": "Agree on film length, delivery format and deadline",
+          "done": false
+        },
+        {
+          "id": "boards",
+          "label": "Approve five story beats and rough camera compositions",
+          "done": false
+        },
+        {
+          "id": "animatic",
+          "label": "Review a complete placeholder animatic with timing",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "reveal",
+      "name": "Reveal prototype",
+      "description": "Prove the cave-home, giant scale and cooking ritual in rough 3D.",
+      "checks": [
+        {
+          "id": "layout",
+          "label": "Block cave ceiling, cliff, chasm, giant and cooking area",
+          "done": false
+        },
+        {
+          "id": "light",
+          "label": "Test cool blue/violet cave versus warm orange potion",
+          "done": false
+        },
+        {
+          "id": "spiral",
+          "label": "Test body spiral and readable home/prison cues",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "assets",
+      "name": "Assets ready",
+      "description": "Finish the detail the approved cameras need.",
+      "checks": [
+        {
+          "id": "assets",
+          "label": "Review all six asset sections in the actual scene",
+          "done": false
+        },
+        {
+          "id": "rigs",
+          "label": "Approve character movement, prop contact and restraints",
+          "done": false
+        },
+        {
+          "id": "fx",
+          "label": "Approve FX behaviour and render cost",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "cinematic",
+      "name": "Cinematic ready",
+      "description": "Review the whole film before final rendering.",
+      "checks": [
+        {
+          "id": "animation",
+          "label": "Approve camera timing and character animation",
+          "done": false
+        },
+        {
+          "id": "lighting",
+          "label": "Approve FX and consistent lighting across shots",
+          "done": false
+        },
+        {
+          "id": "edit",
+          "label": "Review the full low-resolution edit with rough sound",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Final delivery",
+      "description": "Render, finish and check the complete film.",
+      "checks": [
+        {
+          "id": "frames",
+          "label": "Approve representative final-quality frames and render settings",
+          "done": false
+        },
+        {
+          "id": "finish",
+          "label": "Render, composite, grade, edit and finish sound",
+          "done": false
+        },
+        {
+          "id": "export",
+          "label": "Watch the exported film, confirm delivery specs and back up files",
+          "done": false
+        }
+      ]
+    }
+  ]
+}
