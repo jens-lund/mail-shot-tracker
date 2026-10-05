@@ -1,5 +1,9 @@
 # Mail Shot Tracker
 
+## Eternal Tomb
+
+The second project lives at [`eternal-tomb/`](eternal-tomb/), with asset sections, cinematic shots, milestones, local autosave, optional GitHub team sync and generated cave-home/prison references. Use the project link in the Mail header to switch projects. See [the project guide](eternal-tomb/README.md).
+
 Statisk GitHub Pages-side for å følge shot-status på 3D-filmen `Mail`.
 
 ## Bruk
