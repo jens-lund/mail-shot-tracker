@@ -18,6 +18,16 @@ const context=vm.createContext({window:{TrackerCore:C,TrackerMedia:{async get(){
 }});
 let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');code=code.replace('navigate();localSave();refresh();M.hydrate().then(()=>render());','');vm.runInContext(code,context);vm.runInContext('render=()=>{};',context);
 (async()=>{
+  const mediaPaths=vm.runInContext("imagePaths({...data,hero:'uploads/banner.webp',assets:data.assets.map(a=>({...a,cover:'uploads/cover.webp'}))})",context);
+  assert(mediaPaths.has('uploads/banner.webp'));assert(mediaPaths.has('uploads/cover.webp'));assert.equal(mediaPaths.size,2);
+  const mediaFetch=context.fetch, published=[];
+  context.window.TrackerMedia.get=async path=>({path,blob:new Blob(['test']),uploaded:false});
+  context.window.TrackerMedia.base64=async()=>btoa('test');
+  context.window.TrackerMedia.markUploaded=async path=>published.push(path);
+  context.fetch=async(url,init)=>({ok:init?.method==='PUT',status:init?.method==='PUT'?200:404});
+  await vm.runInContext("publishMedia(new Set(['uploads/banner.webp','uploads/cover.webp']))",context);
+  assert.deepEqual(published,['uploads/banner.webp','uploads/cover.webp']);
+  context.fetch=mediaFetch;context.window.TrackerMedia.get=async()=>null;
   vm.runInContext("commit({kind:'task',group:'assets',id:'knight',task:'design',value:'done'})",context);
   await vm.runInContext('sync()',context);
   assert.equal(shared.assets[0].tasks[0].status,'done');assert.equal(shared.assets[1].owner,'Kevin');assert.equal(putCount,2);

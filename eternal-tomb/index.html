@@ -23,6 +23,7 @@
   </header>
   <main>
     <section class="project-hero">
+      <button type="button" class="image-edit" data-edit-image="hero" aria-label="Change project banner" title="Change project banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/></svg></button>
       <div class="hero-copy"><span class="eyebrow"><span class="tiny-dot"></span> DARK FANTASY / SHORT FILM</span><h1 id="projectTitle">Eternal Tomb</h1><p>A wounded knight. A hidden cavern.<br>A home, a prison, a terrible ritual.</p></div>
       <span class="concept-label">CONCEPT REFERENCE · AI GENERATED</span>
     </section>
@@ -50,6 +51,15 @@
   <dialog id="newVersionDialog"><form class="dialog-content" id="newVersionForm"><div class="dialog-head"><div><span class="eyebrow">ITERATE TOGETHER</span><h2>Create a version</h2></div><button type="button" class="close-button" data-close="newVersionDialog" aria-label="Close new version">×</button></div><label>Version name<input name="title" placeholder="v002 · Clothing and proportions" required maxlength="150"></label><label>What changed / what needs feedback?<textarea name="summary" placeholder="What have you improved? What should Jens or Kevin look at?" maxlength="4000"></textarea></label><label>Owner<select name="owner"></select></label><p class="help">The new version starts with an empty image set. Upload your current character sheet, angles, clothing and progress below. Earlier versions stay available for comparison.</p><div class="dialog-actions"><button class="button primary" type="submit">Create version</button></div></form></dialog>
   <dialog id="imageDialog" class="image-dialog"><div class="dialog-content"><div class="dialog-head"><h2 id="imageTitle">Image</h2><button class="close-button" data-close="imageDialog" aria-label="Close image">×</button></div><img id="largeImage" alt=""></div></dialog>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <dialog id="thumbnailDialog"><form id="thumbnailForm" class="dialog-content">
+    <div class="dialog-head"><div><span class="eyebrow">YOUR IMAGES</span><h2 id="thumbnailTitle">Change image</h2></div><button type="button" class="close-button" data-close="thumbnailDialog" aria-label="Close image editor">×</button></div>
+    <img id="thumbnailCurrent" class="thumbnail-preview" alt="Current image">
+    <label>Choose replacement<input id="thumbnailFile" name="image" type="file" accept="image/png,image/jpeg,image/webp" required></label>
+    <label id="thumbnailCaptionLabel">Caption / what changed<input name="caption" maxlength="300"></label>
+    <p class="help" id="thumbnailHelp"></p>
+    <p id="thumbnailError" class="image-error" role="alert"></p>
+    <div class="dialog-actions"><button type="button" class="button" data-close="thumbnailDialog">Cancel</button><button class="button primary" id="replaceImageButton" type="submit">Replace image</button></div>
+  </form></dialog>
   <noscript><p>This tracker needs JavaScript enabled to save and display your project.</p></noscript>
 </body>
 </html>

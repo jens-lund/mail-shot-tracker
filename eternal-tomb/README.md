@@ -12,6 +12,8 @@ Open `index.html` directly, or visit the published `/eternal-tomb/` page. No ins
 
 Changes save immediately to this browser. GitHub team sync uses a personal token with **Contents: Read and write** on `jens-lund/mail-shot-tracker`. A previously saved Mail token is reused unless separate Eternal Tomb settings have been saved. The token stays in browser storage and is never included in exports or repository data. Clearing this project's token does not change Mail settings.
 
+Use the pencil at the top-right of the project banner, asset thumbnails or version images to choose a replacement PNG/JPEG/WebP. The dialog previews your choice before you save. Asset thumbnail changes affect the card and task header only. Replacing a version image keeps its role and linked comments, and also updates the asset thumbnail when that image was used as the cover. Other versions stay unchanged. Create a new version first when you want to retain the earlier image for comparison. Standalone covers and banner uploads are included in team sync and backups.
+
 With a token, edits are replayed onto the latest `eternal-tomb/data/project.json` using GitHub's SHA concurrency check. Unrelated teammate edits are preserved; simultaneous changes to the same field use the last successful save. Offline edits stay queued for reconnection. Use Refresh to retry a failed save. With no token, edits are local to the current browser. The public repository's data and links remain public.
 
 Progress counts completed tasks. Asset readiness and cinematic completion are separate. A section is done when all its tasks are complete and it has no blocker. Milestones require explicit review; task percentages do not approve them automatically.
