@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T17:27:21.754Z",
+  "updatedAt": "2026-10-07T17:27:35.691Z",
   "assets": [
     {
       "id": "knight",
@@ -286,7 +286,7 @@
       "id": "environment",
       "name": "The cavern home",
       "category": "ENVIRONMENT",
-      "description": "A grand interior cliff overlooks a blue-violet cavern, a lived-in home and prison. Fire stuff",
+      "description": "A grand interior cliff overlooks a blue-violet cavern, a lived-in home and prison.",
       "image": "reveal",
       "owner": "Jens",
       "due": "",
