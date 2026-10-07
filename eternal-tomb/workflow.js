@@ -131,7 +131,7 @@ async function uploadTaskImages(form,entry=reviewEntry()) {
 }
 function autoRefreshAllowed() {
   const dialog=document.querySelector('dialog[open]');
-  return !document.hidden && !uploading && (!dialog||dialog.id==='detailDialog') && !document.querySelector('.remove-confirmation') && !document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') && !detailUploadDraft() && !($('taskFeedbackForm')?.elements.body.value.trim()) && !($('feedbackForm')?.elements.body.value.trim()) && !($('taskUploadForm')?.elements.images.files.length) && !($('uploadForm')?.elements.images.files.length);
+  return !document.hidden && !uploading && (!dialog||dialog.id==='detailDialog') && !document.querySelector('.remove-confirmation') && !hasUnfinishedFields() && !detailUploadDraft() && !($('taskFeedbackForm')?.elements.body.value.trim()) && !($('feedbackForm')?.elements.body.value.trim()) && !($('taskUploadForm')?.elements.images.files.length) && !($('uploadForm')?.elements.images.files.length);
 }
 document.addEventListener('click',e=>{
   const assign=e.target.closest('[data-assign-task]');if(assign){const [group,id,task]=assign.dataset.assignTask.split(':');commit({kind:'taskField',group,id,task,field:'owner',value:assign.dataset.assignee});const current=data[group].find(i=>i.id===id)?.tasks.find(t=>t.id===task);if(current){assign.closest('.task-assignment').querySelector('.assignee-buttons').outerHTML=taskAssignee(current,group,id);}return;}

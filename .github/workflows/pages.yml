@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    # Tracker data and uploaded media are read directly from GitHub. Editing the
+    # project should not repeatedly cancel a website-code deployment.
+    paths-ignore:
+      - 'eternal-tomb/data/**'
+      - 'eternal-tomb/uploads/**'
   workflow_dispatch:
 
 permissions:

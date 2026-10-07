@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const C = require('../core.js');
-const original = JSON.parse(fs.readFileSync(path.join(__dirname,'../data/project.json'),'utf8'));
+const original = require('./fixture.cjs')();
 const seed = C.validate(original);
 const oldAssignments=C.validate(original);
 oldAssignments.team.push('Former teammate');

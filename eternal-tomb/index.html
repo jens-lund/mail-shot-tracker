@@ -10,17 +10,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007-task-windows">
-  <script src="seed.js?v=20261007-task-windows" defer></script>
-  <script src="core.js?v=20261007-task-windows" defer></script>
-  <script src="media.js?v=20261007-task-windows" defer></script>
-  <script src="workflow.js?v=20261007-task-windows" defer></script>
-  <script src="app.js?v=20261007-task-windows" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261007-collaboration">
+  <script src="seed.js?v=20261007-collaboration" defer></script>
+  <script src="core.js?v=20261007-collaboration" defer></script>
+  <script src="media.js?v=20261007-collaboration" defer></script>
+  <script src="workflow.js?v=20261007-collaboration" defer></script>
+  <script src="collaboration.js?v=20261007-collaboration" defer></script>
+  <script src="app.js?v=20261007-collaboration" defer></script>
 </head>
 <body>
   <header class="app-header">
     <a class="brand" href="#overview" aria-label="Eternal Tomb overview"><span class="brand-mark">E</span><span><small>3D PRODUCTION TRACKER</small><strong id="brandTitle">Eternal Tomb</strong></span></a>
-    <div class="header-actions"><a class="project-switch" href="../">Mail <span aria-hidden="true">↗</span></a><button id="previewButton" class="button subtle">▷ <span>Previs</span></button><button id="settingsButton" class="button">Settings & sync</button></div>
+    <div class="header-actions"><a class="project-switch" href="../">Mail <span aria-hidden="true">↗</span></a><button id="previewButton" class="button subtle">▷ <span>Previs</span></button><button id="connectButton" class="button subtle">Connect GitHub</button><button id="settingsButton" class="button">Settings & sync</button></div>
   </header>
   <main>
     <section class="project-hero">
@@ -32,7 +33,7 @@
     <nav class="tabs" aria-label="Project sections"><a href="#overview" data-tab="overview">Overview</a><a href="#assets" data-tab="assets">Assets <span>6</span></a><a href="#cinematic" data-tab="cinematic">Cinematic <span>5</span></a><a href="#tasks" data-tab="tasks">Tasks</a><a href="#calendar" data-tab="calendar">Calendar</a><a href="#review" data-tab="review">Review</a><a href="#versions" data-tab="versions">Version history</a><a href="#milestones" data-tab="milestones">Milestones</a></nav>
     <section class="metrics" id="metrics" aria-label="Production progress"></section>
     <div class="sync-strip"><span><span id="saveDot" class="tiny-dot"></span><span id="saveStatus" role="status">Loading project…</span></span><button id="refreshButton" class="text-button">↻ Refresh</button></div>
-    <div id="scopeControls" class="scope-controls"></div>
+    <p id="liveNotice" class="live-notice" role="status" hidden></p><div id="scopeControls" class="scope-controls"></div>
     <div id="statusSummary" class="status-summary-row" aria-label="Click a status to view its tasks"></div>
     <section id="view" aria-label="Project content"></section>
     <footer><span>BUILD THE WORLD. FINISH THE FILM.</span><div><button class="text-button" id="exportButton">Export backup ↓</button><button class="text-button" id="importButton">Import backup ↑</button><a href="https://github.com/jens-lund/mail-shot-tracker" target="_blank" rel="noopener noreferrer">Repository ↗</a></div></footer>
@@ -45,13 +46,15 @@
     <label>Your name for feedback<select name="identity"></select></label>
     <label>Latest animatic / previs URL<input name="preview" type="url" placeholder="https://…"></label>
     <p class="help">Use a direct MP4 or WebM link to play it here, or link to your shared video page.</p>
-    <div class="setting-divider"><h3>Shared saving</h3><p class="help">Changes save to this browser immediately. Connect a personal GitHub token with Contents read/write access to this repository to share updates with your team. A saved Mail token is reused automatically. Keep a backup before switching browsers.</p></div>
-    <label>GitHub token<input name="token" type="password" autocomplete="off" placeholder="Optional · saved only in this browser"></label>
-    <p class="help">Shared file: <code>eternal-tomb/data/project.json</code>. Project data and links in this public repository are public.</p>
-    <div class="dialog-actions"><button type="button" class="button" data-close="settingsDialog">Cancel</button><button class="button primary" type="submit">Save settings</button></div>
+    <div class="setting-divider"><h3>Shared saving</h3><p class="help">Everyone can view the project. To edit, connect your own GitHub token. Your account must have write access to this repository and the token needs Contents: Read and write. Each editor uses their own token; GitHub controls who can publish changes.</p></div>
+    <p id="accessStatus" class="access-status" role="status"></p><label>GitHub token<input name="token" type="password" autocomplete="off" placeholder="Your personal token · kept in this browser"></label>
+    <p class="help">A GitHub contributor is not necessarily a repository editor. Jens can grant collaborators write access in the repository settings. One-click GitHub sign-in needs a registered GitHub App and a small authentication service; token access works now.</p><p class="help">Shared file: <code>eternal-tomb/data/project.json</code>. Project data and links in this public repository are public.</p>
+    <div class="dialog-actions"><button type="button" class="button" data-close="settingsDialog">Cancel</button><button class="button primary" type="submit">Connect / save settings</button></div>
   </form></dialog>
   <dialog id="previewDialog"><div class="dialog-content"><div class="dialog-head"><h2>Latest previs</h2><button class="close-button" data-close="previewDialog" aria-label="Close preview">×</button></div><div id="previewContent"></div></div></dialog>
   <dialog id="newVersionDialog"><form class="dialog-content" id="newVersionForm"><div class="dialog-head"><div><span class="eyebrow">ITERATE TOGETHER</span><h2>Create a version</h2></div><button type="button" class="close-button" data-close="newVersionDialog" aria-label="Close new version">×</button></div><label>Version name<input name="title" placeholder="v002 · Clothing and proportions" required maxlength="150"></label><label>What changed / what needs feedback?<textarea name="summary" placeholder="What have you improved? What should Jens or Kevin look at?" maxlength="4000"></textarea></label><label>Owner<select name="owner"></select></label><p class="help">The new version starts with an empty image set. Upload your current character sheet, angles, clothing and progress below. Earlier versions stay available for comparison.</p><div class="dialog-actions"><button class="button primary" type="submit">Create version</button></div></form></dialog>
+  <dialog id="newShotDialog"><form id="newShotForm" class="dialog-content"><div class="dialog-head"><h2>Add a cinematic shot</h2><button type="button" class="close-button" data-close="newShotDialog" aria-label="Close new shot">×</button></div><label>Shot name<input name="name" required maxlength="150" placeholder="e.g. The giant looks up"></label><label>Story / action<textarea name="description" maxlength="2000" placeholder="What does the audience see and feel?"></textarea></label><div class="field-grid"><label>Duration in seconds<input type="number" name="duration" min="0" max="600" step="0.1" placeholder="Not set"></label><label>Camera / lens / movement<input name="camera" maxlength="1000" placeholder="35 mm · slow push in"></label></div><p class="help">Starts with seven production tasks. Choose the needed assets and adjust the tasks after creating it.</p><div class="dialog-actions"><button class="button primary" type="submit">Create shot</button></div></form></dialog>
+  <dialog id="deleteEntryDialog"><form id="deleteEntryForm" class="dialog-content"><div class="dialog-head"><h2 id="deleteEntryTitle">Delete entry?</h2><button type="button" class="close-button" data-close="deleteEntryDialog" aria-label="Close deletion">×</button></div><p id="deleteEntryHelp" class="help"></p><div class="dialog-actions"><button type="button" class="button" data-close="deleteEntryDialog">Keep it</button><button type="submit" class="button danger">Delete · keep in recovery</button></div></form></dialog>
   <dialog id="imageDialog" class="image-dialog"><div class="dialog-content"><div class="dialog-head"><h2 id="imageTitle">Image</h2><button class="close-button" data-close="imageDialog" aria-label="Close image">×</button></div><img id="largeImage" alt=""></div></dialog>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
   <dialog id="thumbnailDialog"><form id="thumbnailForm" class="dialog-content">

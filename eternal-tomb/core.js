@@ -6,7 +6,9 @@
   const efforts = ['small', 'medium', 'large'];
   const effectivePriority = (item, task) => item.priority === 'nice' || task?.priority === 'nice' ? 'nice' : 'must';
   const scopedTasks = (item, scope = 'all') => item.tasks.filter(task => scope === 'all' || effectivePriority(item, task) === scope);
-  const taskEntries = (data, scope = 'all') => ['assets','shots'].flatMap(group => data[group].flatMap(item => scopedTasks(item, scope).map(task => ({group,item,task}))));
+  const activeShots = data => data.shots.filter(item => !item.archived);
+  const activeVersions = item => item.versions.filter(version => !version.deletedAt);
+  const taskEntries = (data, scope = 'all') => ['assets','shots'].flatMap(group => data[group].filter(item => !item.archived).flatMap(item => scopedTasks(item, scope).map(task => ({group,item,task}))));
   function scopedStatus(item, scope = 'all') {
     const tasks = scopedTasks(item, scope);
     if (tasks.length && tasks.every(t => t.status === 'done')) return 'done';
@@ -30,7 +32,7 @@
     return (Date.parse(due+'T00:00:00Z') - Date.parse(current+'T00:00:00Z')) / 86400000;
   }
   function deadlineEntries(data, scope = 'all') {
-    return ['assets','shots'].flatMap(group => data[group].flatMap(item => {
+    return ['assets','shots'].flatMap(group => data[group].filter(item => !item.archived).flatMap(item => {
       const entries = [];
       const priority = effectivePriority(item);
       if (item.due && (scope === 'all' || priority === scope)) entries.push({group,item,task:null,due:item.due,status:scopedStatus(item, scope),priority});
@@ -90,13 +92,20 @@
           if (item.cover && !imagePath(item.cover)) fail();
           if (!Array.isArray(item.versions) || item.versions.length > 100 || !unique(item.versions)) fail();
           for (const v of item.versions) {
+            if(v.deletedAt === undefined)v.deletedAt='';
+            if (!str(v.deletedAt,40) || (v.deletedAt && Number.isNaN(Date.parse(v.deletedAt)))) fail();
             if (!id(v.id) || !str(v.title, 150) || !str(v.summary, 4000) || !str(v.owner, 80) || !['wip','review','approved','reference'].includes(v.status) || !str(v.createdAt, 40) || Number.isNaN(Date.parse(v.createdAt))) fail();
             if (!data.team.includes(v.owner)) v.owner = '';
             if (!Array.isArray(v.images) || v.images.length > 64 || !unique(v.images) || v.images.some(i => !id(i.id) || !imagePath(i.path) || !['sheet','front','back','left','right','clothing','clothing-progress','detail','progress','reference'].includes(i.role) || !str(i.caption, 300))) fail();
             if (!Array.isArray(v.comments) || v.comments.length > 500 || !unique(v.comments) || v.comments.some(c => !id(c.id) || !str(c.author, 80) || !str(c.target, 80) || !str(c.body, 6000) || (c.image && !v.images.some(i=>i.id===c.image)) || typeof c.resolved !== 'boolean' || !str(c.createdAt,40) || Number.isNaN(Date.parse(c.createdAt)))) fail();
           }
         }
-        if (group === 'shots' && (!Array.isArray(item.dependencies) || item.dependencies.some(x => !data.assets.some(a => a.id === x)))) fail();
+        if (group === 'shots') {
+          if(item.archived === undefined)item.archived=false;
+          if(item.duration === undefined)item.duration=0;
+          if(item.camera === undefined)item.camera='';
+          if (typeof item.archived !== 'boolean' || !Number.isFinite(item.duration) || item.duration < 0 || item.duration > 600 || !str(item.camera,1000) || !Array.isArray(item.dependencies) || new Set(item.dependencies).size !== item.dependencies.length || item.dependencies.some(x => !data.assets.some(a => a.id === x))) fail();
+        }
       }
     }
     if (!Array.isArray(data.milestones) || !data.milestones.length || data.milestones.length > 20 || !unique(data.milestones)) fail();
@@ -106,13 +115,24 @@
   // Replay only changed fields on the newest shared file, preserving teammates' unrelated edits.
   function apply(data, op) {
     if (op.kind === 'replace') return validate(op.data);
+    if (op.kind === 'addShot') {
+      if (!data.shots.some(s => s.id === op.value.id)) data.shots.push(clone(op.value));
+      return data;
+    }
+    if (op.kind === 'archiveShot') { const shot=data.shots.find(s=>s.id===op.id); if(shot)shot.archived=!!op.value; return data; }
+    if (op.kind === 'moveShot') {
+      const shot=data.shots.find(s=>s.id===op.id), anchor=data.shots.find(s=>s.id===op.anchor);
+      if(shot && anchor && shot!==anchor && !shot.archived && !anchor.archived) { data.shots=data.shots.filter(s=>s!==shot);data.shots.splice(data.shots.indexOf(anchor)+(op.after?1:0),0,shot); }
+      return data;
+    }
     if (op.kind === 'project' && ['title','deadline','preview','team','hero'].includes(op.field)) data[op.field] = clone(op.value);
     else if (['assets','shots'].includes(op.group)) {
-      const item = data[op.group].find(x => x.id === op.id); if (!item) return data;
+      const item = data[op.group].find(x => x.id === op.id); if (!item || item.archived) return data;
       const task = item.tasks.find(t => t.id === op.task);
       if (op.kind === 'task' && task && statuses.includes(op.value)) task.status = op.value;
       if (op.kind === 'taskField' && task && ['label','description','due','effort','priority','owner'].includes(op.field)) task[op.field] = clone(op.value);
       if (op.kind === 'field' && ['name','description','priority','owner','due','blocked','blocker','notes','file','cover'].includes(op.field)) item[op.field] = clone(op.value);
+      if (op.kind === 'field' && op.group === 'shots' && ['duration','camera','dependencies'].includes(op.field)) item[op.field] = clone(op.value);
       if (op.kind === 'removeTask') {
         item.removedTaskIds ??= [];
         if (!item.removedTaskIds.includes(op.task)) item.removedTaskIds.push(op.task);
@@ -127,7 +147,9 @@
       }
       if (op.kind === 'addVersion') { item.versions ??= []; if (!item.versions.some(v=>v.id===op.value.id)) item.versions.push(clone(op.value)); }
       const version = item.versions?.find(v=>v.id===op.version);
-      if (version) {
+      if (version && op.kind === 'deleteVersion') version.deletedAt=op.value;
+      if (version && op.kind === 'restoreVersion') version.deletedAt='';
+      if (version && !version.deletedAt) {
         if (op.kind === 'versionField' && ['title','summary','owner','status'].includes(op.field)) version[op.field]=clone(op.value);
         if (op.kind === 'addImage' && !version.images.some(i=>i.id===op.value.id)) version.images.push(clone(op.value));
         if (op.kind === 'replaceImage' && imagePath(op.value.path)) {
@@ -147,7 +169,7 @@
     return data;
   }
   function replay(data, ops) { return ops.reduce((d, op) => apply(d, op), clone(data)); }
-  const api = { clone, progress, status, safeUrl, imagePath, validate, apply, replay, statuses, priorities, efforts, effectivePriority, scopedTasks, taskEntries, scopedStatus, dateKey, validDate, dayDifference, deadlineEntries, dueSoon };
+  const api = { clone, progress, status, safeUrl, imagePath, validate, apply, replay, statuses, priorities, efforts, effectivePriority, scopedTasks, taskEntries, scopedStatus, dateKey, validDate, dayDifference, deadlineEntries, dueSoon, activeShots, activeVersions };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.TrackerCore = api;
 })(typeof window !== 'undefined' ? window : globalThis);

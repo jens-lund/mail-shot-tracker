@@ -3,12 +3,12 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const C=require('../core.js');
-const seed=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/project.json'),'utf8'));
+const seed = require('./fixture.cjs')();
 function client(){
   const data=C.validate(seed),saved=[],messages=[],events=new Map();let hook=null;
   const controls=[{disabled:false},{disabled:false}],result={textContent:''};
   const form={dataset:{detailUpload:'assets:knight:design'},elements:{images:{files:[{name:'progress.png'}],value:'progress.png'},caption:{value:'Current blockout'}},querySelectorAll:()=>controls,querySelector:()=>result};
-  const context=vm.createContext({C,data,document:{hidden:false,activeElement:null,querySelector:()=>null,querySelectorAll:()=>[form],addEventListener:(n,fn)=>events.set(n,fn)},$:()=>null,uploading:false,token:'',pending:[],saveTimer:null,setTimeout(){},clearTimeout(){},renderReview(){throw new Error('An inline upload must not switch to Review');},reviewEntry(){throw new Error('No review task should be required');},newId:(()=>{let n=0;return ()=>`image_${++n}`;})(),M:{prepare:async f=>{if(hook)hook();return f;},store:async(p,b)=>saved.push(p)},commit:op=>{C.apply(data,op);context.pending.push(op);},setMessage:m=>messages.push(m),sync(){},console});
+  const context=vm.createContext({C,data,hasUnfinishedFields:()=>false,document:{hidden:false,activeElement:null,querySelector:()=>null,querySelectorAll:()=>[form],addEventListener:(n,fn)=>events.set(n,fn)},$:()=>null,uploading:false,token:'',pending:[],saveTimer:null,setTimeout(){},clearTimeout(){},renderReview(){throw new Error('An inline upload must not switch to Review');},reviewEntry(){throw new Error('No review task should be required');},newId:(()=>{let n=0;return ()=>`image_${++n}`;})(),M:{prepare:async f=>{if(hook)hook();return f;},store:async(p,b)=>saved.push(p)},commit:op=>{C.apply(data,op);context.pending.push(op);},setMessage:m=>messages.push(m),sync(){},console});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../workflow.js'),'utf8'),context);
   return {context,form,controls,result,saved,messages,run:code=>vm.runInContext(code,context),setHook:fn=>hook=fn};
 }

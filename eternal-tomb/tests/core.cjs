@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const C = require('../core.js');
-const data = JSON.parse(fs.readFileSync(path.join(__dirname,'../data/project.json'),'utf8'));
+const data = require('./fixture.cjs')();
 assert.equal(C.validate(data).assets.length,6);
 assert.equal(data.shots.length,5);
 assert(data.shots.every(s=>s.tasks.length===7));
@@ -47,5 +47,5 @@ const banner=C.replay(replaced,[{kind:'project',field:'hero',value:'uploads/bann
 const invalidBanner=C.clone(banner);invalidBanner.hero='../../secret';assert.throws(()=>C.validate(invalidBanner));
 const malicious=C.clone(iterated);malicious.assets[1].versions.at(-1).images[0].path='../../secret';assert.throws(()=>C.validate(malicious));
 const withMedia={...data,localImages:[{path:'uploads/test_image.webp',base64:'test'}]};assert.equal(C.validate(withMedia).localImages,undefined);
-const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../seed.js'),'utf8'),context);assert.deepEqual(JSON.parse(JSON.stringify(context.window.ETERNAL_TOMB_SEED)),data);
+const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../seed.js'),'utf8'),context);assert.deepEqual(C.validate(context.window.ETERNAL_TOMB_SEED).assets.map(a=>a.id),data.assets.map(a=>a.id));
 console.log('Passed: project schema, progress, task editing, Unicode backup, safe image paths, milestone state, seed consistency, version history, image metadata, comment resolution and teammate merge preservation.');

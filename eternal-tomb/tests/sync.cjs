@@ -2,7 +2,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const C=require('../core.js');
-const seed=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../data/project.json'),'utf8'));
+const seed = require('./fixture.cjs')();
 const elements=new Map();const storage=new Map([['eternal-tomb-github-token','test-only-token']]);
 const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',innerHTML:'',classList:{toggle(){}},addEventListener(){}});return elements.get(id);};
 const dynamicForms=['taskFeedbackForm','taskUploadForm','feedbackForm','uploadForm'];
@@ -19,8 +19,9 @@ const context=vm.createContext({window:{TrackerCore:C,TrackerMedia:{async get(){
 }});
 context.document.querySelector=()=>null;
 context.document.getElementById=id=>dynamicForms.includes(id)?elements.get(id)||null:element(id);
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../collaboration.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../workflow.js'),'utf8'),context);
-let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');code=code.replace('navigate();localSave();refresh();M.hydrate().then(()=>render());','');vm.runInContext(code,context);vm.runInContext('render=()=>{};',context);
+let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');code=code.replace('initializeTracker();','');vm.runInContext(code,context);vm.runInContext("editorAccess={verified:true,canEdit:true,login:'test-editor',message:''};verifiedToken=token;",context);vm.runInContext('render=()=>{};',context);
 (async()=>{
   const mediaPaths=vm.runInContext("imagePaths({...data,hero:'uploads/banner.webp',assets:data.assets.map(a=>({...a,cover:'uploads/cover.webp',tasks:a.tasks.map(t=>({...t,images:[{path:'uploads/asset_review.webp'}]}))})),shots:data.shots.map(s=>({...s,tasks:s.tasks.map(t=>({...t,images:[{path:'uploads/shot_review.webp'}]}))}))})",context);
   assert(mediaPaths.has('uploads/banner.webp'));assert(mediaPaths.has('uploads/cover.webp'));assert(mediaPaths.has('uploads/asset_review.webp'));assert(mediaPaths.has('uploads/shot_review.webp'));assert.equal(mediaPaths.size,4);
@@ -88,7 +89,7 @@ let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8'
   context.document.querySelector=selector=>selector==='dialog[open]'?{}:null;assert.equal(allowed(),false);context.document.querySelector=()=>null;
   context.document.querySelector=selector=>selector==='dialog[open]'?{id:'detailDialog'}:null;assert.equal(allowed(),true,'Read-only task dialogs allow live updates');context.document.querySelector=()=>null;
   context.document.querySelector=selector=>selector==='.remove-confirmation'?{}:null;assert.equal(allowed(),false,'Keep task-removal confirmation intact');context.document.querySelector=()=>null;
-  context.document.activeElement={matches:()=>true};assert.equal(allowed(),false);context.document.activeElement={matches:()=>false};
+  context.document.activeElement={matches:()=>true};assert.equal(allowed(),true,'Focus after a saved edit no longer blocks updates');context.document.activeElement={matches:()=>false};
   vm.runInContext('uploading=true',context);assert.equal(allowed(),false);vm.runInContext('uploading=false',context);
   const feedbackForm={dataset:{reviewKey:'assets/knight/model'},elements:{body:{value:'A pending review comment'},author:{value:'Jens'}}};
   elements.set('taskFeedbackForm',feedbackForm);assert.equal(allowed(),false);feedbackForm.elements.body.value='';assert.equal(allowed(),true);

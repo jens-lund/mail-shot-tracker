@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const C=require('../core.js');
-const seed=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/project.json'),'utf8'));
+const seed = require('./fixture.cjs')();
 
 function client(){
   let now=100000,shared=C.validate(seed),revision=1,reads=0,jsonReads=0,hook=null,failure=null;
@@ -19,9 +19,10 @@ function client(){
     if(init?.headers?.['If-None-Match']===etag)return {ok:false,status:304,json(){throw new Error('A 304 has no body');}};
     return {ok:true,status:200,headers:{get:name=>name==='etag'?etag:null},json:async()=>{jsonReads++;return url.includes('api.github.com')?{sha:'sha-'+revision,content:Buffer.from(JSON.stringify(shared)).toString('base64')}:C.clone(shared);}};
   }});
-  vm.runInContext(fs.readFileSync(path.join(__dirname,'../workflow.js'),'utf8'),context);
-  let app=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8').replace('navigate();localSave();refresh();M.hydrate().then(()=>render());','');
-  vm.runInContext(app,context);
+  vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../collaboration.js'),'utf8'),context);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../workflow.js'),'utf8'),context);
+  let app=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8').replace('initializeTracker();','');
+  vm.runInContext(app,context);vm.runInContext("editorAccess={verified:true,canEdit:true,login:'test-editor',message:''};verifiedToken=token;",context);
   vm.runInContext('render=()=>{renderCount++;};openDetail=()=>{openCount++;document.getElementById("detailDialog").scrollTop=0;};',context);
   return {context,elements,events,intervals,run:s=>vm.runInContext(s,context),advance:ms=>now+=ms,change:fn=>{fn(shared);revision++;},onRead:fn=>hook=fn,fail:r=>failure=r,get reads(){return reads;},get jsonReads(){return jsonReads;}};
 }
@@ -47,10 +48,10 @@ function client(){
   dialog.open=false;a.run('detail=null');
 
   a.change(d=>d.assets[0].notes='Remote edit while typing starts');const etag=a.run('remoteETag');
-  a.onRead(c=>c.document.activeElement={matches:()=>true});a.advance(3000);await a.run('liveRefresh()');
-  assert.equal(a.run('remoteETag'),etag,'Deferred response does not consume its ETag');
-  assert.notEqual(a.run('data.assets[0].notes'),'Remote edit while typing starts');
-  a.context.document.activeElement=null;a.advance(3000);await a.run('liveRefresh()');
+  a.onRead(()=>a.run("unfinishedFields.add({isConnected:true})"));a.advance(3000);await a.run('liveRefresh()');
+  assert.notEqual(a.run('remoteETag'),etag,'Incoming data is received during an unfinished edit');
+  assert.equal(a.run('data.assets[0].notes'),'Remote edit while typing starts');assert.equal(a.run('sharedViewPending'),true,'An unfinished edit defers drawing, not receiving');
+  a.run('unfinishedFields.clear()');a.context.document.activeElement=null;a.advance(3000);await a.run('liveRefresh()');
   assert.equal(a.run('data.assets[0].notes'),'Remote edit while typing starts','Deferred change applies when editing ends');
 
   a.change(d=>d.shots[0].notes='Teammate change');
@@ -76,13 +77,23 @@ function client(){
   assert.equal(a.run('data.assets[1].owner'),'Kevin','Returning to a tab checks immediately');
 
   const b=client();await b.run('refresh()');const bDialog=b.elements.get('detailDialog');bDialog.open=true;bDialog.scrollTop=88;
-  b.context.document.activeElement={matches:()=>true};b.run("detail={group:'assets',id:'knight'};commit({kind:'task',group:'assets',id:'knight',task:'model',value:'doing'})");
+  b.run('unfinishedFields.add({isConnected:true})');b.context.document.activeElement={matches:()=>true};b.run("detail={group:'assets',id:'knight'};commit({kind:'task',group:'assets',id:'knight',task:'model',value:'doing'})");
   b.change(d=>d.assets[0].tasks[2].label='Teammate label merged during save');await b.run('sync()');
   assert.equal(b.context.openCount,0,'Saving does not replace an active task editor');assert.equal(b.run('sharedViewPending'),true);
-  b.context.document.activeElement=null;await b.run('liveRefresh()');
+  b.run('unfinishedFields.clear()');b.context.document.activeElement=null;await b.run('liveRefresh()');
   assert.equal(b.context.openCount,1,'Merged changes display after editing ends, even when the next read is unchanged');assert.equal(bDialog.scrollTop,88);
 
-  const publicClient=client();publicClient.run("token=''");await publicClient.run('refresh()');await publicClient.run('liveRefresh()');
+  b.run('unfinishedFields.add({isConnected:true,closest:()=>({open:false})})');
+  assert.equal(b.run('autoRefreshAllowed()'),true,'A closed window cannot keep holding live updates');
+  b.run('unfinishedFields.clear()');
+
+  const oldVersion=b.run('data.assets[1].versions[0].id');
+  b.context.document.querySelector=selector=>selector==='.version-main'?{dataset:{asset:'troll',version:oldVersion}}:null;
+  b.run("data.assets[1].versions.push({...C.clone(data.assets[1].versions[0]),id:'new_version',deletedAt:''});data.assets[1].versions[0].deletedAt='2026-10-07T12:00:00Z'");
+  assert.equal(b.run('displayedVersion(true).version'),null,'Feedback for a deleted displayed version cannot switch to a different version');
+  assert.equal(b.run('displayedVersion().version.id'),oldVersion,'Images keep their displayed version identity during a deferred update');
+
+  const publicClient=client();publicClient.run("token='';editorAccess.verified=false");await publicClient.run('refresh()');await publicClient.run('liveRefresh()');
   const publicReads=publicClient.reads;publicClient.advance(14999);await publicClient.run('liveRefresh()');assert.equal(publicClient.reads,publicReads);
   publicClient.advance(1);await publicClient.run('liveRefresh()');assert.equal(publicClient.reads,publicReads+1);
   console.log('Passed: live teammate updates, conditional requests, three-second checks, dialog/scroll retention, in-flight draft and queue protection, rate-limit backoff, tab return and public polling.');
