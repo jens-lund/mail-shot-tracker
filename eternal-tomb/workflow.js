@@ -34,12 +34,12 @@ function renderWorkflowMetrics() {
   $('scopeControls').innerHTML=scopeToolbar();
   $('statusSummary').innerHTML=C.statuses.map(s=>`<a class="status-summary status-${s}" href="#tasks/${s}"><span class="status-dot"></span>${LABELS[s]} <strong>${entries.filter(e=>e.task.status===s).length}</strong><span aria-hidden="true">↗</span></a>`).join('');
 }
-function memberColor(name) {return name.toLowerCase()==='jens'?'jens':name.toLowerCase()==='kevin'?'kevin':'neutral';}
+function memberColor(name) {const key=name.toLowerCase();return key==='jens'?'jens':key==='kevin'?'kevin':['nico','nicolai','nicoartz20'].includes(key)?'nico':'neutral';}
 function memberBadge(name) {return `<span class="member-badge member-${memberColor(name)}"><span class="member-avatar">${esc(name.charAt(0)||'–')}</span>${esc(name||'Unassigned')}</span>`;}
 function taskAssignee(t,group,id) {
   return `<div class="assignee-buttons" role="group" aria-label="Assign ${esc(t.label)}">${['',...data.team].map(name=>`<button type="button" class="assignee-button member-${memberColor(name)}" data-assign-task="${group}:${id}:${t.id}" data-assignee="${esc(name)}" aria-pressed="${t.owner===name}" aria-label="Assign ${esc(t.label)} to ${esc(name||'Unassigned')}"><span class="member-avatar">${esc(name.charAt(0)||'–')}</span>${esc(name||'Unassigned')}<span class="assignee-check" aria-hidden="true">${t.owner===name?'✓':''}</span></button>`).join('')}</div>`;
 }
-function taskTeamSummary(item) {const names=[...new Set(visibleTasks(item).map(t=>t.owner).filter(Boolean))];return names.length?names.map(memberBadge).join(''):'<span class="muted">No tasks assigned</span>';}
+function taskTeamSummary(item) {const names=[...new Set(item.tasks.map(t=>t.owner).filter(Boolean))];return names.length?names.map(memberBadge).join(''):'<span class="muted">Assign person</span>';}
 function detailUploadDraft() {return [...document.querySelectorAll('[data-detail-upload]')].some(f=>f.elements.images.files.length||f.elements.caption.value.trim());}
 function taskProgressMarkup(t,group,id) {
   const images=[...t.images].reverse();

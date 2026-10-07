@@ -5,7 +5,8 @@ window.ETERNAL_TOMB_SEED = {
   "preview": "",
   "team": [
     "Jens",
-    "Kevin"
+    "Kevin",
+    "Nicolai"
   ],
   "updatedAt": "",
   "assets": [

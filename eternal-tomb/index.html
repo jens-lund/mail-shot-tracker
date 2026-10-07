@@ -10,13 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007-collaboration">
-  <script src="seed.js?v=20261007-collaboration" defer></script>
-  <script src="core.js?v=20261007-collaboration" defer></script>
-  <script src="media.js?v=20261007-collaboration" defer></script>
-  <script src="workflow.js?v=20261007-collaboration" defer></script>
-  <script src="collaboration.js?v=20261007-collaboration" defer></script>
-  <script src="app.js?v=20261007-collaboration" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261007-uploads">
+  <script src="seed.js?v=20261007-uploads" defer></script>
+  <script src="core.js?v=20261007-uploads" defer></script>
+  <script src="media.js?v=20261007-uploads" defer></script>
+  <script src="workflow.js?v=20261007-uploads" defer></script>
+  <script src="collaboration.js?v=20261007-uploads" defer></script>
+  <script src="production.js?v=20261007-uploads" defer></script>
+  <script src="app.js?v=20261007-uploads" defer></script>
 </head>
 <body>
   <header class="app-header">
@@ -25,7 +26,7 @@
   </header>
   <main>
     <section class="project-hero">
-      <button type="button" class="image-edit" data-edit-image="hero" aria-label="Change project banner" title="Change project banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/></svg></button>
+      <button type="button" class="image-edit" data-edit-image="hero" aria-label="Change project banner" title="Change project banner · or drop an image here"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/></svg></button>
       <div class="hero-copy"><span class="eyebrow"><span class="tiny-dot"></span> DARK FANTASY / SHORT FILM</span><h1 id="projectTitle">Eternal Tomb</h1><p>A wounded knight. A hidden cavern.<br>A home, a prison, a terrible ritual.</p></div>
       <span class="concept-label">CONCEPT REFERENCE · AI GENERATED</span>
     </section>
@@ -44,15 +45,17 @@
     <div class="field-grid"><label>Project title<input name="title" required maxlength="80"></label><label>Delivery date<input name="deadline" type="date"></label></div>
     <label>Team members <span class="muted">— separated by commas</span><input name="team" required maxlength="300"></label>
     <label>Your name for feedback<select name="identity"></select></label>
-    <label>Latest animatic / previs URL<input name="preview" type="url" placeholder="https://…"></label>
-    <p class="help">Use a direct MP4 or WebM link to play it here, or link to your shared video page.</p>
+    <button type="button" class="button" id="uploadPrevisSettings">Upload / view previs video ↑</button>
+    <label>Optional external previs link<input name="preview" type="url" placeholder="https://…"></label>
+    <p class="help">Upload a video directly in Previs. This optional link is used when there is no uploaded video.</p>
     <div class="setting-divider"><h3>Shared saving</h3><p class="help">Everyone can view the project. To edit, connect your own GitHub token. Your account must have write access to this repository and the token needs Contents: Read and write. Each editor uses their own token; GitHub controls who can publish changes.</p></div>
     <p id="accessStatus" class="access-status" role="status"></p><label>GitHub token<input name="token" type="password" autocomplete="off" placeholder="Your personal token · kept in this browser"></label>
     <p class="help">A GitHub contributor is not necessarily a repository editor. Jens can grant collaborators write access in the repository settings. One-click GitHub sign-in needs a registered GitHub App and a small authentication service; token access works now.</p><p class="help">Shared file: <code>eternal-tomb/data/project.json</code>. Project data and links in this public repository are public.</p>
     <div class="dialog-actions"><button type="button" class="button" data-close="settingsDialog">Cancel</button><button class="button primary" type="submit">Connect / save settings</button></div>
   </form></dialog>
-  <dialog id="previewDialog"><div class="dialog-content"><div class="dialog-head"><h2>Latest previs</h2><button class="close-button" data-close="previewDialog" aria-label="Close preview">×</button></div><div id="previewContent"></div></div></dialog>
-  <dialog id="newVersionDialog"><form class="dialog-content" id="newVersionForm"><div class="dialog-head"><div><span class="eyebrow">ITERATE TOGETHER</span><h2>Create a version</h2></div><button type="button" class="close-button" data-close="newVersionDialog" aria-label="Close new version">×</button></div><label>Version name<input name="title" placeholder="v002 · Clothing and proportions" required maxlength="150"></label><label>What changed / what needs feedback?<textarea name="summary" placeholder="What have you improved? What should Jens or Kevin look at?" maxlength="4000"></textarea></label><label>Owner<select name="owner"></select></label><p class="help">The new version starts with an empty image set. Upload your current character sheet, angles, clothing and progress below. Earlier versions stay available for comparison.</p><div class="dialog-actions"><button class="button primary" type="submit">Create version</button></div></form></dialog>
+  <dialog id="previewDialog"><div class="dialog-content"><div class="dialog-head"><h2>Latest previs</h2><button class="close-button" data-close="previewDialog" aria-label="Close preview">×</button></div><div id="previewContent"></div><form id="previsUploadForm" class="upload-panel"><h3>Upload a previs video</h3><label>Video file<input type="file" name="video" accept="video/mp4,video/webm,.mp4,.webm" required></label><p class="help">MP4 or WebM · up to 25 MB. H.264 MP4 plays in most browsers. Export a smaller review copy for larger edits. Saves here first, then shares with the team.</p><p id="previsUploadError" class="image-error" role="alert"></p><div class="dialog-actions"><button type="submit" class="button primary" id="previsUploadButton">Upload previs ↑</button></div></form></div></dialog>
+  <dialog id="assignmentDialog"><div class="dialog-content"><div class="dialog-head"><h2 id="assignmentTitle">Assign whole section</h2><button type="button" class="close-button" data-close="assignmentDialog" aria-label="Close assignment">×</button></div><p class="help" id="assignmentHelp"></p><div id="assignmentPeople" class="assignee-buttons"></div></div></dialog>
+  <dialog id="newVersionDialog"><form class="dialog-content" id="newVersionForm"><div class="dialog-head"><div><span class="eyebrow">ITERATE TOGETHER</span><h2>Create a version</h2></div><button type="button" class="close-button" data-close="newVersionDialog" aria-label="Close new version">×</button></div><label>Version name<input name="title" placeholder="v002 · Clothing and proportions" required maxlength="150"></label><label>What changed / what needs feedback?<textarea name="summary" placeholder="What have you improved? What should the team look at?" maxlength="4000"></textarea></label><label>Owner<select name="owner"></select></label><p class="help">The new version starts with an empty image set. Upload your current character sheet, angles, clothing and progress below. Earlier versions stay available for comparison.</p><div class="dialog-actions"><button class="button primary" type="submit">Create version</button></div></form></dialog>
   <dialog id="newShotDialog"><form id="newShotForm" class="dialog-content"><div class="dialog-head"><h2>Add a cinematic shot</h2><button type="button" class="close-button" data-close="newShotDialog" aria-label="Close new shot">×</button></div><label>Shot name<input name="name" required maxlength="150" placeholder="e.g. The giant looks up"></label><label>Story / action<textarea name="description" maxlength="2000" placeholder="What does the audience see and feel?"></textarea></label><div class="field-grid"><label>Duration in seconds<input type="number" name="duration" min="0" max="600" step="0.1" placeholder="Not set"></label><label>Camera / lens / movement<input name="camera" maxlength="1000" placeholder="35 mm · slow push in"></label></div><p class="help">Starts with seven production tasks. Choose the needed assets and adjust the tasks after creating it.</p><div class="dialog-actions"><button class="button primary" type="submit">Create shot</button></div></form></dialog>
   <dialog id="deleteEntryDialog"><form id="deleteEntryForm" class="dialog-content"><div class="dialog-head"><h2 id="deleteEntryTitle">Delete entry?</h2><button type="button" class="close-button" data-close="deleteEntryDialog" aria-label="Close deletion">×</button></div><p id="deleteEntryHelp" class="help"></p><div class="dialog-actions"><button type="button" class="button" data-close="deleteEntryDialog">Keep it</button><button type="submit" class="button danger">Delete · keep in recovery</button></div></form></dialog>
   <dialog id="imageDialog" class="image-dialog"><div class="dialog-content"><div class="dialog-head"><h2 id="imageTitle">Image</h2><button class="close-button" data-close="imageDialog" aria-label="Close image">×</button></div><img id="largeImage" alt=""></div></dialog>

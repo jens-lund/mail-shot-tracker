@@ -9,6 +9,9 @@ The six asset sections, shot dependencies, task statuses and image feedback give
 - Focus on any input previously stopped automatic refresh, including after its change was saved. Network checks now continue during editing; only unfinished drafts defer the display. A notice explains when teammate updates are waiting, and they appear after the edit ends. Closing a task window flushes its text edits.
 - The banner previously occupied a large part of every working page. It stays large on Overview and becomes compact on production pages. Navigation scrolls horizontally on narrow screens.
 - Editing now requires a verified GitHub token belonging to an account with repository write access. Visitors can browse. GitHub remains the authority for saving; team display names and the Contributors list do not grant access.
+- Image pencils, thumbnails and file-picker areas accept file drops. The same replacement preview and upload controls are used for dropped and chosen files.
+- Nicolai is included in the offline team fallback and has pink badges, matching his name in the current shared project. Card name badges and the task window now assign a whole asset or shot in one action; future subtasks inherit the section owner.
+- Previs accepts direct MP4/WebM uploads up to 25 MB, stores them before sharing, plays the latest video, and includes locally available video data in backups.
 
 ## Best next features
 
@@ -26,4 +29,4 @@ A full Sign in with GitHub flow is feasible, but is not active in this update. I
 
 ## Validation
 
-Automated coverage checks shot creation/order/specs, recoverable deletion, preservation of images/comments, stale operation replay, token verification, read-only access, shared-write conflicts, offline retries and live refresh. Browser checks use an isolated local shared-save service so test shots and versions never alter the production project.
+Automated coverage checks shot creation/order/specs, recoverable deletion, preservation of images/comments, stale operation replay, token verification, read-only access, shared-write conflicts, offline retries, live refresh, whole-section assignments, new-task inheritance, drop routing, video limits and media backups. Browser checks use an isolated local shared-save service so test shots, uploaded videos and versions never alter the production project. A separate browser origin verifies shared video playback without the uploader's local storage.

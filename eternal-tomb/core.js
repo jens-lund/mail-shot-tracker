@@ -54,6 +54,8 @@
     try { const u = new URL(value); return ['http:', 'https:'].includes(u.protocol) ? u.href : ''; } catch { return ''; }
   }
   const imagePath = value => typeof value === 'string' && /^(images|uploads)\/[a-zA-Z0-9_-]+\.webp$/.test(value);
+  const videoPath = value => typeof value === 'string' && /^uploads\/[a-zA-Z0-9_-]+\.(mp4|webm)$/.test(value);
+  const maxVideoBytes = 25 * 1024 * 1024;
   function validate(data) {
     const fail = () => { throw new Error('This is not a valid Eternal Tomb project backup.'); };
     const str = (value, max = 10000) => typeof value === 'string' && value.length <= max;
@@ -63,6 +65,12 @@
     if (!data || data.schemaVersion !== 1 || !str(data.title, 80) || !data.title.trim() || !date(data.deadline) || !str(data.preview, 2000) || (data.preview && !safeUrl(data.preview))) fail();
     data = clone(data);
     delete data.localImages;
+    delete data.localMedia;
+    if (data.previewMedia === undefined) data.previewMedia = null;
+    if (data.previewMedia !== null) {
+      const media = data.previewMedia;
+      if (!media || !videoPath(media.path) || !str(media.name,200) || !media.name.trim() || !Number.isInteger(media.size) || media.size < 1 || media.size > maxVideoBytes || media.type !== (media.path.endsWith('.mp4') ? 'video/mp4' : 'video/webm')) fail();
+    }
     data.hero ??= '';
     if (!str(data.hero, 200) || (data.hero && !imagePath(data.hero))) fail();
     if (!Array.isArray(data.team) || !data.team.length || data.team.length > 30 || data.team.some(x => !str(x, 80) || !x.trim()) || new Set(data.team).size !== data.team.length) fail();
@@ -125,10 +133,14 @@
       if(shot && anchor && shot!==anchor && !shot.archived && !anchor.archived) { data.shots=data.shots.filter(s=>s!==shot);data.shots.splice(data.shots.indexOf(anchor)+(op.after?1:0),0,shot); }
       return data;
     }
-    if (op.kind === 'project' && ['title','deadline','preview','team','hero'].includes(op.field)) data[op.field] = clone(op.value);
+    if (op.kind === 'project' && ['title','deadline','preview','previewMedia','team','hero'].includes(op.field)) data[op.field] = clone(op.value);
     else if (['assets','shots'].includes(op.group)) {
       const item = data[op.group].find(x => x.id === op.id); if (!item || item.archived) return data;
       const task = item.tasks.find(t => t.id === op.task);
+      if (op.kind === 'assignSection' && (op.value === '' || data.team.includes(op.value))) {
+        item.owner = op.value;
+        item.tasks.forEach(t => { t.owner = op.value; });
+      }
       if (op.kind === 'task' && task && statuses.includes(op.value)) task.status = op.value;
       if (op.kind === 'taskField' && task && ['label','description','due','effort','priority','owner'].includes(op.field)) task[op.field] = clone(op.value);
       if (op.kind === 'field' && ['name','description','priority','owner','due','blocked','blocker','notes','file','cover'].includes(op.field)) item[op.field] = clone(op.value);
@@ -138,7 +150,7 @@
         if (!item.removedTaskIds.includes(op.task)) item.removedTaskIds.push(op.task);
         item.tasks = item.tasks.filter(t => t.id !== op.task);
       }
-      if (op.kind === 'addTask' && !(item.removedTaskIds || []).includes(op.value.id) && !item.tasks.some(t => t.id === op.value.id)) item.tasks.push(normalizeTask(clone(op.value)));
+      if (op.kind === 'addTask' && !(item.removedTaskIds || []).includes(op.value.id) && !item.tasks.some(t => t.id === op.value.id)) item.tasks.push(normalizeTask({...clone(op.value),owner:op.value.owner ?? item.owner}));
       if (task) {
         task.images ??= []; task.comments ??= [];
         if (op.kind === 'addTaskImage' && !task.images.some(i => i.id === op.value.id)) task.images.push(clone(op.value));
@@ -169,7 +181,7 @@
     return data;
   }
   function replay(data, ops) { return ops.reduce((d, op) => apply(d, op), clone(data)); }
-  const api = { clone, progress, status, safeUrl, imagePath, validate, apply, replay, statuses, priorities, efforts, effectivePriority, scopedTasks, taskEntries, scopedStatus, dateKey, validDate, dayDifference, deadlineEntries, dueSoon, activeShots, activeVersions };
+  const api = { clone, progress, status, safeUrl, imagePath, videoPath, maxVideoBytes, validate, apply, replay, statuses, priorities, efforts, effectivePriority, scopedTasks, taskEntries, scopedStatus, dateKey, validDate, dayDifference, deadlineEntries, dueSoon, activeShots, activeVersions };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.TrackerCore = api;
 })(typeof window !== 'undefined' ? window : globalThis);

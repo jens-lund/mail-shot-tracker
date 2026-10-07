@@ -1,4 +1,4 @@
-// Uploaded images live in IndexedDB until GitHub sync publishes them.
+// Uploaded images and previs videos live in IndexedDB until GitHub sync publishes them.
 // Project JSON contains paths and captions, never large image data or tokens.
 window.TrackerMedia = (() => {
   let dbPromise;
@@ -31,6 +31,13 @@ window.TrackerMedia = (() => {
     const scale=Math.min(1,2000/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.9));if(!blob)throw new Error('Could not prepare this image.');return blob;
   }
+  function prepareVideo(file) {
+    const extension = file.name.toLowerCase().match(/\.(mp4|webm)$/)?.[1];
+    const type = extension === 'mp4' ? 'video/mp4' : extension === 'webm' ? 'video/webm' : '';
+    if (!type || (file.type && file.type !== type)) throw new Error('Choose an MP4 or WebM video.');
+    if (!file.size || file.size > window.TrackerCore.maxVideoBytes) throw new Error('Use a previs video between 1 byte and 25 MB. Export a smaller review copy if needed.');
+    return {blob:file.slice(0,file.size,type),extension,type};
+  }
   async function base64(blob) {const bytes=new Uint8Array(await blob.arrayBuffer());let text='';for(let i=0;i<bytes.length;i+=8192)text+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(text);}
-  return {get,store,markUploaded,hydrate,src,prepare,base64,all};
+  return {get,store,markUploaded,hydrate,src,prepare,prepareVideo,base64,all};
 })();
