@@ -7,7 +7,7 @@
     "Jens",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T11:08:30.289Z",
+  "updatedAt": "2026-10-07T11:08:45.858Z",
   "assets": [
     {
       "id": "knight",
@@ -26,7 +26,7 @@
           "id": "design",
           "label": "Blockout",
           "description": "Approve silhouette, armour, cape and injury references.",
-          "status": "todo",
+          "status": "done",
           "due": "",
           "effort": "medium",
           "priority": "must",
