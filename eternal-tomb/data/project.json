@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T16:30:59.073Z",
+  "updatedAt": "2026-10-07T16:32:55.188Z",
   "assets": [
     {
       "id": "knight",
@@ -266,6 +266,12 @@
               "path": "images/troll.webp",
               "role": "reference",
               "caption": "Cave-home and eternal prison · cooking ritual"
+            },
+            {
+              "id": "image_db35188f17da4374940da1d94485e73f",
+              "path": "uploads/image_db35188f17da4374940da1d94485e73f.webp",
+              "role": "front",
+              "caption": "Skjermbilde 2026-10-07 183142.png"
             }
           ],
           "comments": [],
