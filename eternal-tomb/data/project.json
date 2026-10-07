@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T17:26:29.376Z",
+  "updatedAt": "2026-10-07T17:26:40.469Z",
   "assets": [
     {
       "id": "knight",
@@ -288,7 +288,7 @@
       "category": "ENVIRONMENT",
       "description": "A grand interior cliff overlooks a blue-violet cavern, a lived-in home and prison.",
       "image": "reveal",
-      "owner": "Nicolai",
+      "owner": "Jens",
       "due": "",
       "blocked": false,
       "blocker": "",
@@ -303,7 +303,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         },
@@ -315,7 +315,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         },
@@ -327,7 +327,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         },
@@ -339,7 +339,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         },
@@ -351,7 +351,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         },
@@ -363,7 +363,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Jens",
           "images": [],
           "comments": []
         }
