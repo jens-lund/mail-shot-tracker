@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:12:05.303Z",
+  "updatedAt": "2026-10-07T10:12:57.352Z",
   "assets": [
     {
       "id": "knight",
@@ -33,7 +33,17 @@
           "priority": "must",
           "owner": "",
           "images": [],
-          "comments": []
+          "comments": [
+            {
+              "id": "comment_98e05783e1984a09949b94ce02156f0e",
+              "author": "Kevin",
+              "body": "Funker dette?",
+              "image": "",
+              "point": null,
+              "resolved": false,
+              "createdAt": "2026-10-07T10:12:55.630Z"
+            }
+          ]
         },
         {
           "id": "model",
