@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T16:38:57.224Z",
+  "updatedAt": "2026-10-07T16:42:30.979Z",
   "assets": [
     {
       "id": "knight",
@@ -243,7 +243,7 @@
       "versions": [
         {
           "id": "concept_v001",
-          "title": "v001 · Lookdev",
+          "title": "v001 · Lookdev Golem",
           "summary": "Ai picture, prop sheet\n\nPlan for golem: \n- Bruke allerede rigget base mesh human og sculpte den til disse proposjonene. \n- Prøve å ha high poly steiner som følger riggen, da får man ikke deformasjoner. Klær og tau kan hjelpe med å skjule intersections er planen.",
           "owner": "Jens",
           "status": "wip",
