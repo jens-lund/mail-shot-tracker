@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:09:15.897Z",
+  "updatedAt": "2026-10-07T10:11:01.631Z",
   "assets": [
     {
       "id": "knight",
@@ -25,7 +25,7 @@
       "tasks": [
         {
           "id": "design",
-          "label": "Design",
+          "label": "Blockout",
           "description": "Approve silhouette, armour, cape and injury references.",
           "status": "doing",
           "due": "",
