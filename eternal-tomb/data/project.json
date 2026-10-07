@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:12:57.352Z",
+  "updatedAt": "2026-10-07T10:13:10.485Z",
   "assets": [
     {
       "id": "knight",
@@ -32,7 +32,14 @@
           "effort": "medium",
           "priority": "must",
           "owner": "",
-          "images": [],
+          "images": [
+            {
+              "id": "image_a0829b9fcbad42068a63d35819e53992",
+              "path": "uploads/image_a0829b9fcbad42068a63d35819e53992.webp",
+              "role": "progress",
+              "caption": "knight sheet"
+            }
+          ],
           "comments": [
             {
               "id": "comment_98e05783e1984a09949b94ce02156f0e",
