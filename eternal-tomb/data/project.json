@@ -7,7 +7,7 @@
     "Jens",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T15:42:06.319Z",
+  "updatedAt": "2026-10-07T15:43:56.992Z",
   "assets": [
     {
       "id": "knight",
@@ -242,7 +242,7 @@
       "versions": [
         {
           "id": "concept_v001",
-          "title": "v001 · Concept direction",
+          "title": "v001 · Lookdev",
           "summary": "AI-generated starting reference, not production progress. Review the giant silhouette, cave-home/prison, ragged waist wrap and shackles. Create v002 for the actual model and upload your renders there.",
           "owner": "",
           "status": "reference",
