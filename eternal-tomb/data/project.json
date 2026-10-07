@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T15:49:37.916Z",
+  "updatedAt": "2026-10-07T15:49:41.169Z",
   "assets": [
     {
       "id": "knight",
@@ -31,7 +31,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Nicolai",
+          "owner": "Kevin",
           "images": [
             {
               "id": "image_a0829b9fcbad42068a63d35819e53992",
