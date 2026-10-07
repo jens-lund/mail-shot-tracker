@@ -7,7 +7,7 @@
     "Jens",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T15:44:20.019Z",
+  "updatedAt": "2026-10-07T15:44:22.702Z",
   "assets": [
     {
       "id": "knight",
@@ -244,7 +244,7 @@
           "id": "concept_v001",
           "title": "v001 · Lookdev",
           "summary": "Ai picture, prop sheet",
-          "owner": "",
+          "owner": "Jens",
           "status": "reference",
           "createdAt": "2026-10-05T19:00:00.000Z",
           "images": [
