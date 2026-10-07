@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T16:32:55.188Z",
+  "updatedAt": "2026-10-07T16:36:23.992Z",
   "assets": [
     {
       "id": "knight",
@@ -257,9 +257,9 @@
             },
             {
               "id": "concept_clothing",
-              "path": "images/troll-clothing.webp",
+              "path": "uploads/image_3b09e68de7994bd2a4dd1ff81f700896.webp",
               "role": "clothing",
-              "caption": "Concept clothing · rough waist wrap, patches and fabric"
+              "caption": "Clothing, Bracelets, Chains and Props"
             },
             {
               "id": "concept_home",
