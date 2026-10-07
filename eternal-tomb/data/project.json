@@ -7,7 +7,7 @@
     "Jens",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T11:10:12.873Z",
+  "updatedAt": "2026-10-07T15:42:06.319Z",
   "assets": [
     {
       "id": "knight",
@@ -267,7 +267,8 @@
               "caption": "Cave-home and eternal prison · cooking ritual"
             }
           ],
-          "comments": []
+          "comments": [],
+          "deletedAt": ""
         }
       ],
       "cover": "",
@@ -741,7 +742,10 @@
         }
       ],
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "archived": false,
+      "duration": 0,
+      "camera": ""
     },
     {
       "id": "shot02",
@@ -844,7 +848,10 @@
         }
       ],
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "archived": false,
+      "duration": 0,
+      "camera": ""
     },
     {
       "id": "shot03",
@@ -950,7 +957,10 @@
         }
       ],
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "archived": false,
+      "duration": 0,
+      "camera": ""
     },
     {
       "id": "shot04",
@@ -1055,7 +1065,10 @@
         }
       ],
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "archived": false,
+      "duration": 0,
+      "camera": ""
     },
     {
       "id": "shot05",
@@ -1158,7 +1171,10 @@
         }
       ],
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "archived": false,
+      "duration": 0,
+      "camera": ""
     }
   ],
   "milestones": [
