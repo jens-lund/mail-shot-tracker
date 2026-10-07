@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:14:18.036Z",
+  "updatedAt": "2026-10-07T10:14:43.082Z",
   "assets": [
     {
       "id": "knight",
@@ -61,6 +61,18 @@
               },
               "resolved": false,
               "createdAt": "2026-10-07T10:14:16.457Z"
+            },
+            {
+              "id": "comment_30e8b3a9eb194ddeb88cdd5b967526db",
+              "author": "Jens",
+              "body": "beltet må bli bedre",
+              "image": "image_a0829b9fcbad42068a63d35819e53992",
+              "point": {
+                "x": 0.263030303030303,
+                "y": 0.3908238636363636
+              },
+              "resolved": false,
+              "createdAt": "2026-10-07T10:14:41.479Z"
             }
           ]
         },
