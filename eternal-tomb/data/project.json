@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:16:29.836Z",
+  "updatedAt": "2026-10-07T10:52:11.336Z",
   "assets": [
     {
       "id": "knight",
@@ -171,7 +171,7 @@
           "id": "design",
           "label": "Design",
           "description": "Approve giant silhouette, proportions, face and restraint placement.",
-          "status": "todo",
+          "status": "done",
           "due": "",
           "effort": "medium",
           "priority": "must",
