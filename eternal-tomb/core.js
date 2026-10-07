@@ -72,8 +72,11 @@
         if (!id(item.id) || !str(item.name, 150) || !str(item.description, 2000) || !str(item.owner, 80) || !date(item.due) || typeof item.blocked !== 'boolean' || !str(item.blocker, 2000) || !str(item.notes) || !str(item.file, 2000) || (item.file && !safeUrl(item.file))) fail();
         if (!Array.isArray(item.tasks) || item.tasks.length > 200 || !unique(item.tasks) || item.tasks.some(t => !id(t.id) || !str(t.label, 150) || !str(t.description, 2000) || !statuses.includes(t.status))) fail();
         item.tasks = item.tasks.map(normalizeTask);
+        // A removed teammate stops receiving assignments; historical comments remain intact.
+        if (!data.team.includes(item.owner)) item.owner = '';
         for (const t of item.tasks) {
           if (item.removedTaskIds.includes(t.id) || !date(t.due) || !efforts.includes(t.effort) || !priorities.includes(t.priority) || !str(t.owner,80)) fail();
+          if (!data.team.includes(t.owner)) t.owner = '';
           if (!Array.isArray(t.images) || t.images.length > 64 || !unique(t.images) || t.images.some(i => !id(i.id) || !imagePath(i.path) || i.role !== 'progress' || !str(i.caption,300))) fail();
           if (!Array.isArray(t.comments) || t.comments.length > 500 || !unique(t.comments)) fail();
           for (const c of t.comments) {
@@ -88,6 +91,7 @@
           if (!Array.isArray(item.versions) || item.versions.length > 100 || !unique(item.versions)) fail();
           for (const v of item.versions) {
             if (!id(v.id) || !str(v.title, 150) || !str(v.summary, 4000) || !str(v.owner, 80) || !['wip','review','approved','reference'].includes(v.status) || !str(v.createdAt, 40) || Number.isNaN(Date.parse(v.createdAt))) fail();
+            if (!data.team.includes(v.owner)) v.owner = '';
             if (!Array.isArray(v.images) || v.images.length > 64 || !unique(v.images) || v.images.some(i => !id(i.id) || !imagePath(i.path) || !['sheet','front','back','left','right','clothing','clothing-progress','detail','progress','reference'].includes(i.role) || !str(i.caption, 300))) fail();
             if (!Array.isArray(v.comments) || v.comments.length > 500 || !unique(v.comments) || v.comments.some(c => !id(c.id) || !str(c.author, 80) || !str(c.target, 80) || !str(c.body, 6000) || (c.image && !v.images.some(i=>i.id===c.image)) || typeof c.resolved !== 'boolean' || !str(c.createdAt,40) || Number.isNaN(Date.parse(c.createdAt)))) fail();
           }

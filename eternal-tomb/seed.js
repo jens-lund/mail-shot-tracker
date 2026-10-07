@@ -5,7 +5,6 @@ window.ETERNAL_TOMB_SEED = {
   "preview": "",
   "team": [
     "Jens",
-    "Nicolai",
     "Kevin"
   ],
   "updatedAt": "",
@@ -774,3 +773,4 @@ window.ETERNAL_TOMB_SEED = {
     }
   ]
 };
+
