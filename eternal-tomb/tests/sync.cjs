@@ -40,7 +40,7 @@ let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8'
   vm.runInContext("commit({kind:'task',group:'assets',id:'knight',task:'model',value:'doing'})",context);context.fetch=async()=>({ok:false,status:401});await vm.runInContext('sync()',context);
   assert.equal(vm.runInContext('pending.length',context),1);assert.equal(vm.runInContext('data.assets[0].tasks[1].status',context),'doing');assert(element('saveStatus').textContent.includes('Saved locally'));
   assert(!JSON.stringify(JSON.parse(storage.get('eternal-tomb-project-v1'))).includes('test-only-token'));
-  context.fetch=mediaFetch;await vm.runInContext('sync()',context);
+  context.fetch=mediaFetch;vm.runInContext('retryAt=0',context);await vm.runInContext('sync()',context);
   assert.equal(vm.runInContext('pending.length',context),0,'The offline queue retries successfully');
 
   const assetTarget={group:'assets',id:shared.assets[0].id,task:shared.assets[0].tasks[0].id};
@@ -86,6 +86,8 @@ let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8'
   assert.equal(allowed(),true);
   context.document.hidden=true;assert.equal(allowed(),false);context.document.hidden=false;
   context.document.querySelector=selector=>selector==='dialog[open]'?{}:null;assert.equal(allowed(),false);context.document.querySelector=()=>null;
+  context.document.querySelector=selector=>selector==='dialog[open]'?{id:'detailDialog'}:null;assert.equal(allowed(),true,'Read-only task dialogs allow live updates');context.document.querySelector=()=>null;
+  context.document.querySelector=selector=>selector==='.remove-confirmation'?{}:null;assert.equal(allowed(),false,'Keep task-removal confirmation intact');context.document.querySelector=()=>null;
   context.document.activeElement={matches:()=>true};assert.equal(allowed(),false);context.document.activeElement={matches:()=>false};
   vm.runInContext('uploading=true',context);assert.equal(allowed(),false);vm.runInContext('uploading=false',context);
   const feedbackForm={dataset:{reviewKey:'assets/knight/model'},elements:{body:{value:'A pending review comment'},author:{value:'Jens'}}};

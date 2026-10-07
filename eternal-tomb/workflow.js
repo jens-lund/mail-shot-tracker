@@ -93,7 +93,8 @@ async function uploadTaskImages(form) {
   }catch(error){setMessage(error.message,true);}finally{uploading=false;renderReview();}
 }
 function autoRefreshAllowed() {
-  return !document.hidden && !uploading && !document.querySelector('dialog[open]') && !document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') && !($('taskFeedbackForm')?.elements.body.value.trim()) && !($('feedbackForm')?.elements.body.value.trim()) && !($('taskUploadForm')?.elements.images.files.length) && !($('uploadForm')?.elements.images.files.length);
+  const dialog=document.querySelector('dialog[open]');
+  return !document.hidden && !uploading && (!dialog||dialog.id==='detailDialog') && !document.querySelector('.remove-confirmation') && !document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') && !($('taskFeedbackForm')?.elements.body.value.trim()) && !($('feedbackForm')?.elements.body.value.trim()) && !($('taskUploadForm')?.elements.images.files.length) && !($('uploadForm')?.elements.images.files.length);
 }
 document.addEventListener('click',e=>{
   const taskJump=e.target.closest('a[href^="#task/"]');if(taskJump&&taskJump.getAttribute('href')===location.hash){e.preventDefault();navigate();return;}

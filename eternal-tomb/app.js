@@ -12,6 +12,7 @@ let data = C.validate(window.ETERNAL_TOMB_SEED), pending = [], tab = 'overview',
 let versionAsset='troll', versionId='', identity='', comparison=false, uploading=false;
 let imageEdit=null, imagePreviewURL='';
 let saveTimer, saving = false, loading = false, storageOK = true, token = '', syncFailed = false;
+let remoteETag = '', nextLiveCheck = 0, retryAt = 0, sharedViewPending = false;
 try { token = localStorage.getItem(TOKEN_KEY) ?? localStorage.getItem('mail-tracker-github-token') ?? ''; const cached = JSON.parse(localStorage.getItem(KEY) || 'null'); if(cached) { data = C.validate(cached.data); pending = Array.isArray(cached.pending) ? cached.pending : []; } } catch { storageOK = false; }
 try {identity=localStorage.getItem('eternal-tomb-feedback-name')||'';}catch{}
 
@@ -21,7 +22,7 @@ function localSave() {
   if (!storageOK) setMessage('Browser storage unavailable · export a backup before leaving', true);
   else if (!token) setMessage('Saved in this browser · connect team sync in Settings');
   else if (syncFailed) setMessage('Saved in this browser · team sync needs attention', true);
-  else setMessage(pending.length ? 'Saved locally · syncing to team…' : 'Team sync up to date');
+  else setMessage(pending.length ? 'Saved locally · syncing to team…' : 'Team sync up to date · live updates on');
 }
 function commit(op) {
   captureReviewDraft(); data = C.validate(C.apply(data, op)); data.updatedAt = new Date().toISOString(); pending.push(op); localSave(); render();
@@ -106,10 +107,18 @@ function openPreview() {
 function encode(value) { const bytes=new TextEncoder().encode(value); let binary=''; for(const b of bytes)binary+=String.fromCharCode(b); return btoa(binary); }
 function decode(value) { return new TextDecoder().decode(Uint8Array.from(atob(value.replace(/\s/g,'')),x=>x.charCodeAt(0))); }
 function headers() { return {Accept:'application/vnd.github+json',Authorization:`Bearer ${token}`,'Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'}; }
-async function readRemote() {
-  const response=await fetch(`${API}?ref=main`,{headers:headers(),cache:'no-store'});
-  if(!response.ok) throw new Error(response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : `Team file could not be read (${response.status}).`);
-  const file=await response.json(); return {sha:file.sha,data:C.validate(JSON.parse(decode(file.content)))};
+function remoteError(response, message) {
+  const wait = Number(response.headers?.get('retry-after')) || 0;
+  const reset = response.headers?.get('x-ratelimit-remaining') === '0' ? Number(response.headers.get('x-ratelimit-reset')) * 1000 : 0;
+  if([401,403,429].includes(response.status))retryAt=Math.max(Date.now()+60000,Date.now()+wait*1000,reset);
+  return new Error(response.status===429 || reset || wait ? 'GitHub is busy · live updates will retry automatically.' : message);
+}
+async function readRemote(etag = '') {
+  const requestHeaders=headers();if(etag)requestHeaders['If-None-Match']=etag;
+  const response=await fetch(`${API}?ref=main`,{headers:requestHeaders,cache:'no-store'});
+  if(response.status===304)return {unchanged:true};
+  if(!response.ok) throw remoteError(response,response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : `Team file could not be read (${response.status}).`);
+  const file=await response.json(); return {sha:file.sha,etag:response.headers?.get('etag')||'',data:C.validate(JSON.parse(decode(file.content)))};
 }
 async function publishMedia(paths) {
   for(const path of paths) {
@@ -126,31 +135,57 @@ async function publishMedia(paths) {
 }
 function imagePaths(project) {return new Set([...[...project.assets,...project.shots].flatMap(a=>a.tasks.flatMap(t=>(t.images||[]).map(i=>i.path))),project.hero,...project.assets.flatMap(a=>[a.cover,...(a.versions||[]).flatMap(v=>v.images.map(i=>i.path))])].filter(p=>typeof p==='string'&&p.startsWith('uploads/')));}
 async function sync() {
-  if(saving || loading || !token)return; saving=true; syncFailed=false;
+  if(saving || loading || !token || Date.now()<retryAt)return; saving=true; syncFailed=false;
   setMessage('Saving changes to the team…');
   try {
     const batch=pending.slice();
     await publishMedia(imagePaths(C.clone(data)));
     for(let attempt=0;attempt<3;attempt++) {
       const remote=await readRemote(); const merged=C.replay(remote.data,batch); merged.updatedAt=new Date().toISOString(); C.validate(merged);
-      if(!batch.length){data=merged;localSave();render();return;}
+      if(!batch.length){data=C.replay(merged,pending);remoteETag='';localSave();renderAfterSync();return;}
       const response=await fetch(API,{method:'PUT',headers:headers(),body:JSON.stringify({message:'Update Eternal Tomb production tracker',content:encode(JSON.stringify(merged,null,2)+'\n'),sha:remote.sha,branch:'main'})});
       if(response.status===409 && attempt<2)continue;
-      if(!response.ok)throw new Error(response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : 'Team save failed. Use Refresh to retry.');
-      pending.splice(0,batch.length); data=C.replay(merged,pending);localSave();render();return;
+      if(!response.ok)throw remoteError(response,response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : 'Team save failed. Live updates will retry.');
+      pending.splice(0,batch.length); data=C.replay(merged,pending);remoteETag='';localSave();renderAfterSync();return;
     }
   } catch(error) {syncFailed=true;localSave();setMessage(`Saved locally · ${error.message}`,true);}
   finally {saving=false;if(pending.length && !syncFailed){clearTimeout(saveTimer);saveTimer=setTimeout(sync,800);}}
 }
-async function refresh() {
-  if(saving||loading)return;
+function renderAfterSync() {
+  if(autoRefreshAllowed())renderSharedUpdate();else{sharedViewPending=true;render();}
+}
+function renderSharedUpdate() {
+  const pageScroll=window.scrollY||0,dialog=$('detailDialog'),opened=detail&&dialog.open;
+  const target=opened?{...detail}:null,dialogScroll=dialog.scrollTop;
+  const expanded=opened?[...dialog.querySelectorAll('.task-editor details[open]')].map(el=>el.closest('.task-editor').id):[];
+  render();
+  if(target){
+    if(data[target.group].some(item=>item.id===target.id)){
+      openDetail(target.group,target.id);
+      expanded.forEach(id=>{const notes=$(id)?.querySelector('details');if(notes)notes.open=true;});
+      dialog.scrollTop=dialogScroll;
+    }else dialog.close();
+  }
+  window.scrollTo?.({top:pageScroll});
+  sharedViewPending=false;
+}
+async function refresh({silent = false} = {}) {
+  if(saving||loading||Date.now()<retryAt||(silent&&!autoRefreshAllowed()))return;
   if(token && pending.length){await sync();return;}
-  loading=true;setMessage('Refreshing project…');
+  loading=true;if(!silent)setMessage('Refreshing project…');
   try {
-    const remote=token ? (await readRemote()).data : await (async()=>{const source=location.hostname?.endsWith('.github.io') ? 'https://raw.githubusercontent.com/jens-lund/mail-shot-tracker/main/eternal-tomb/data/project.json' : 'data/project.json';const r=await fetch(source,{cache:'no-store'});if(!r.ok)throw new Error();return C.validate(await r.json());})();
-    data=C.replay(remote,pending);syncFailed=false;localSave();render();
-  } catch {setMessage(storageOK ? 'Local project ready · shared refresh unavailable' : 'Storage unavailable · export a backup',true);}
+    const remote=token ? await readRemote(silent?remoteETag:'') : await (async()=>{const source=location.hostname?.endsWith('.github.io') ? 'https://raw.githubusercontent.com/jens-lund/mail-shot-tracker/main/eternal-tomb/data/project.json' : 'data/project.json';const r=await fetch(source,{cache:'no-store'});if(!r.ok)throw new Error('Shared refresh unavailable');return {data:C.validate(await r.json())};})();
+    // Editing may start while the request is in flight. Do not consume its ETag until applied.
+    if(silent&&!autoRefreshAllowed())return;
+    if(remote.unchanged){syncFailed=false;localSave();if(sharedViewPending)renderSharedUpdate();return;}
+    const updated=C.replay(remote.data,pending),changed=JSON.stringify(updated)!==JSON.stringify(data);
+    data=updated;remoteETag=remote.etag||'';syncFailed=false;localSave();if(changed||!silent||sharedViewPending)renderSharedUpdate();
+  } catch(error) {syncFailed=!!token;nextLiveCheck=Math.max(nextLiveCheck,Date.now()+30000);setMessage(storageOK ? `Saved locally · ${error.message||'shared refresh unavailable'}` : 'Storage unavailable · export a backup',true);}
   finally {loading=false;if(token && pending.length && !syncFailed)sync();}
+}
+function liveRefresh() {
+  if(!autoRefreshAllowed()||Date.now()<nextLiveCheck)return;
+  nextLiveCheck=Date.now()+(token?3000:15000);return refresh({silent:true});
 }
 async function exportBackup() {
   try {
@@ -232,7 +267,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#settingsButton'))openSettings();
   if(e.target.closest('#previewButton,#cinematicPreview'))openPreview();
   if(e.target.closest('#addPreview')){$('previewDialog').close();openSettings();$('settingsForm').elements.preview.focus();}
-  if(e.target.closest('#refreshButton'))refresh();
+  if(e.target.closest('#refreshButton')){retryAt=0;nextLiveCheck=0;refresh();}
   if(e.target.closest('#exportButton'))exportBackup();
   if(e.target.closest('#importButton'))$('importFile').click();
   if(e.target.closest('[data-version-link]'))$('detailDialog').close();
@@ -271,7 +306,7 @@ $('settingsForm').addEventListener('submit',e=>{
   e.preventDefault();const f=e.target;const team=[...new Set(f.elements.team.value.split(',').map(s=>s.trim()).filter(Boolean))];if(!team.length){f.elements.team.setCustomValidity('Enter at least one team member.');f.elements.team.reportValidity();return;}f.elements.team.setCustomValidity('');
   const preview=f.elements.preview.value.trim();if(preview&&!C.safeUrl(preview)){f.elements.preview.setCustomValidity('Use an http or https link.');f.elements.preview.reportValidity();return;}f.elements.preview.setCustomValidity('');
   const title=f.elements.title.value.trim();if(!title){f.elements.title.reportValidity();return;}
-  token=f.elements.token.value.trim();try{localStorage.setItem(TOKEN_KEY,token);}catch{storageOK=false;}
+  token=f.elements.token.value.trim();remoteETag='';retryAt=0;nextLiveCheck=0;try{localStorage.setItem(TOKEN_KEY,token);}catch{storageOK=false;}
   identity=f.elements.identity.value;try{localStorage.setItem('eternal-tomb-feedback-name',identity);}catch{}
   for(const [field,value] of Object.entries({title,deadline:f.elements.deadline.value,team,preview}))if(JSON.stringify(data[field])!==JSON.stringify(value))commit({kind:'project',field,value});
   $('settingsDialog').close();syncFailed=false;localSave();render();if(token)sync();
@@ -300,8 +335,10 @@ function navigate(){
 }
 
 window.addEventListener('hashchange',navigate);
-window.addEventListener('online',()=>token?sync():refresh());
-document.addEventListener('visibilitychange',()=>{if(autoRefreshAllowed())refresh();});
-setInterval(()=>{if(autoRefreshAllowed())refresh();},30000);
+window.addEventListener('online',()=>{retryAt=0;nextLiveCheck=0;token?sync():liveRefresh();});
+window.addEventListener('focus',()=>{nextLiveCheck=0;liveRefresh();});
+document.addEventListener('visibilitychange',()=>{nextLiveCheck=0;liveRefresh();});
+document.addEventListener('focusout',()=>setTimeout(liveRefresh,250));
+setInterval(liveRefresh,1000);
 navigate();localSave();refresh();M.hydrate().then(()=>render());
 
