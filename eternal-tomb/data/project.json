@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:13:10.485Z",
+  "updatedAt": "2026-10-07T10:14:18.036Z",
   "assets": [
     {
       "id": "knight",
@@ -49,6 +49,18 @@
               "point": null,
               "resolved": false,
               "createdAt": "2026-10-07T10:12:55.630Z"
+            },
+            {
+              "id": "comment_9f38cd8f42264999867448315765f512",
+              "author": "Kevin",
+              "body": "helmet",
+              "image": "image_a0829b9fcbad42068a63d35819e53992",
+              "point": {
+                "x": 0.2636363636363636,
+                "y": 0.16238636363636363
+              },
+              "resolved": false,
+              "createdAt": "2026-10-07T10:14:16.457Z"
             }
           ]
         },
