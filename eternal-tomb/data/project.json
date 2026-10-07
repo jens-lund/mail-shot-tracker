@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:11:01.631Z",
+  "updatedAt": "2026-10-07T10:11:30.555Z",
   "assets": [
     {
       "id": "knight",
@@ -91,6 +91,18 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
+        },
+        {
+          "id": "task_96c6110119ac4afdacc5d3ec763b4635",
+          "label": "Final",
+          "description": "",
+          "status": "todo",
+          "priority": "must",
+          "effort": "medium",
+          "due": "",
           "owner": "",
           "images": [],
           "comments": []
