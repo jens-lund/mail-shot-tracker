@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "",
+  "updatedAt": "2026-10-07T09:34:09.214Z",
   "assets": [
     {
       "id": "knight",
@@ -27,41 +27,79 @@
           "id": "design",
           "label": "Design",
           "description": "Approve silhouette, armour, cape and injury references.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "model",
           "label": "Model",
           "description": "Finish visible armour, body, sword and cape geometry.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "materials",
           "label": "Materials",
           "description": "Worn steel, cloth and injury detail; check under cave lighting.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "rig",
           "label": "Rig",
           "description": "Test shoulder, hip and knee deformation; sword contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "motion",
           "label": "Motion test",
           "description": "Test injured walk, stumble, breathing and scouting pose.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Approve the character in the cliff approach and reaction cameras.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "troll",
@@ -70,7 +108,7 @@
       "description": "A terrifying ancient cook. His cavern is both his home and his eternal prison.",
       "image": "troll",
       "owner": "",
-      "due": "",
+      "due": "2026-10-21",
       "blocked": false,
       "blocker": "",
       "notes": "Chains must clearly anchor him to the cave. The cooking ritual should feel familiar and unsettling.",
@@ -80,37 +118,73 @@
           "id": "design",
           "label": "Design",
           "description": "Approve giant silhouette, proportions, face and restraint placement.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "model",
           "label": "Model",
           "description": "Sculpt and prepare body, visible hands, face and shackles.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "materials",
           "label": "Materials",
           "description": "Weathered skin and iron; test the orange potion bounce light.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "rig",
           "label": "Rig",
           "description": "Rig cooking poses, hand contact and restrained body movement.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "motion",
           "label": "Motion test",
           "description": "Test slow stirring, weight shifts, breathing and chain movement.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Approve silhouette and giant scale in the wide reveal.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [
@@ -144,7 +218,9 @@
           "comments": []
         }
       ],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "environment",
@@ -163,41 +239,79 @@
           "id": "design",
           "label": "Design",
           "description": "Approve the cave-home reference, composition and cool/warm palette.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "blockout",
           "label": "Blockout",
           "description": "Place approach ledge, chasm, troll, pot, cave ceiling and camera path.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "model",
           "label": "Model",
           "description": "Build visible rock formations, home alcoves and prison anchors.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "materials",
           "label": "Materials",
           "description": "Rock, damp surfaces, restrained magical accents and domestic materials.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Light test",
           "description": "Blue/purple atmosphere versus orange potion; keep the reveal readable.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Check scale, cave enclosure, depth and all approved camera compositions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "props",
@@ -216,41 +330,79 @@
           "id": "design",
           "label": "Design",
           "description": "Set pot proportions and chain scale against the giant.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "blockout",
           "label": "Blockout",
           "description": "Test pot, stirring tool, restraints, table and jars in layout.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "model",
           "label": "Model",
           "description": "Finish camera-visible hero geometry and reusable chain system.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "materials",
           "label": "Materials",
           "description": "Aged iron, soot, rough wood and warm reflected potion light.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "test",
           "label": "Scene test",
           "description": "Check hand contact, chain attachment and pot/FX intersections.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Approve props in both wide reveal and close-up cameras.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "bodies",
@@ -269,41 +421,79 @@
           "id": "design",
           "label": "Design",
           "description": "Set visible body count, scale and silhouette references.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "model",
           "label": "Base mesh",
           "description": "Prepare one efficient human base with simple clothing.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "materials",
           "label": "Materials",
           "description": "Create a few muted clothing and surface variations.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "poses",
           "label": "Pose variants",
           "description": "Make distinct hanging poses readable at reveal distance.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "test",
           "label": "Motion test",
           "description": "Test drifting, rotation and spacing along the spiral.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Approve silhouettes and body/potion transitions in the shot.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "fx",
@@ -322,41 +512,79 @@
           "id": "reference",
           "label": "Reference",
           "description": "Approve blue/purple magic and thick yellow-orange potion references.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "prototype",
           "label": "Prototype",
           "description": "Build an adjustable spiral path, body drift and potion surface.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "look",
           "label": "Look dev",
           "description": "Test glow, viscosity, particles and volumetric cave haze.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "integration",
           "label": "Integrate",
           "description": "Connect humans, pot, giant and lighting without intersections.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "test",
           "label": "Shot test",
           "description": "Test motion readability, flicker and sample/render cost.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "ready",
           "label": "Scene ready",
           "description": "Approve FX at final framing and planned render settings.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
       ],
       "versions": [],
-      "cover": ""
+      "cover": "",
+      "priority": "must",
+      "removedTaskIds": []
     }
   ],
   "shots": [
@@ -379,45 +607,89 @@
           "id": "layout",
           "label": "Layout",
           "description": "Approve camera framing and timing in the animatic.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "animation",
           "label": "Animation",
           "description": "Approve character performance and contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "fx",
           "label": "FX",
           "description": "Integrate required effects and atmosphere.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Lighting",
           "description": "Approve shot lighting and continuity.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "render",
           "label": "Render",
           "description": "Check samples, flicker and the final image sequence.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "composite",
           "label": "Composite",
           "description": "Finish compositing, grade and transitions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "approved",
           "label": "Approved",
           "description": "Review this shot in the complete edit with sound.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
-      ]
+      ],
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "shot02",
@@ -438,45 +710,89 @@
           "id": "layout",
           "label": "Layout",
           "description": "Approve camera framing and timing in the animatic.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "animation",
           "label": "Animation",
           "description": "Approve character performance and contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "fx",
           "label": "FX",
           "description": "Integrate required effects and atmosphere.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Lighting",
           "description": "Approve shot lighting and continuity.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "render",
           "label": "Render",
           "description": "Check samples, flicker and the final image sequence.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "composite",
           "label": "Composite",
           "description": "Finish compositing, grade and transitions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "approved",
           "label": "Approved",
           "description": "Review this shot in the complete edit with sound.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
-      ]
+      ],
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "shot03",
@@ -500,45 +816,89 @@
           "id": "layout",
           "label": "Layout",
           "description": "Approve camera framing and timing in the animatic.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "animation",
           "label": "Animation",
           "description": "Approve character performance and contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "fx",
           "label": "FX",
           "description": "Integrate required effects and atmosphere.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Lighting",
           "description": "Approve shot lighting and continuity.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "render",
           "label": "Render",
           "description": "Check samples, flicker and the final image sequence.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "composite",
           "label": "Composite",
           "description": "Finish compositing, grade and transitions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "approved",
           "label": "Approved",
           "description": "Review this shot in the complete edit with sound.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
-      ]
+      ],
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "shot04",
@@ -561,45 +921,89 @@
           "id": "layout",
           "label": "Layout",
           "description": "Approve camera framing and timing in the animatic.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "animation",
           "label": "Animation",
           "description": "Approve character performance and contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "fx",
           "label": "FX",
           "description": "Integrate required effects and atmosphere.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Lighting",
           "description": "Approve shot lighting and continuity.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "render",
           "label": "Render",
           "description": "Check samples, flicker and the final image sequence.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "composite",
           "label": "Composite",
           "description": "Finish compositing, grade and transitions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "approved",
           "label": "Approved",
           "description": "Review this shot in the complete edit with sound.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
-      ]
+      ],
+      "priority": "must",
+      "removedTaskIds": []
     },
     {
       "id": "shot05",
@@ -620,45 +1024,89 @@
           "id": "layout",
           "label": "Layout",
           "description": "Approve camera framing and timing in the animatic.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "animation",
           "label": "Animation",
           "description": "Approve character performance and contact.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "fx",
           "label": "FX",
           "description": "Integrate required effects and atmosphere.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "lighting",
           "label": "Lighting",
           "description": "Approve shot lighting and continuity.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "render",
           "label": "Render",
           "description": "Check samples, flicker and the final image sequence.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "composite",
           "label": "Composite",
           "description": "Finish compositing, grade and transitions.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         },
         {
           "id": "approved",
           "label": "Approved",
           "description": "Review this shot in the complete edit with sound.",
-          "status": "todo"
+          "status": "todo",
+          "due": "",
+          "effort": "medium",
+          "priority": "must",
+          "owner": "",
+          "images": [],
+          "comments": []
         }
-      ]
+      ],
+      "priority": "must",
+      "removedTaskIds": []
     }
   ],
   "milestones": [
@@ -772,5 +1220,6 @@
         }
       ]
     }
-  ]
+  ],
+  "hero": ""
 }
