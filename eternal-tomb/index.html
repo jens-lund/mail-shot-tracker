@@ -14,6 +14,7 @@
   <script src="seed.js" defer></script>
   <script src="core.js" defer></script>
   <script src="media.js" defer></script>
+  <script src="workflow.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -28,9 +29,11 @@
       <span class="concept-label">CONCEPT REFERENCE · AI GENERATED</span>
     </section>
     <div class="project-meta"><span id="phaseLabel">Phase 01 · Story & animatic</span><span id="deadlineLabel">Set a delivery date in Settings</span></div>
-    <nav class="tabs" aria-label="Project sections"><a href="#overview" data-tab="overview">Overview</a><a href="#assets" data-tab="assets">Assets <span>6</span></a><a href="#cinematic" data-tab="cinematic">Cinematic <span>5</span></a><a href="#versions" data-tab="versions">Versions & feedback</a><a href="#milestones" data-tab="milestones">Milestones</a></nav>
+    <nav class="tabs" aria-label="Project sections"><a href="#overview" data-tab="overview">Overview</a><a href="#assets" data-tab="assets">Assets <span>6</span></a><a href="#cinematic" data-tab="cinematic">Cinematic <span>5</span></a><a href="#tasks" data-tab="tasks">Tasks</a><a href="#calendar" data-tab="calendar">Calendar</a><a href="#review" data-tab="review">Review</a><a href="#versions" data-tab="versions">Version history</a><a href="#milestones" data-tab="milestones">Milestones</a></nav>
     <section class="metrics" id="metrics" aria-label="Production progress"></section>
     <div class="sync-strip"><span><span id="saveDot" class="tiny-dot"></span><span id="saveStatus" role="status">Loading project…</span></span><button id="refreshButton" class="text-button">↻ Refresh</button></div>
+    <div id="scopeControls" class="scope-controls"></div>
+    <div id="statusSummary" class="status-summary-row" aria-label="Click a status to view its tasks"></div>
     <section id="view" aria-label="Project content"></section>
     <footer><span>BUILD THE WORLD. FINISH THE FILM.</span><div><button class="text-button" id="exportButton">Export backup ↓</button><button class="text-button" id="importButton">Import backup ↑</button><a href="https://github.com/jens-lund/mail-shot-tracker" target="_blank" rel="noopener noreferrer">Repository ↗</a></div></footer>
   </main>
@@ -63,3 +66,4 @@
   <noscript><p>This tracker needs JavaScript enabled to save and display your project.</p></noscript>
 </body>
 </html>
+

@@ -1,0 +1,89 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const C = require('../core.js');
+const original = JSON.parse(fs.readFileSync(path.join(__dirname,'../data/project.json'),'utf8'));
+const seed = C.validate(original);
+const item = seed.assets[0];
+const first = item.tasks[0];
+assert.equal(item.priority,'must');
+assert.deepEqual(item.removedTaskIds,[]);
+assert.deepEqual({...first}, {...original.assets[0].tasks[0],due:'',effort:'medium',priority:'must',owner:'',images:[],comments:[]});
+assert.equal(original.assets[0].priority,undefined,'Normalization does not mutate the caller');
+
+first.priority='nice';
+assert.equal(C.effectivePriority(item,first),'nice');
+assert.equal(C.scopedTasks(item,'must').length,item.tasks.length-1);
+item.priority='nice';
+assert.equal(C.effectivePriority(item,item.tasks[1]),'nice','Nice parents override must children');
+assert.equal(C.scopedTasks(item,'must').length,0);
+assert.equal(C.scopedTasks(item,'nice').length,item.tasks.length);
+assert(C.taskEntries(seed,'must').every(({item,task})=>C.effectivePriority(item,task)==='must'));
+assert.equal(C.scopedStatus({...item,tasks:[]}),'todo');
+assert.equal(C.scopedStatus({...item,tasks:[{...first,status:'done'}],blocked:true}),'done','Completed work does not become unfinished through legacy blocked state');
+
+for (const [date,valid] of [['2026-02-29',false],['2024-02-29',true],['2026-04-31',false],['2026-13-01',false],['2026-00-12',false],['2026-1-01',false],['2026-10-07',true]]) assert.equal(C.validDate(date),valid,date);
+assert.equal(C.dayDifference('2026-10-10','2026-10-07'),3);
+assert.equal(C.dayDifference('2026-10-06','2026-10-07'),-1);
+assert.equal(C.dayDifference('2026-03-30','2026-03-28'),2,'DST start remains two calendar days');
+assert.equal(C.dayDifference('2026-10-26','2026-10-24'),2,'DST end remains two calendar days');
+assert.equal(C.dateKey(new Date(2026,9,7,0,1)),'2026-10-07','Date key uses local calendar fields');
+assert.equal(C.dayDifference('2026-10-10',new Date(2026,9,7,23,59)),3);
+assert(Number.isNaN(C.dayDifference('2026-02-29','2026-02-28')));
+
+const dated=C.validate(original);
+for(const group of ['assets','shots'])for(const asset of dated[group]){asset.due='';asset.tasks.forEach(t=>{t.due='';t.status='todo';});}
+const parent=dated.assets[0]; parent.due='2026-10-09'; parent.blocked=true;
+Object.assign(parent.tasks[0],{due:'2026-10-06'});
+Object.assign(parent.tasks[1],{due:'2026-10-07',status:'done'});
+Object.assign(parent.tasks[2],{due:'2026-10-08',priority:'nice'});
+Object.assign(parent.tasks[3],{due:'2026-10-10'});
+Object.assign(parent.tasks[4],{due:'2026-10-11'});
+Object.assign(dated.assets[1],{due:'2026-10-08',priority:'nice'});
+Object.assign(dated.assets[1].tasks[0],{due:'2026-10-08'});
+Object.assign(dated.shots[0].tasks[0],{due:'2026-10-09',status:'review'});
+const deadlines=C.deadlineEntries(dated);
+assert.equal(deadlines.length,9,'Parent deadlines and explicit subtask dates are separate');
+assert(!deadlines.some(e=>e.task?.id===parent.tasks[5].id && e.item.id===parent.id),'Undated tasks do not inherit parent deadlines');
+const soon=C.dueSoon(dated,'2026-10-07');
+assert.equal(soon.length,4,'Reminder includes overdue, next three days and shots');
+assert(soon.every(e=>e.priority==='must' && e.status!=='done'));
+assert(soon.some(e=>!e.task && e.item.id===parent.id));
+assert(soon.some(e=>e.group==='shots' && e.task));
+parent.tasks.filter(t=>t.priority!=='nice').forEach(t=>{t.status='done';});
+assert(!C.dueSoon(dated,'2026-10-07').some(e=>e.item.id===parent.id),'Must completion suppresses parent deadline despite optional incomplete work');
+
+const target={group:'assets',id:original.assets[0].id,task:original.assets[0].tasks[0].id};
+const image={id:'review_image',path:'uploads/review_image.webp',role:'progress',caption:'Silhouette study'};
+const comment={id:'review_comment',author:'Jens',body:'Broaden this shoulder.',image:image.id,point:{x:.25,y:.75},resolved:false,createdAt:'2026-10-07T12:00:00Z'};
+const ops=[{kind:'taskField',...target,field:'label',value:'Review silhouette'},{kind:'taskField',...target,field:'due',value:'2026-10-10'},{kind:'taskField',...target,field:'effort',value:'small'},{kind:'taskField',...target,field:'priority',value:'nice'},{kind:'taskField',...target,field:'owner',value:'Kevin'},{kind:'task',...target,value:'review'},{kind:'addTaskImage',...target,value:image},{kind:'addTaskComment',...target,value:comment}];
+const remote=C.validate(original);remote.assets[1].notes='Teammate changed another asset';remote.assets[0].tasks[1].description='Teammate revised another task';
+const merged=C.validate(C.replay(remote,[...ops,...ops]));
+assert.equal(merged.assets[0].tasks[0].images.length,1);
+assert.equal(merged.assets[0].tasks[0].comments.length,1);
+assert.equal(merged.assets[0].tasks[0].label,'Review silhouette');
+assert.equal(merged.assets[0].tasks[0].effort,'small');
+assert.equal(merged.assets[0].tasks[0].owner,'Kevin');
+assert.equal(merged.assets[1].notes,remote.assets[1].notes);
+assert.equal(merged.assets[0].tasks[1].description,remote.assets[0].tasks[1].description);
+assert(C.replay(merged,[{kind:'taskCommentResolved',...target,comment:comment.id,value:true}]).assets[0].tasks[0].comments[0].resolved);
+const withoutPoint={...comment,id:'text_comment',image:'',point:null};
+C.validate(C.replay(merged,[{kind:'addTaskComment',...target,value:withoutPoint}]));
+const shotTarget={group:'shots',id:original.shots[0].id,task:original.shots[0].tasks[0].id};
+assert.equal(C.validate(C.replay(original,[{kind:'addTaskImage',...shotTarget,value:image},{kind:'addTaskComment',...shotTarget,value:comment}])).shots[0].tasks[0].comments.length,1);
+
+const deletion={kind:'removeTask',...target};
+const removed=C.validate(C.replay(merged,[deletion,...ops,deletion,{kind:'addTask',group:target.group,id:target.id,value:original.assets[0].tasks[0]}]));
+assert(!removed.assets[0].tasks.some(t=>t.id===target.task),'Stale task updates and adds cannot resurrect a deleted task');
+assert.deepEqual(removed.assets[0].removedTaskIds,[target.task],'Removal is idempotent');
+const custom={id:'custom_stage',label:'Team-defined stage',description:'',status:'todo'};
+const addition={kind:'addTask',group:'assets',id:target.id,value:custom};
+const added=C.validate(C.replay(removed,[addition,addition]));
+assert.equal(added.assets[0].tasks.filter(t=>t.id===custom.id).length,1);
+assert.equal(added.assets[0].tasks.at(-1).effort,'medium');
+const editedItem=C.validate(C.replay(added,[{kind:'field',group:'assets',id:target.id,field:'description',value:'Updated creative brief'},{kind:'field',group:'assets',id:target.id,field:'priority',value:'nice'}]));
+assert.equal(editedItem.assets[0].description,'Updated creative brief');
+assert.equal(C.scopedTasks(editedItem.assets[0],'must').length,0);
+
+for(const mutate of [d=>d.assets[0].tasks[0].due='2026-02-29',d=>d.assets[0].tasks[0].effort='critical',d=>d.assets[0].priority='optional',d=>d.assets[0].removedTaskIds=[d.assets[0].tasks[0].id],d=>d.assets[0].tasks[0].comments[0].point.x=1.1,d=>d.assets[0].tasks[0].comments[0].point.y=NaN,d=>d.assets[0].tasks[0].comments[0].image='missing',d=>d.assets[0].tasks[0].images[0].path='../private.webp']){const bad=C.clone(merged);mutate(bad);assert.throws(()=>C.validate(bad));}
+console.log('Passed: workflow normalization, inherited scope, strict dates, DST calendar calculations, due reminders, subtask edits/deletions, task review annotations, asset/shot media and concurrent replay.');

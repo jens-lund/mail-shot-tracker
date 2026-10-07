@@ -2,6 +2,44 @@
   'use strict';
   const statuses = ['todo', 'doing', 'review', 'done'];
   const clone = value => JSON.parse(JSON.stringify(value));
+  const priorities = ['must', 'nice'];
+  const efforts = ['small', 'medium', 'large'];
+  const effectivePriority = (item, task) => item.priority === 'nice' || task?.priority === 'nice' ? 'nice' : 'must';
+  const scopedTasks = (item, scope = 'all') => item.tasks.filter(task => scope === 'all' || effectivePriority(item, task) === scope);
+  const taskEntries = (data, scope = 'all') => ['assets','shots'].flatMap(group => data[group].flatMap(item => scopedTasks(item, scope).map(task => ({group,item,task}))));
+  function scopedStatus(item, scope = 'all') {
+    const tasks = scopedTasks(item, scope);
+    if (tasks.length && tasks.every(t => t.status === 'done')) return 'done';
+    if (tasks.some(t => t.status === 'review')) return 'review';
+    if (tasks.some(t => t.status !== 'todo')) return 'doing';
+    return 'todo';
+  }
+  function dateKey(date = new Date()) {
+    return `${String(date.getFullYear()).padStart(4,'0')}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  }
+  function validDate(value) {
+    if (value === '') return true;
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const date = new Date(value+'T00:00:00Z');
+    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0,10) === value;
+  }
+  function dayDifference(due, today = new Date()) {
+    const current = typeof today === 'string' ? today : dateKey(today);
+    if (!due || !current || !validDate(due) || !validDate(current)) return NaN;
+    // Compare calendar days at UTC midnight, independent of DST or the browser's offset.
+    return (Date.parse(due+'T00:00:00Z') - Date.parse(current+'T00:00:00Z')) / 86400000;
+  }
+  function deadlineEntries(data, scope = 'all') {
+    return ['assets','shots'].flatMap(group => data[group].flatMap(item => {
+      const entries = [];
+      const priority = effectivePriority(item);
+      if (item.due && (scope === 'all' || priority === scope)) entries.push({group,item,task:null,due:item.due,status:scopedStatus(item, scope),priority});
+      for (const task of scopedTasks(item, scope)) if (task.due) entries.push({group,item,task,due:task.due,status:task.status,priority:effectivePriority(item,task)});
+      return entries;
+    })).sort((a,b) => a.due.localeCompare(b.due) || a.item.name.localeCompare(b.item.name) || (a.task?.label || '').localeCompare(b.task?.label || ''));
+  }
+  const dueSoon = (data, today = new Date()) => deadlineEntries(data,'must').filter(entry => entry.status !== 'done' && dayDifference(entry.due,today) <= 3);
+  const normalizeTask = task => ({...task,due:task.due ?? '',effort:task.effort ?? 'medium',priority:task.priority ?? 'must',owner:task.owner ?? '',images:task.images ?? [],comments:task.comments ?? []});
   const progress = item => item.tasks.length ? Math.round(item.tasks.filter(t => t.status === 'done').length / item.tasks.length * 100) : 0;
   function status(item) {
     if (item.blocked) return 'blocked';
@@ -19,7 +57,7 @@
     const str = (value, max = 10000) => typeof value === 'string' && value.length <= max;
     const id = value => str(value, 80) && /^[a-zA-Z0-9_-]+$/.test(value);
     const unique = items => new Set(items.map(x => x.id)).size === items.length;
-    const date = value => value === '' || (str(value, 10) && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)));
+    const date = validDate;
     if (!data || data.schemaVersion !== 1 || !str(data.title, 80) || !data.title.trim() || !date(data.deadline) || !str(data.preview, 2000) || (data.preview && !safeUrl(data.preview))) fail();
     data = clone(data);
     delete data.localImages;
@@ -29,8 +67,20 @@
     for (const group of ['assets', 'shots']) {
       if (!Array.isArray(data[group]) || !data[group].length || data[group].length > 50 || !unique(data[group])) fail();
       for (const item of data[group]) {
+        item.priority ??= 'must'; item.removedTaskIds ??= [];
+        if (!priorities.includes(item.priority) || !Array.isArray(item.removedTaskIds) || item.removedTaskIds.length > 10000 || item.removedTaskIds.some(x => !id(x)) || new Set(item.removedTaskIds).size !== item.removedTaskIds.length) fail();
         if (!id(item.id) || !str(item.name, 150) || !str(item.description, 2000) || !str(item.owner, 80) || !date(item.due) || typeof item.blocked !== 'boolean' || !str(item.blocker, 2000) || !str(item.notes) || !str(item.file, 2000) || (item.file && !safeUrl(item.file))) fail();
         if (!Array.isArray(item.tasks) || item.tasks.length > 200 || !unique(item.tasks) || item.tasks.some(t => !id(t.id) || !str(t.label, 150) || !str(t.description, 2000) || !statuses.includes(t.status))) fail();
+        item.tasks = item.tasks.map(normalizeTask);
+        for (const t of item.tasks) {
+          if (item.removedTaskIds.includes(t.id) || !date(t.due) || !efforts.includes(t.effort) || !priorities.includes(t.priority) || !str(t.owner,80)) fail();
+          if (!Array.isArray(t.images) || t.images.length > 64 || !unique(t.images) || t.images.some(i => !id(i.id) || !imagePath(i.path) || i.role !== 'progress' || !str(i.caption,300))) fail();
+          if (!Array.isArray(t.comments) || t.comments.length > 500 || !unique(t.comments)) fail();
+          for (const c of t.comments) {
+            if (!id(c.id) || !str(c.author,80) || !str(c.body,6000) || !str(c.image,80) || (c.image && !t.images.some(i => i.id === c.image)) || typeof c.resolved !== 'boolean' || !str(c.createdAt,40) || Number.isNaN(Date.parse(c.createdAt))) fail();
+            if (c.point !== null && (!c.image || typeof c.point !== 'object' || !c.point || !Number.isFinite(c.point.x) || !Number.isFinite(c.point.y) || c.point.x < 0 || c.point.x > 1 || c.point.y < 0 || c.point.y > 1)) fail();
+          }
+        }
         if (group === 'assets') {
           if (!['knight', 'troll', 'reveal'].includes(item.image) || !str(item.category, 150)) fail();
           item.versions ??= []; item.cover ??= '';
@@ -55,9 +105,22 @@
     if (op.kind === 'project' && ['title','deadline','preview','team','hero'].includes(op.field)) data[op.field] = clone(op.value);
     else if (['assets','shots'].includes(op.group)) {
       const item = data[op.group].find(x => x.id === op.id); if (!item) return data;
-      if (op.kind === 'task') { const task = item.tasks.find(t => t.id === op.task); if (task && statuses.includes(op.value)) task.status = op.value; }
-      if (op.kind === 'field' && ['name','owner','due','blocked','blocker','notes','file','cover'].includes(op.field)) item[op.field] = clone(op.value);
-      if (op.kind === 'addTask' && !item.tasks.some(t => t.id === op.value.id)) item.tasks.push(clone(op.value));
+      const task = item.tasks.find(t => t.id === op.task);
+      if (op.kind === 'task' && task && statuses.includes(op.value)) task.status = op.value;
+      if (op.kind === 'taskField' && task && ['label','description','due','effort','priority','owner'].includes(op.field)) task[op.field] = clone(op.value);
+      if (op.kind === 'field' && ['name','description','priority','owner','due','blocked','blocker','notes','file','cover'].includes(op.field)) item[op.field] = clone(op.value);
+      if (op.kind === 'removeTask') {
+        item.removedTaskIds ??= [];
+        if (!item.removedTaskIds.includes(op.task)) item.removedTaskIds.push(op.task);
+        item.tasks = item.tasks.filter(t => t.id !== op.task);
+      }
+      if (op.kind === 'addTask' && !(item.removedTaskIds || []).includes(op.value.id) && !item.tasks.some(t => t.id === op.value.id)) item.tasks.push(normalizeTask(clone(op.value)));
+      if (task) {
+        task.images ??= []; task.comments ??= [];
+        if (op.kind === 'addTaskImage' && !task.images.some(i => i.id === op.value.id)) task.images.push(clone(op.value));
+        if (op.kind === 'addTaskComment' && !task.comments.some(c => c.id === op.value.id)) task.comments.push(clone(op.value));
+        if (op.kind === 'taskCommentResolved') {const comment=task.comments.find(c=>c.id===op.comment);if(comment)comment.resolved=!!op.value;}
+      }
       if (op.kind === 'addVersion') { item.versions ??= []; if (!item.versions.some(v=>v.id===op.value.id)) item.versions.push(clone(op.value)); }
       const version = item.versions?.find(v=>v.id===op.version);
       if (version) {
@@ -80,7 +143,8 @@
     return data;
   }
   function replay(data, ops) { return ops.reduce((d, op) => apply(d, op), clone(data)); }
-  const api = { clone, progress, status, safeUrl, imagePath, validate, apply, replay, statuses };
+  const api = { clone, progress, status, safeUrl, imagePath, validate, apply, replay, statuses, priorities, efforts, effectivePriority, scopedTasks, taskEntries, scopedStatus, dateKey, validDate, dayDifference, deadlineEntries, dueSoon };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.TrackerCore = api;
 })(typeof window !== 'undefined' ? window : globalThis);
+
