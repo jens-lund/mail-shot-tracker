@@ -8,7 +8,7 @@
     "Nicolai",
     "Kevin"
   ],
-  "updatedAt": "2026-10-07T10:15:25.225Z",
+  "updatedAt": "2026-10-07T10:15:27.957Z",
   "assets": [
     {
       "id": "knight",
@@ -47,7 +47,7 @@
               "body": "Funker dette?",
               "image": "",
               "point": null,
-              "resolved": false,
+              "resolved": true,
               "createdAt": "2026-10-07T10:12:55.630Z"
             },
             {
