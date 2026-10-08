@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:49:36.924Z",
+  "updatedAt": "2026-10-08T07:49:48.769Z",
   "assets": [
     {
       "id": "knight",
@@ -158,7 +158,7 @@
       "id": "troll",
       "name": "Golem Character",
       "category": "TROLL CHARACTER",
-      "description": "A gigantic Golem Character. The body has large, highly detailed boulders as limbs\n\nEXCECUTION: Humanoid rig + parented rocks to corrosponding bones.",
+      "description": "A gigantic Golem Character. The body has large, highly detailed boulders as limbs\n\nEXCECUTION: Humanoid rig + parented rocks to corresponding bones.",
       "image": "troll",
       "owner": "",
       "due": "2026-10-21",
