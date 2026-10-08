@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:59:36.905Z",
+  "updatedAt": "2026-10-08T10:12:31.689Z",
   "assets": [
     {
       "id": "knight",
@@ -152,7 +152,8 @@
       "versions": [],
       "cover": "",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     },
     {
       "id": "troll",
@@ -205,7 +206,8 @@
               "id": "image_5c2484524dde414b94eba3197ad033e2",
               "path": "uploads/image_5c2484524dde414b94eba3197ad033e2.webp",
               "role": "progress",
-              "caption": "Design direction, Silhouette and 3D Blockout"
+              "caption": "Design direction, Silhouette and 3D Blockout",
+              "deletedAt": "2026-10-08T10:12:29.991Z"
             }
           ],
           "comments": []
@@ -311,7 +313,8 @@
       ],
       "cover": "uploads/image_afee028f5ac24c279f71f846c77dbb37.webp",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     },
     {
       "id": "environment",
@@ -402,7 +405,8 @@
       "versions": [],
       "cover": "",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     },
     {
       "id": "props",
@@ -493,7 +497,8 @@
       "versions": [],
       "cover": "",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     },
     {
       "id": "bodies",
@@ -584,7 +589,8 @@
       "versions": [],
       "cover": "",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     },
     {
       "id": "fx",
@@ -675,7 +681,8 @@
       "versions": [],
       "cover": "",
       "priority": "must",
-      "removedTaskIds": []
+      "removedTaskIds": [],
+      "deletedTasks": []
     }
   ],
   "shots": [
@@ -783,7 +790,8 @@
       "removedTaskIds": [],
       "archived": false,
       "duration": 0,
-      "camera": ""
+      "camera": "",
+      "deletedTasks": []
     },
     {
       "id": "shot02",
@@ -889,7 +897,8 @@
       "removedTaskIds": [],
       "archived": false,
       "duration": 0,
-      "camera": ""
+      "camera": "",
+      "deletedTasks": []
     },
     {
       "id": "shot03",
@@ -998,7 +1007,8 @@
       "removedTaskIds": [],
       "archived": false,
       "duration": 0,
-      "camera": ""
+      "camera": "",
+      "deletedTasks": []
     },
     {
       "id": "shot04",
@@ -1106,7 +1116,8 @@
       "removedTaskIds": [],
       "archived": false,
       "duration": 0,
-      "camera": ""
+      "camera": "",
+      "deletedTasks": []
     },
     {
       "id": "shot05",
@@ -1212,7 +1223,8 @@
       "removedTaskIds": [],
       "archived": false,
       "duration": 0,
-      "camera": ""
+      "camera": "",
+      "deletedTasks": []
     }
   ],
   "milestones": [
@@ -1328,5 +1340,41 @@
     }
   ],
   "hero": "",
-  "previewMedia": null
+  "previewMedia": null,
+  "activity": [
+    {
+      "id": "change_b0c1cdc3dd8f42d8a0e84cc833e20333",
+      "actor": "jens-lund",
+      "author": "Jens",
+      "createdAt": "2026-10-08T10:12:29.991Z",
+      "label": "Removed an image from Blockout + Silhuette + Design direction",
+      "href": "#task/assets/troll/design",
+      "targets": [
+        "Jens"
+      ],
+      "kind": "taskImageDeleted",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "images",
+            "@image_5c2484524dde414b94eba3197ad033e2",
+            "deletedAt"
+          ],
+          "before": null,
+          "after": "2026-10-08T10:12:29.991Z",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    }
+  ],
+  "memberColors": {},
+  "pageCopy": {}
 }
