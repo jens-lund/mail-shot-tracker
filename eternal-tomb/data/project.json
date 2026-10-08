@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:45:42.898Z",
+  "updatedAt": "2026-10-08T07:46:08.041Z",
   "assets": [
     {
       "id": "knight",
@@ -278,7 +278,7 @@
           "deletedAt": ""
         }
       ],
-      "cover": "",
+      "cover": "uploads/image_3cf1c7d49bdc4fad9534af93c3fb9724.webp",
       "priority": "must",
       "removedTaskIds": []
     },
