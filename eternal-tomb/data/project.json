@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:52:46.854Z",
+  "updatedAt": "2026-10-08T07:52:55.258Z",
   "assets": [
     {
       "id": "knight",
@@ -172,7 +172,7 @@
           "label": "Blockout + Silhuette + Design direction",
           "description": "Approve giant silhouette, proportions, shapes and production workflow",
           "status": "review",
-          "due": "",
+          "due": "2026-10-08",
           "effort": "medium",
           "priority": "must",
           "owner": "Jens",
