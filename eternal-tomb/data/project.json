@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T10:12:56.186Z",
+  "updatedAt": "2026-10-08T10:13:49.271Z",
   "assets": [
     {
       "id": "knight",
@@ -212,7 +212,7 @@
             }
           ],
           "comments": [],
-          "workSummary": "",
+          "workSummary": "Har laget blockout for karakter, tror denne silhuetten kan fungere bra",
           "requestedAt": "2026-10-08T10:12:55.584Z",
           "requestedBy": "Jens"
         },
@@ -1477,6 +1477,36 @@
           "before": null,
           "after": "Jens",
           "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_b2ab27ba8af74d07af367d8c289f0cee",
+      "actor": "jens-lund",
+      "author": "Jens",
+      "createdAt": "2026-10-08T10:13:48.449Z",
+      "label": "Edited Blockout + Silhuette + Design direction · workSummary",
+      "href": "#task/assets/troll/design",
+      "targets": [
+        "Jens"
+      ],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "workSummary"
+          ],
+          "before": "",
+          "after": "Har laget blockout for karakter, tror denne silhuetten kan fungere bra",
+          "beforeExists": true,
           "afterExists": true
         }
       ],
