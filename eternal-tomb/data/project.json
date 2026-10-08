@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-07T17:35:31.787Z",
+  "updatedAt": "2026-10-08T07:43:35.330Z",
   "assets": [
     {
       "id": "knight",
@@ -156,7 +156,7 @@
     },
     {
       "id": "troll",
-      "name": "The imprisoned giant",
+      "name": "Golem Character",
       "category": "TROLL CHARACTER",
       "description": "A terrifying ancient cook. His cavern is both his home and his eternal prison.",
       "image": "troll",
