@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:58:41.454Z",
+  "updatedAt": "2026-10-08T07:59:36.905Z",
   "assets": [
     {
       "id": "knight",
@@ -188,6 +188,24 @@
               "path": "uploads/image_f309e02c3da249d387bad7b8935983b5.webp",
               "role": "progress",
               "caption": "3D Silhouette from primitives"
+            },
+            {
+              "id": "image_97deb7b558ea4d969712beef8ea40be4",
+              "path": "uploads/image_97deb7b558ea4d969712beef8ea40be4.webp",
+              "role": "progress",
+              "caption": "Design direction, Silhouette and 3D Blockout"
+            },
+            {
+              "id": "image_0ec07df10ff74ac0849ab3ae6f54c046",
+              "path": "uploads/image_0ec07df10ff74ac0849ab3ae6f54c046.webp",
+              "role": "progress",
+              "caption": "Design direction, Silhouette and 3D Blockout"
+            },
+            {
+              "id": "image_5c2484524dde414b94eba3197ad033e2",
+              "path": "uploads/image_5c2484524dde414b94eba3197ad033e2.webp",
+              "role": "progress",
+              "caption": "Design direction, Silhouette and 3D Blockout"
             }
           ],
           "comments": []
