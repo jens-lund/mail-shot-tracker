@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T10:12:34.866Z",
+  "updatedAt": "2026-10-08T10:12:56.186Z",
   "assets": [
     {
       "id": "knight",
@@ -211,7 +211,10 @@
               "deletedAt": "2026-10-08T10:12:29.991Z"
             }
           ],
-          "comments": []
+          "comments": [],
+          "workSummary": "",
+          "requestedAt": "2026-10-08T10:12:55.584Z",
+          "requestedBy": "Jens"
         },
         {
           "id": "model",
@@ -1399,6 +1402,80 @@
           ],
           "before": null,
           "after": "2026-10-08T10:12:31.458Z",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_9024748be11243cfa2630a8befbbfd37",
+      "actor": "jens-lund",
+      "author": "Jens",
+      "createdAt": "2026-10-08T10:12:55.582Z",
+      "label": "Edited Blockout + Silhuette + Design direction · workSummary",
+      "href": "#task/assets/troll/design",
+      "targets": [
+        "Jens"
+      ],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "workSummary"
+          ],
+          "before": null,
+          "after": "",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_0efe2b4ca985432fb205cc8f3b8f954a",
+      "actor": "jens-lund",
+      "author": "Jens",
+      "createdAt": "2026-10-08T10:12:55.584Z",
+      "label": "Requested feedback · Blockout + Silhuette + Design direction",
+      "href": "#task/assets/troll/design",
+      "targets": [
+        "Jens",
+        "*"
+      ],
+      "kind": "batch",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "requestedAt"
+          ],
+          "before": null,
+          "after": "2026-10-08T10:12:55.584Z",
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "requestedBy"
+          ],
+          "before": null,
+          "after": "Jens",
           "beforeExists": false,
           "afterExists": true
         }
