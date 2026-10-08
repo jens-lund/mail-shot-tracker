@@ -17,7 +17,7 @@ The six asset sections, shot dependencies, task statuses and image feedback give
 
 1. **Shot storyboard thumbnails and animatic comparison.** Put the current composition beside duration and camera notes; compare it with the approved frame. This would connect the cinematic plan to actual renders as clearly as the asset sheets do.
 2. **My work / team workload.** A one-click list for Jens, Kevin or Nico, with Must have deadlines and total estimated work, would make the next production session easier to plan.
-3. **Recent activity and review requests.** Show who changed a task, uploaded an image or requested review, so collaborators know what deserves attention without scanning every section.
+3. **Shot review against the approved frame.** Carry the new image review workflow into final shot approval.
 
 ## GitHub sign-in
 
@@ -30,3 +30,9 @@ A full Sign in with GitHub flow is feasible, but is not active in this update. I
 ## Validation
 
 Automated coverage checks shot creation/order/specs, recoverable deletion, preservation of images/comments, stale operation replay, token verification, read-only access, shared-write conflicts, offline retries, live refresh, whole-section assignments, new-task inheritance, drop routing, video limits and media backups. Browser checks use an isolated local shared-save service so test shots, uploaded videos and versions never alter the production project. A separate browser origin verifies shared video playback without the uploader's local storage.
+
+## Follow-up shipped · 8 October 2026
+
+Review now combines tasks and versions, uses responsive image grids, supports creator updates and review requests, and posts drawing annotations as feedback images. Text areas resize automatically. Project/page text, categories, image captions/types and milestones are editable. Small gray removal controls retain posted work in recovery; Activity records the verified GitHub editor, before/after values and safe undo. Older history stays available. Relevant teammate edits and comments produce a subtle badge/notice using shared polling. Online presence was explicitly deferred.
+
+Eight regression suites and isolated browser checks cover drawing submission, real uploads, 3/4-image layouts, comment/image/version/section recovery, growing text, safe drag selection, branding/page/milestone edits, public read-only access, and a second editor’s feedback appearing without reload. Test data stays outside the published project.

@@ -1,0 +1,55 @@
+const assert=require('node:assert/strict');
+const C=require('../history-core.js');
+const base=C.validate(require('./fixture.cjs')());
+function record(op,label='Test change'){return C.recorded(op,'jens-lund','Jens',label,'#activity',['Kevin']);}
+const task=base.assets[0].tasks[0],group='assets',id=base.assets[0].id;
+const edit=record({kind:'taskField',group,id,task:task.id,field:'description',value:'Approved proportions'});
+let data=C.validate(C.replay(base,[edit,edit]));
+assert.equal(data.activity.length,1,'Retrying the same edit creates one history entry');
+assert.equal(data.assets[0].tasks[0].description,'Approved proportions');
+const latest=C.clone(base);latest.assets[0].tasks[0].description='Teammate description before my save';
+data=C.validate(C.replay(latest,[edit]));
+assert.equal(data.activity[0].patches[0].before,'Teammate description before my save','History captures the actual newest shared value');
+data.assets[1].notes='Unrelated teammate work';
+const undo=record({kind:'undoHistory',event:edit.id});
+data=C.validate(C.replay(data,[undo]));
+assert.equal(data.assets[0].tasks[0].description,'Teammate description before my save');
+assert.equal(data.assets[1].notes,'Unrelated teammate work');
+assert(data.activity[0].undoneAt);assert.equal(data.activity.length,2);
+data=C.validate(C.replay(data,[record({kind:'undoHistory',event:undo.id})]));
+assert.equal(data.assets[0].tasks[0].description,'Approved proportions','Undo can itself be undone');
+assert.equal(data.activity[0].undoneAt,'');
+data.assets[0].tasks[0].description='Newer feedback';
+assert.equal(C.undoConflicts(data,data.activity[0]).length,1);
+assert.throws(()=>C.replay(data,[record({kind:'undoHistory',event:edit.id})]),/Newer edits/);
+data=C.validate(C.replay(data,[record({kind:'undoHistory',event:edit.id,force:true})]));
+assert.equal(data.assets[0].tasks[0].description,'Teammate description before my save');
+
+const image={id:'progress_image',path:'uploads/progress_image.webp',caption:'Current progress',role:'progress'};
+const comment={id:'draw_feedback',author:'Kevin',body:'Adjust the shoulder',target:'Jens',image:image.id,point:null,resolved:false,createdAt:'2026-10-08T10:00:00Z',annotation:{path:'uploads/annotation_review.webp',source:image.path,width:1500,height:1000}};
+data=C.validate(C.replay(base,[record({kind:'addTaskImage',group,id,task:task.id,value:image}),record({kind:'addTaskComment',group,id,task:task.id,value:comment})]));
+data=C.validate(C.replay(data,[record({kind:'taskImageDeleted',group,id,task:task.id,image:image.id,value:'2026-10-08T10:05:00Z'}),record({kind:'taskCommentDeleted',group,id,task:task.id,comment:comment.id,value:'2026-10-08T10:06:00Z'})]));
+assert.equal(C.activeImages(data.assets[0].tasks[0]).length,0);assert.equal(C.activeComments(data.assets[0].tasks[0]).length,0);
+assert.deepEqual(data.assets[0].tasks[0].comments[0].annotation,comment.annotation,'Annotated copies survive removal of their original');
+const previousTask=C.clone(data.assets[0].tasks[0]);
+data=C.validate(C.replay(data,[record({kind:'removeTask',group,id,task:task.id})]));
+assert(!data.assets[0].tasks.some(t=>t.id===task.id));
+assert.deepEqual(data.assets[0].deletedTasks[0].task,previousTask,'Task removal retains its entire work and feedback');
+data=C.validate(C.replay(data,[record({kind:'restoreTask',group,id,task:task.id}),record({kind:'taskImageDeleted',group,id,task:task.id,image:image.id,value:''}),record({kind:'taskCommentDeleted',group,id,task:task.id,comment:comment.id,value:''})]));
+assert.equal(data.assets[0].tasks[0].id,task.id);assert.equal(C.activeComments(data.assets[0].tasks[0]).length,1);
+data=C.validate(C.replay(data,[record({kind:'archiveAsset',id,value:true})]));
+assert(!C.taskEntries(data).some(e=>e.item.id===id));assert(data.shots.some(s=>s.dependencies.includes(id)),'Archiving retains dependency references');
+data=C.validate(C.replay(data,[record({kind:'archiveAsset',id,value:false})]));assert(C.taskEntries(data).some(e=>e.item.id===id));
+
+const teamEdit=record({kind:'project',field:'team',value:base.team.filter(n=>n!==base.assets[0].owner)});
+if(teamEdit.op.value.length){let changed=C.validate(C.replay(base,[teamEdit]));changed=C.validate(C.replay(changed,[record({kind:'undoHistory',event:teamEdit.id})]));assert.deepEqual(changed.assets[0],base.assets[0],'Undo team changes restores normalized assignments');}
+const create=record({kind:'addTask',group,id,value:{...task,id:'new_task',label:'A new task'}});
+data=C.validate(C.replay(base,[create]));data.assets[0].tasks.push({...task,id:'teammate_task'});
+data=C.validate(C.replay(data,[record({kind:'undoHistory',event:create.id})]));assert(data.assets[0].tasks.some(t=>t.id==='teammate_task'),'Undoing creation retains unrelated new tasks');
+assert(data.assets[0].deletedTasks.some(e=>e.task.id==='new_task'),'Undoing creation keeps the new task in recovery');
+const assetCreate=record({kind:'addAsset',value:{...C.clone(base.assets[0]),id:'new_asset',name:'New asset'}});
+let assetData=C.validate(C.replay(base,[assetCreate]));assetData.shots[0].dependencies.push('new_asset');assetData=C.validate(C.replay(assetData,[record({kind:'undoHistory',event:assetCreate.id})]));assert(assetData.assets.find(a=>a.id==='new_asset').archived,'Undoing asset creation preserves later dependency references');
+const expected=C.undoSnapshot(data,data.activity.find(e=>e.id===create.id));assert(Array.isArray(expected));
+const m=data.milestones[0],check=m.checks[0];data=C.validate(C.replay(data,[record({kind:'checkDeleted',id:m.id,check:check.id,value:'2026-10-08T10:00:00Z'}),record({kind:'milestoneDeleted',id:m.id,value:'2026-10-08T10:00:00Z'})]));
+assert(!C.activeMilestones(data).some(x=>x.id===m.id));data=C.validate(C.replay(data,[record({kind:'milestoneDeleted',id:m.id,value:''}),record({kind:'checkDeleted',id:m.id,check:check.id,value:''})]));assert(C.activeChecks(data.milestones[0]).some(x=>x.id===check.id));
+console.log('Passed: idempotent history, current shared before-values, safe undo/redo, conflict protection, annotated feedback recovery, task/asset/milestone recovery, and preserved teammate additions.');

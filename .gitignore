@@ -2,3 +2,4 @@
 Thumbs.db
 *.log
 previs/previs_scenes_shots.mp4
+output/playwright/

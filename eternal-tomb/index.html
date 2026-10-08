@@ -10,19 +10,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007-uploads">
-  <script src="seed.js?v=20261007-uploads" defer></script>
-  <script src="core.js?v=20261007-uploads" defer></script>
-  <script src="media.js?v=20261007-uploads" defer></script>
-  <script src="workflow.js?v=20261007-uploads" defer></script>
-  <script src="collaboration.js?v=20261007-uploads" defer></script>
-  <script src="production.js?v=20261007-uploads" defer></script>
-  <script src="app.js?v=20261007-uploads" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261008-review">
+  <script src="seed.js?v=20261008-review" defer></script>
+  <script src="core.js?v=20261008-review" defer></script>
+  <script src="history-core.js?v=20261008-review" defer></script>
+  <script src="media.js?v=20261008-review" defer></script>
+  <script src="workflow.js?v=20261008-review" defer></script>
+  <script src="collaboration.js?v=20261008-review" defer></script>
+  <script src="production.js?v=20261008-review" defer></script>
+  <script src="workbench.js?v=20261008-review" defer></script>
+  <script src="annotation.js?v=20261008-review" defer></script>
+  <script src="activity.js?v=20261008-review" defer></script>
+  <script src="app.js?v=20261008-review" defer></script>
 </head>
 <body>
   <header class="app-header">
     <a class="brand" href="#overview" aria-label="Eternal Tomb overview"><span class="brand-mark">E</span><span><small>3D PRODUCTION TRACKER</small><strong id="brandTitle">Eternal Tomb</strong></span></a>
-    <div class="header-actions"><a class="project-switch" href="../">Mail <span aria-hidden="true">↗</span></a><button id="previewButton" class="button subtle">▷ <span>Previs</span></button><button id="connectButton" class="button subtle">Connect GitHub</button><button id="settingsButton" class="button">Settings & sync</button></div>
+    <button id="editProjectButton" class="copy-edit" aria-label="Edit project title and branding" title="Edit project title and branding">✎</button><div class="header-actions"><button id="activityButton" class="button subtle" title="Activity, notifications and recovery">Activity <span id="activityCount" class="notification-count" hidden></span></button><a class="project-switch" href="../">Mail <span aria-hidden="true">↗</span></a><button id="previewButton" class="button subtle">▷ <span>Previs</span></button><button id="connectButton" class="button subtle">Connect GitHub</button><button id="settingsButton" class="button">Settings & sync</button></div>
   </header>
   <main>
     <section class="project-hero">
@@ -44,7 +48,7 @@
     <div class="dialog-head"><div><span class="eyebrow">PROJECT</span><h2>Settings & team sync</h2></div><button type="button" class="close-button" data-close="settingsDialog" aria-label="Close settings">×</button></div>
     <div class="field-grid"><label>Project title<input name="title" required maxlength="80"></label><label>Delivery date<input name="deadline" type="date"></label></div>
     <label>Team members <span class="muted">— separated by commas</span><input name="team" required maxlength="300"></label>
-    <label>Your name for feedback<select name="identity"></select></label>
+    <label>Project tagline<textarea name="tagline" maxlength="2000"></textarea></label><div class="field-grid"><label>Header label<input name="brandLabel" maxlength="2000"></label><label>Genre / project type<input name="genre" maxlength="2000"></label></div><label>Footer text<input name="footer" maxlength="2000"></label><div id="teamColors" class="team-colors"></div><label>Your name for feedback<select name="identity"></select></label>
     <button type="button" class="button" id="uploadPrevisSettings">Upload / view previs video ↑</button>
     <label>Optional external previs link<input name="preview" type="url" placeholder="https://…"></label>
     <p class="help">Upload a video directly in Previs. This optional link is used when there is no uploaded video.</p>
@@ -69,6 +73,13 @@
     <p id="thumbnailError" class="image-error" role="alert"></p>
     <div class="dialog-actions"><button type="button" class="button" data-close="thumbnailDialog">Cancel</button><button class="button primary" id="replaceImageButton" type="submit">Replace image</button></div>
   </form></dialog>
+
+  <div id="activityToast" class="activity-toast" role="status" hidden><a href="#activity" id="activityToastText"></a><button id="activityToastClose" class="small-x" aria-label="Dismiss notification">×</button></div>
+  <dialog id="annotationDialog" class="annotation-dialog"><div class="dialog-content"><div class="dialog-head"><h2 id="annotationTitle">Review image</h2><button type="button" id="annotationClose" class="close-button" aria-label="Close drawing">×</button></div><div class="drawing-toolbar"><button id="drawToggle" type="button" class="button" aria-pressed="false">✎ Draw mode</button><label>Pen color<input id="drawColor" type="color" value="#ed92bd"></label><label>Pen size<input id="drawWidth" type="range" min="1" max="12" value="3"></label><button id="drawUndo" class="button" type="button">Undo stroke</button><button id="drawClear" class="button" type="button">Clear drawing</button></div><p class="help">Turn on Draw mode, mark the image, then add a comment. Your drawing is posted as a separate feedback image.</p><div class="drawing-stage"><canvas id="drawingCanvas" aria-label="Image drawing canvas"></canvas></div><form id="annotationForm"><div class="field-grid"><label>Posting as<select name="author" required></select></label><label>Feedback for<select name="target"></select></label></div><label>Comment<textarea name="body" maxlength="6000" required placeholder="Explain what your drawing shows and what should improve."></textarea></label><p id="annotationError" role="alert" class="image-error"></p><div class="dialog-actions"><button type="submit" id="drawSubmit" class="button primary">Submit feedback →</button></div></form></div></dialog>
+  <dialog id="pageCopyDialog"><form id="pageCopyForm" class="dialog-content"><div class="dialog-head"><h2>Edit page text</h2><button type="button" class="close-button" data-close="pageCopyDialog" aria-label="Close page editor">×</button></div><label>Heading<input name="title" maxlength="150" required></label><label>Description<textarea name="description" maxlength="2000"></textarea></label><button class="button primary" type="submit">Save text</button></form></dialog>
+  <dialog id="undoDialog"><form id="undoForm" class="dialog-content"><div class="dialog-head"><h2 id="undoTitle">Undo change</h2><button type="button" class="close-button" data-close="undoDialog" aria-label="Close undo">×</button></div><p id="undoHelp"></p><div id="undoConflicts"></div><label id="undoConfirmLabel"><input type="checkbox" id="undoConfirm">I understand this also replaces newer edits to these fields.</label><p class="help">This undo is also recorded and can itself be undone.</p><button class="button primary" type="submit">Undo change</button></form></dialog>
+  <dialog id="removeContentDialog"><form id="removeContentForm" class="dialog-content"><div class="dialog-head"><h2 id="removeContentTitle">Remove content?</h2><button type="button" class="close-button" data-close="removeContentDialog" aria-label="Close removal">×</button></div><p id="removeContentHelp"></p><label><input name="confirm" type="checkbox" required>Remove this from the active project and keep it in recovery.</label><button class="button danger" type="submit">Remove · keep recoverable</button></form></dialog>
+  <dialog id="newAssetDialog"><form id="newAssetForm" class="dialog-content"><div class="dialog-head"><h2>Add asset section</h2><button type="button" class="close-button" data-close="newAssetDialog" aria-label="Close new asset">×</button></div><label>Name<input name="name" required maxlength="150"></label><label>Category<input name="category" required maxlength="150" placeholder="Character, environment, prop…"></label><label>Description<textarea name="description" maxlength="2000"></textarea></label><button class="button primary" type="submit">Create asset</button></form></dialog>
   <noscript><p>This tracker needs JavaScript enabled to save and display your project.</p></noscript>
 </body>
 </html>

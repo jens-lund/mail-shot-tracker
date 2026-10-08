@@ -37,7 +37,7 @@ function resetUploadHints(form) {
 }
 function fileDropTarget(node) {
   if (!node?.closest) return null;
-  const pencil = node.closest('[data-edit-image]') || node.closest('.editable-image')?.querySelector('[data-edit-image]');
+  const pencil = node.closest('[data-edit-image]') || node.closest('[data-work-replace]') || node.closest('.editable-image')?.querySelector('[data-edit-image]');
   if (pencil) return {element:pencil, pencil};
   const label = node.closest('.file-drop-zone');
   const input = label?.querySelector('input[type="file"]');
@@ -85,7 +85,7 @@ document.addEventListener('drop',event=>{
   const error=uploadFileError(files,target.input?.accept.includes('video')?'video':'image',target.input?.multiple||false);
   if (error) {fileDropMessage(target,error,true);return;}
   if (target.pencil) {
-    openImageEditor(target.pencil.dataset.editImage);
+    if(target.pencil.dataset.workReplace)openWorkReplacement(target.pencil.dataset.workReplace,target.pencil.dataset.imageId);else openImageEditor(target.pencil.dataset.editImage);
     if ($('thumbnailDialog').open) setUploadFiles($('thumbnailFile'),files);
   } else setUploadFiles(target.input,files);
 });
@@ -110,7 +110,7 @@ function openSectionAssignment(group,id) {
   $('assignmentTitle').textContent=`Assign ${item.name}`;
   $('assignmentHelp').textContent=`Choose one person for all ${item.tasks.length} subtasks, including tasks hidden by filters. New subtasks inherit that person. You can still change individual assignments later.`;
   const current=item.tasks.length?(item.tasks.every(t=>t.owner===item.tasks[0].owner)?item.tasks[0].owner:null):item.owner;
-  $('assignmentPeople').innerHTML=['',...data.team].map(name=>`<button class="assignee-button member-${memberColor(name)}" type="button" data-assign-section-person="${esc(name)}" aria-label="Assign whole section to ${esc(name||'Unassigned')}" aria-pressed="${current===name}"><span class="member-avatar">${esc(name.charAt(0)||'–')}</span>${esc(name||'Unassigned')}</button>`).join('');
+  $('assignmentPeople').innerHTML=['',...data.team].map(name=>`<button class="assignee-button member-${memberColor(name)}" data-member-name="${esc(name)}" type="button" data-assign-section-person="${esc(name)}" aria-label="Assign whole section to ${esc(name||'Unassigned')}" aria-pressed="${current===name}"><span class="member-avatar">${esc(name.charAt(0)||'–')}</span>${esc(name||'Unassigned')}</button>`).join('');
   $('assignmentDialog').showModal();applyEditorAccess();
 }
 document.addEventListener('click',event=>{
@@ -135,6 +135,7 @@ function renderPreviewContent() {
   $('previewContent').querySelector('video')?.addEventListener('error',()=>{
     $('previsPlaybackError').textContent='This video could not play yet. If it was just shared, reopen Previs shortly. For best compatibility, export an H.264 MP4 review copy.';
   });
+  if(media)$('previewContent').insertAdjacentHTML('beforeend',smallX('data-remove-previs','Remove uploaded previs'));
   $('previsUploadForm').reset();
   resetUploadHints($('previsUploadForm'));
   $('previsUploadButton').textContent=media?'Replace previs ↑':'Upload previs ↑';

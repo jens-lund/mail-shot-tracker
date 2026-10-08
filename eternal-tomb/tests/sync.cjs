@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
-const C=require('../core.js');
+const C=require('../history-core.js');
 const seed = require('./fixture.cjs')();
 const elements=new Map();const storage=new Map([['eternal-tomb-github-token','test-only-token']]);
 const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',innerHTML:'',classList:{toggle(){}},addEventListener(){}});return elements.get(id);};
@@ -12,7 +12,7 @@ const context=vm.createContext({window:{TrackerCore:C,TrackerMedia:{async get(){
     putCount++;
     if(conflict){conflict=false;shared.assets[1].owner='Kevin';shared.shots[1].notes=`Teammate updated during conflict ${putCount}`;return {ok:false,status:409};}
     shared=JSON.parse(Buffer.from(JSON.parse(init.body).content,'base64').toString('utf8'));
-    if(appendDuringSave){appendDuringSave=false;vm.runInContext("commit({kind:'field',group:'assets',id:'knight',field:'notes',value:'A note made while saving.'})",context);}
+    if(appendDuringSave){appendDuringSave=false;context.currentSaveNumber=putCount;vm.runInContext("commit({kind:'field',group:'assets',id:'knight',field:'notes',value:'A note made while saving '+currentSaveNumber+'.'})",context);}
     return {ok:true,status:200};
   }
   return {ok:true,status:200,json:async()=>({sha:'test-sha-'+putCount,content:Buffer.from(JSON.stringify(shared)).toString('base64')})};
@@ -21,10 +21,12 @@ context.document.querySelector=()=>null;
 context.document.getElementById=id=>dynamicForms.includes(id)?elements.get(id)||null:element(id);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../collaboration.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../workflow.js'),'utf8'),context);
-let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');code=code.replace('initializeTracker();','');vm.runInContext(code,context);vm.runInContext("editorAccess={verified:true,canEdit:true,login:'test-editor',message:''};verifiedToken=token;",context);vm.runInContext('render=()=>{};',context);
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../activity.js'),'utf8'),context);
+let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');code=code.replace('initializeTracker();','');vm.runInContext(code,context);vm.runInContext("editorAccess={verified:true,canEdit:true,login:'test-editor',message:''};verifiedToken=token;",context);vm.runInContext('render=()=>{};applyWorkbenchDecorations=()=>{};requestUndo=id=>{undoRequested=id;};',context);
 (async()=>{
   const mediaPaths=vm.runInContext("imagePaths({...data,hero:'uploads/banner.webp',assets:data.assets.map(a=>({...a,cover:'uploads/cover.webp',tasks:a.tasks.map(t=>({...t,images:[{path:'uploads/asset_review.webp'}]}))})),shots:data.shots.map(s=>({...s,tasks:s.tasks.map(t=>({...t,images:[{path:'uploads/shot_review.webp'}]}))}))})",context);
-  assert(mediaPaths.has('uploads/banner.webp'));assert(mediaPaths.has('uploads/cover.webp'));assert(mediaPaths.has('uploads/asset_review.webp'));assert(mediaPaths.has('uploads/shot_review.webp'));assert.equal(mediaPaths.size,4);
+  assert(mediaPaths.has('uploads/banner.webp'));assert(mediaPaths.has('uploads/cover.webp'));assert(mediaPaths.has('uploads/asset_review.webp'));assert(mediaPaths.has('uploads/shot_review.webp'));
+  for(const asset of seed.assets)for(const version of asset.versions||[])for(const image of version.images)if(image.path.startsWith('uploads/'))assert(mediaPaths.has(image.path),'Media discovery preserves existing version uploads as well');
   const mediaFetch=context.fetch, published=[];
   context.window.TrackerMedia.get=async path=>({path,blob:new Blob(['test']),uploaded:false});
   context.window.TrackerMedia.base64=async()=>btoa('test');
@@ -36,8 +38,9 @@ let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8'
   vm.runInContext("commit({kind:'task',group:'assets',id:'knight',task:'design',value:'done'})",context);
   await vm.runInContext('sync()',context);
   assert.equal(shared.assets[0].tasks[0].status,'done');assert.equal(shared.assets[1].owner,'Kevin');assert.equal(putCount,2);
-  assert.equal(vm.runInContext('pending.length',context),1);assert.equal(vm.runInContext('data.assets[0].notes',context),'A note made while saving.');
-  await vm.runInContext('sync()',context);assert.equal(shared.assets[0].notes,'A note made while saving.');assert.equal(vm.runInContext('pending.length',context),0);
+  assert.equal(vm.runInContext('pending.length',context),1);assert.equal(vm.runInContext('data.assets[0].notes',context),'A note made while saving 2.');
+  await vm.runInContext('sync()',context);assert.equal(shared.assets[0].notes,'A note made while saving 2.');assert.equal(vm.runInContext('pending.length',context),0);
+  const historyCount=vm.runInContext('data.activity.length',context);vm.runInContext("commit({kind:'field',group:'assets',id:'knight',field:'notes',value:data.assets[0].notes})",context);assert.equal(vm.runInContext('pending.length',context),0,'Unchanged fields do not enqueue a stale overwrite');assert.equal(vm.runInContext('data.activity.length',context),historyCount);
   vm.runInContext("commit({kind:'task',group:'assets',id:'knight',task:'model',value:'doing'})",context);context.fetch=async()=>({ok:false,status:401});await vm.runInContext('sync()',context);
   assert.equal(vm.runInContext('pending.length',context),1);assert.equal(vm.runInContext('data.assets[0].tasks[1].status',context),'doing');assert(element('saveStatus').textContent.includes('Saved locally'));
   assert(!JSON.stringify(JSON.parse(storage.get('eternal-tomb-project-v1'))).includes('test-only-token'));
@@ -102,6 +105,14 @@ let code=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8'
   assert.equal(vm.runInContext("reviewDrafts.get('assets/knight/model').body",context),feedbackForm.elements.body.value,'Draft is keyed to its actual form, not a changing navigation key');
   elements.delete('taskFeedbackForm');elements.delete('taskUploadForm');
   assert.equal(allowed(),true);
+  // A newer shared edit can arrive after the user confirmed a conflict-free undo.
+  vm.runInContext("commit({kind:'field',group:'shots',id:data.shots[0].id,field:'notes',value:'My temporary note'})",context);await vm.runInContext('sync()',context);
+  const event=vm.runInContext('data.activity.at(-1)',context);assert.equal(event.actor,'test-editor');
+  vm.runInContext(`commit({kind:'undoHistory',event:${JSON.stringify(event.id)}})`,context);shared.shots[0].notes='A teammate’s newer shared note';
+  await vm.runInContext('sync()',context);assert.equal(shared.shots[0].notes,'A teammate’s newer shared note');assert.equal(vm.runInContext('data.shots[0].notes',context),'A teammate’s newer shared note');assert.equal(vm.runInContext('pending.length',context),0);assert.equal(vm.runInContext('undoRequested',context),event.id,'A shared undo conflict returns to a concrete confirmation');
+  const rawFetch=context.fetch;let rawRequests=0;
+  context.fetch=async(url,init)=>init.headers.Accept==='application/vnd.github.raw+json'?(rawRequests++,{ok:true,text:async()=>JSON.stringify(shared)}):{ok:true,status:200,json:async()=>({sha:'large-file-sha',encoding:'none',content:''})};
+  const large=await vm.runInContext('readRemote()',context);assert.equal(large.sha,'large-file-sha');assert.equal(rawRequests,1);assert.equal(large.data.title,shared.title,'Large history files can use the GitHub raw response');context.fetch=rawFetch;
   console.log('Passed: GitHub SHA conflict retry, task review/annotation sync, asset and shot media, concurrent deletion, queue preservation, refresh draft guards, offline retries and token-free backups.');
 })().catch(e=>{console.error(e);process.exitCode=1;});
 

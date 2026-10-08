@@ -26,8 +26,15 @@ function localSave() {
 }
 function commit(op) {
   if(!canEditProject()){setMessage('Connect GitHub with repository write access to edit.',true);return;}
-  captureReviewDraft(); data = C.validate(C.apply(data, op)); data.updatedAt = new Date().toISOString(); pending.push(op); localSave(); render();
-  clearTimeout(saveTimer); if(token) saveTimer = setTimeout(sync, 1200);
+  captureReviewDraft();
+  if(typeof C.recorded==='function'){const meta=operationDescription(op);op=C.recorded(op,editorAccess.login,identity||editorAccess.login,meta.label,meta.href,meta.targets);}
+  try{const next=C.validate(C.apply(C.clone(data),op));if(JSON.stringify(next)===JSON.stringify(data))return true;data=next;}catch(error){setMessage(error.message,true);return false;}
+  data.updatedAt=new Date().toISOString();pending.push(op);localSave();
+  const change=op.kind==='record'?op.op:op;
+  if(['field','taskField','versionField','taskImageField','versionImageField','milestoneField','checkField'].includes(change.kind)){
+    sharedViewPending=true;updateLiveNotice();applyEditorAccess();
+  }else render();
+  clearTimeout(saveTimer); if(token) saveTimer = setTimeout(sync, 1200);return true;
 }
 const badge = item => `<span class="badge ${scopedStatus(item)}">${LABELS[scopedStatus(item)]}</span>`;
 const progressBar = (p, green = false) => `<div class="progress ${green ? 'green' : ''}" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100" aria-label="Completed tasks"><span style="width:${p}%"></span></div>`;
@@ -36,7 +43,8 @@ const teamOptions = selected => option('', 'Unassigned', selected) + (selected &
 const dateText = value => value ? new Date(`${value}T12:00:00`).toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
 const pencil = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/></svg>';
 function editableImage(content, target, label) {
-  return `<div class="editable-image">${content}<button type="button" class="image-edit" data-edit-image="${esc(target)}" aria-label="Change ${esc(label)}" title="Change ${esc(label)} · or drop an image here" ${uploading?'disabled':''}>${pencil}</button></div>`;
+  const [kind,id]=target.split(':'),custom=kind==='cover'&&data.assets.find(a=>a.id===id)?.cover;
+  return `<div class="editable-image">${content}<button type="button" class="image-edit" data-edit-image="${esc(target)}" aria-label="Change ${esc(label)}" title="Change ${esc(label)} · or drop an image here" ${uploading?'disabled':''}>${pencil}</button>${custom?smallX(`data-reset-image="${esc(target)}"`,'Remove custom thumbnail'):''}</div>`;
 }
 function versionImageTarget(asset, version, image) {return `version:${asset.id}:${version.id}:${image.id}`;}
 function assetCard(item) {
@@ -51,13 +59,13 @@ function render(force = false) {
   else hero.style.removeProperty('background-image');
   document.querySelector('.concept-label').textContent=data.hero?'PROJECT REFERENCE':'CONCEPT REFERENCE · AI GENERATED';
   document.querySelector('[data-edit-image="hero"]').disabled=uploading;
-  const current = data.milestones.find(m=>m.checks.some(c=>!c.done));
-  $('phaseLabel').textContent = current ? `Phase ${String(data.milestones.indexOf(current)+1).padStart(2,'0')} · ${current.name}` : 'Production complete · All milestones approved';
+  const current = C.activeMilestones(data).find(m=>C.activeChecks(m).some(c=>!c.done));
+  $('phaseLabel').textContent = current ? `Phase ${String(C.activeMilestones(data).indexOf(current)+1).padStart(2,'0')} · ${current.name}` : 'Production complete · All milestones approved';
   $('deadlineLabel').textContent = data.deadline ? `Delivery · ${dateText(data.deadline)}` : 'Set a delivery date in Settings';
-  document.querySelectorAll('[data-tab]').forEach(a=>{a.classList.toggle('active', a.dataset.tab === tab); if(a.dataset.tab===tab) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); const count = a.querySelector('span'); if(count) count.textContent = a.dataset.tab==='assets' ? data.assets.length : C.activeShots(data).length;});
+  document.querySelectorAll('[data-tab]').forEach(a=>{a.classList.toggle('active', a.dataset.tab === tab); if(a.dataset.tab===tab) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); const count = a.querySelector('span'); if(count) count.textContent = a.dataset.tab==='assets' ? C.activeAssets(data).length : C.activeShots(data).length;});
   document.body.dataset.section=tab;
   renderWorkflowMetrics();
-  if(!force && ($('taskUploadForm')?.elements.images.files.length || $('uploadForm')?.elements.images.files.length || $('feedbackForm')?.elements.body.value.trim()))return;
+  if(!force && ((typeof hasWorkDrafts==='function'&&hasWorkDrafts()) || $('taskUploadForm')?.elements.images.files.length || $('uploadForm')?.elements.images.files.length || $('feedbackForm')?.elements.body.value.trim())){sharedViewPending=true;updateLiveNotice();return;}
   if(tab==='overview') renderOverview(current);
   if(tab==='assets') renderAssets();
   if(tab==='cinematic') renderCinematic();
@@ -66,28 +74,26 @@ function render(force = false) {
   if(tab==='tasks') renderTaskList();
   if(tab==='calendar') renderCalendar();
   if(tab==='review') renderReview();
+  if(tab==='activity')renderActivity();
   applyEditorAccess();
 }
 function renderOverview(current) {
-  const checks=current?.checks.filter(c=>!c.done).slice(0,3)||[];
+  const checks=current&&C.activeChecks(current).filter(c=>!c.done).slice(0,3)||[];
   $('view').innerHTML=`<div class="focus-row"><section class="panel"><span class="eyebrow">NEXT MILESTONE</span><h3>${esc(current?.name||'Final delivery approved')}</h3><p>${esc(current?.description||'Your production checklist is complete.')}</p><div class="priority-list">${checks.map((c,i)=>`<div class="priority-row"><span class="priority-number">${i+1}</span><strong>${esc(c.label)}</strong></div>`).join('')}</div><a class="button subtle" href="#milestones" style="margin-top:17px">View milestones →</a></section>${dueReminder()}</div><div class="section-heading"><div><span class="eyebrow">THE PRODUCTION</span><h2>Build the world. Finish the film.</h2><p>Click a colored task to update its status, effort or deadline.</p></div><a class="text-button" href="#tasks">All tasks →</a></div><div class="asset-grid">${data.assets.filter(visibleItem).map(assetCard).join('')}</div>`;
 }
 function toolbar() { return `<div class="toolbar"><input id="search" aria-label="Search sections" type="search" placeholder="Search sections…" value="${esc(search)}"><select id="statusFilter" aria-label="Filter by status">${option('','All statuses',filter)}${['todo','active','review','done'].map(s=>option(s,LABELS[s],filter)).join('')}</select><select id="ownerFilter" aria-label="Filter by owner">${option('','Everyone',ownerFilter)}${option('unassigned','Unassigned',ownerFilter)}${data.team.map(x=>option(x,x,ownerFilter)).join('')}</select></div>`; }
 const matches = x => !x.archived && visibleItem(x) && (!filter || scopedStatus(x)===filter) && (!ownerFilter || visibleTasks(x).some(t=>ownerFilter==='unassigned' ? !t.owner : t.owner===ownerFilter)) && `${x.name} ${x.description} ${x.notes} ${visibleTasks(x).map(t=>t.label).join(" ")}`.toLowerCase().includes(search.toLowerCase());
-function renderAssets() { $('view').innerHTML=`<div class="section-heading"><div><h2>Build the world</h2><p>Characters, environment, props and effects · click tasks to update progress</p></div></div>${toolbar()}<div class="asset-grid" id="filteredCards">${assetCards()}</div>`; }
+function renderAssets() { $('view').innerHTML=`<div class="section-heading"><div><h2>Build the world</h2><p>Characters, environment, props and effects · click tasks to update progress</p></div><button class="button primary" id="newAssetButton">+ Add asset</button></div>${toolbar()}<div class="asset-grid" id="filteredCards">${assetCards()}</div>`; }
 function assetCards() { return data.assets.filter(matches).map(assetCard).join('') || '<div class="empty">No sections match these filters.</div>'; }
 function shotCards() {
-  return C.activeShots(data).filter(matches).map(s=>`<article class="shot-card"><div class="shot-number">${String(C.activeShots(data).indexOf(s)+1).padStart(2,'0')}</div><div><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p><div class="shot-specs">${s.duration?`<span>${s.duration}s</span>`:''}${s.camera?`<span>${esc(s.camera)}</span>`:''}</div><div class="dependencies">${s.dependencies.map(id=>{const a=data.assets.find(x=>x.id===id);return `<button class="dependency ${C.status(a)==='done' ? 'ready' : ''}" data-open="assets:${id}" title="Open asset tasks">${C.status(a)==='done' ? '✓ ' : '○ '}${esc(a.name)}</button>`;}).join('')}</div></div><div class="shot-end"><div class="card-top">${badge(s)}<span>${scopedProgress(s)}%</span></div>${progressBar(scopedProgress(s),true)}${shotControls(s)}<div class="card-bottom"><span class="task-team">${sectionAssignment(s,'shots')}</span><button class="open-card" data-open="shots:${esc(s.id)}">Open shot ↗</button></div></div></article>`).join('') || '<div class="empty">No shots match these filters.</div>';
+  return C.activeShots(data).filter(matches).map(s=>`<article class="shot-card"><div class="shot-number">${String(C.activeShots(data).indexOf(s)+1).padStart(2,'0')}</div><div><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p><div class="shot-specs">${s.duration?`<span>${s.duration}s</span>`:''}${s.camera?`<span>${esc(s.camera)}</span>`:''}</div><div class="dependencies">${s.dependencies.map(id=>{const a=data.assets.find(x=>x.id===id);return `<button class="dependency ${C.status(a)==='done' ? 'ready' : ''}" data-open="assets:${id}" title="Open asset tasks" ${a.archived?'disabled data-fixed-disabled':''}>${a.archived?'Removed · ':C.status(a)==='done' ? '✓ ' : '○ '}${esc(a.name)}</button>`;}).join('')}</div></div><div class="shot-end"><div class="card-top">${badge(s)}<span>${scopedProgress(s)}%</span></div>${progressBar(scopedProgress(s),true)}${shotControls(s)}<div class="card-bottom"><span class="task-team">${sectionAssignment(s,'shots')}</span><button class="open-card" data-open="shots:${esc(s.id)}">Open shot ↗</button></div></div></article>`).join('') || '<div class="empty">No shots match these filters.</div>';
 }
 function renderCinematic() { $('view').innerHTML=`<div class="section-heading"><div><h2>Tell the story</h2><p>${C.activeShots(data).length} shots · ${C.activeShots(data).reduce((sum,s)=>sum+s.duration,0)} seconds planned · add, edit or reorder your story</p></div><div class="section-actions"><button class="button subtle" id="cinematicPreview">▷ Previs</button><button class="button primary" id="newShotButton">+ Add shot</button></div></div>${toolbar()}<div class="shots" id="filteredCards">${shotCards()}</div>${deletedShots()}<p class="tip">Dependencies show final asset readiness. Start layout and timing with placeholders; approve final assets before the last render.</p>`; }
-function renderMilestones() {
-  const first = data.milestones.find(m=>m.checks.some(c=>!c.done));
-  $('view').innerHTML=`<div class="section-heading"><div><h2>From first idea to final film</h2><p>Approval gates · check each deliverable after reviewing it</p></div></div><div class="milestones">${data.milestones.map((m,i)=>`<article class="milestone ${m===first ? 'current' : ''}"><div class="milestone-number">${m.checks.every(c=>c.done) ? '✓' : String(i+1).padStart(2,'0')}</div><div><div class="card-top"><h3>${esc(m.name)}</h3><span class="badge ${m.checks.every(c=>c.done) ? 'done' : m===first ? 'active' : ''}">${m.checks.every(c=>c.done) ? 'Approved' : m===first ? 'Current milestone' : 'Upcoming'}</span></div><p>${esc(m.description)}</p><div class="task-list">${m.checks.map(c=>`<label class="task-row ${c.done ? 'checked' : ''}"><input type="checkbox" data-milestone="${m.id}:${c.id}" ${c.done ? 'checked' : ''}><span class="task-text">${esc(c.label)}</span></label>`).join('')}</div></div></article>`).join('')}</div>`;
-}
+function renderMilestones(){renderEditableMilestones();}
 function openDetail(group,id,taskId='') {
   detail={group,id};const item=data[group]?.find(x=>x.id===id);if(!item)return;
   const link=C.safeUrl(item.file),tasks=orderedTasks(item);
-  $('detailContent').innerHTML=`${group==='assets'?editableImage(`<img class="detail-cover" src="${esc(M.src(item.cover||`images/${item.image}.webp`))}" alt="${esc(item.name)} reference">`,`cover:${item.id}`,`${item.name} thumbnail`):''}<div class="dialog-content"><div class="dialog-head"><div><span class="eyebrow">${group==='assets'?esc(item.category):'CINEMATIC'}</span><h2>${esc(item.name)}</h2></div><button class="close-button" data-close="detailDialog" aria-label="Close tasks">×</button></div><div class="section-fields"><div><label>Section / shot name<input data-field="name" value="${esc(item.name)}" maxlength="150" required></label><label>Description<textarea data-field="description" maxlength="2000">${esc(item.description)}</textarea></label></div><div class="section-pickers"><label>Section due date<input data-field="due" type="date" value="${esc(item.due)}"></label><label>Importance<select data-field="priority">${priorityOptions(item.priority)}</select></label><label>Show tasks<select id="detailScopeFilter">${option('all','All work',scopeFilter)}${option('must','Must have only',scopeFilter)}${option('nice','Nice to have only',scopeFilter)}</select></label></div></div>${group==='shots'?shotFields(item):''}<div class="subtasks-heading"><div><h3>Subtasks</h3><p>Assign the whole section or adjust each step.</p></div>${sectionAssignment(item,group)}</div><div class="progress-label"><span id="detailProgressLabel">${tasks.filter(t=>t.status==='done').length} / ${tasks.length} visible tasks complete</span><strong id="detailPercent">${scopedProgress(item)}%</strong></div><div id="detailProgress">${progressBar(scopedProgress(item))}</div><div class="task-list">${tasks.map((t,i)=>taskEditor(item,t,group,i)).join('')||'<p class="help">No tasks in this scope. Choose All work to see every task.</p>'}</div><form id="addTaskForm" class="add-task"><input name="task" aria-label="New task" placeholder="Add a specific task…" maxlength="150" required><button class="button" type="submit">Add</button></form><label>Notes / next action<textarea data-field="notes" maxlength="10000">${esc(item.notes)}</textarea></label><label>Working file / reference URL<input type="url" data-field="file" value="${esc(item.file)}" placeholder="https://…" maxlength="2000"></label><div class="detail-actions">${group==='assets'?`<a class="text-button" href="#versions/${esc(item.id)}" data-version-link>Version history ↗</a>`:''}<span class="detail-meta">Changes save automatically</span>${link?`<a class="text-button" href="${esc(link)}" target="_blank" rel="noopener noreferrer">Open working file ↗</a>`:''}<button class="button primary" data-close="detailDialog">Close</button></div></div>`;
+  $('detailContent').innerHTML=`${group==='assets'?editableImage(`<img class="detail-cover" src="${esc(M.src(item.cover||`images/${item.image}.webp`))}" alt="${esc(item.name)} reference">`,`cover:${item.id}`,`${item.name} thumbnail`):''}<div class="dialog-content"><div class="dialog-head"><div><span class="eyebrow">${group==='assets'?esc(item.category):'CINEMATIC'}</span><h2>${esc(item.name)}</h2></div><button class="close-button" data-close="detailDialog" aria-label="Close tasks">×</button></div><div class="section-fields"><div><label>Section / shot name<input data-field="name" value="${esc(item.name)}" maxlength="150" required></label>${group==='assets'?`<label>Category<input data-field="category" value="${esc(item.category)}" maxlength="150"></label>`:''}<label>Description<textarea data-field="description" maxlength="2000">${esc(item.description)}</textarea></label></div><div class="section-pickers"><label>Section due date<input data-field="due" type="date" value="${esc(item.due)}"></label><label>Importance<select data-field="priority">${priorityOptions(item.priority)}</select></label><label>Show tasks<select id="detailScopeFilter">${option('all','All work',scopeFilter)}${option('must','Must have only',scopeFilter)}${option('nice','Nice to have only',scopeFilter)}</select></label></div></div>${group==='shots'?shotFields(item):''}<div class="subtasks-heading"><div><h3>Subtasks</h3><p>Assign the whole section or adjust each step.</p></div>${sectionAssignment(item,group)}</div><div class="progress-label"><span id="detailProgressLabel">${tasks.filter(t=>t.status==='done').length} / ${tasks.length} visible tasks complete</span><strong id="detailPercent">${scopedProgress(item)}%</strong></div><div id="detailProgress">${progressBar(scopedProgress(item))}</div><div class="task-list">${tasks.map((t,i)=>taskEditor(item,t,group,i)).join('')||'<p class="help">No tasks in this scope. Choose All work to see every task.</p>'}</div>${removedTaskMarkup(item,group)}<form id="addTaskForm" class="add-task"><input name="task" aria-label="New task" placeholder="Add a specific task…" maxlength="150" required><button class="button" type="submit">Add</button></form><label>Notes / next action<textarea data-field="notes" maxlength="10000">${esc(item.notes)}</textarea></label><label>Working file / reference URL<input type="url" data-field="file" value="${esc(item.file)}" placeholder="https://…" maxlength="2000"></label><div class="detail-actions">${group==='assets'?`<a class="text-button" href="#versions/${esc(item.id)}" data-version-link>Version history ↗</a>`:''}<span class="detail-meta">Changes save automatically · undo in Activity</span>${group==='assets'?smallX(`data-remove-asset="${item.id}"`,'Remove asset'):''}${link?`<a class="text-button" href="${esc(link)}" target="_blank" rel="noopener noreferrer">Open working file ↗</a>`:''}<button class="button primary" data-close="detailDialog">Close</button></div></div>`;
   if(!$('detailDialog').open)$('detailDialog').showModal();
   if(taskId){const row=$('task-'+taskId);if(row){row.classList.add('task-highlight');row.scrollIntoView({block:'center'});row.querySelector('.task-name').focus({preventScroll:true});}}
 }
@@ -100,7 +106,7 @@ function updateDetailTaskDisplay(id) {
 function updateDetailTask(id,value) {commit({kind:'task',...detail,task:id,value});updateDetailTaskDisplay(id);}
 
 function openSettings() {
-  const f=$('settingsForm'); for(const field of ['title','deadline','preview']) f.elements[field].value=data[field]; f.elements.team.value=data.team.join(', '); f.elements.token.value=token; f.elements.identity.innerHTML=teamOptions(identity); $('settingsDialog').showModal();
+  const f=$('settingsForm'); for(const field of ['title','deadline','preview']) f.elements[field].value=data[field];populateCustomSettings(f); f.elements.team.value=data.team.join(', '); f.elements.token.value=token; f.elements.identity.innerHTML=teamOptions(identity); $('settingsDialog').showModal();
 }
 function openPreview() {
   renderPreviewContent();
@@ -117,11 +123,14 @@ function remoteError(response, message) {
   return new Error(response.status===429 || reset || wait ? 'GitHub is busy · live updates will retry automatically.' : message);
 }
 async function readRemote(etag = '') {
-  const requestHeaders=headers();if(etag)requestHeaders['If-None-Match']=etag;
+  const requestHeaders={...headers(),Accept:'application/vnd.github.object+json'};if(etag)requestHeaders['If-None-Match']=etag;
   const response=await fetch(`${API}?ref=main`,{headers:requestHeaders,cache:'no-store'});
   if(response.status===304)return {unchanged:true};
   if(!response.ok) throw remoteError(response,response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : `Team file could not be read (${response.status}).`);
-  const file=await response.json(); return {sha:file.sha,etag:response.headers?.get('etag')||'',data:C.validate(JSON.parse(decode(file.content)))};
+  const file=await response.json();let text;
+  if(file.encoding==='base64'||file.content)text=decode(file.content);
+  else{const raw=await fetch(API+'?ref=main',{headers:{...headers(),Accept:'application/vnd.github.raw+json'},cache:'no-store'});if(!raw.ok)throw remoteError(raw,'Could not read the shared project.');text=await raw.text();}
+  return {sha:file.sha,etag:response.headers?.get('etag')||'',data:C.validate(JSON.parse(text))};
 }
 async function publishMedia(paths) {
   for(const path of paths) {
@@ -136,22 +145,25 @@ async function publishMedia(paths) {
     await M.markUploaded(path);
   }
 }
-function imagePaths(project) {return new Set([project.previewMedia?.path,...[...project.assets,...project.shots].flatMap(a=>a.tasks.flatMap(t=>(t.images||[]).map(i=>i.path))),project.hero,...project.assets.flatMap(a=>[a.cover,...(a.versions||[]).flatMap(v=>v.images.map(i=>i.path))])].filter(p=>typeof p==='string'&&p.startsWith('uploads/')));}
+function imagePaths(project){const paths=new Set();function walk(value){if(typeof value==='string'&&value.startsWith('uploads/')&&(C.imagePath(value)||C.videoPath(value)))paths.add(value);else if(Array.isArray(value))value.forEach(walk);else if(value&&typeof value==='object')Object.values(value).forEach(walk);}walk(project);return paths;}
 async function sync() {
   if(saving || loading || !canEditProject() || Date.now()<retryAt)return; saving=true; syncFailed=false;
-  setMessage('Saving changes to the team…');
+  setMessage('Saving changes to the team…');let latestRemote=null;
   try {
     const batch=pending.slice();
     await publishMedia(imagePaths(C.clone(data)));
     for(let attempt=0;attempt<3;attempt++) {
-      const remote=await readRemote(); const merged=C.replay(remote.data,batch); merged.updatedAt=new Date().toISOString(); C.validate(merged);
+      const remote=await readRemote();latestRemote=remote.data; const merged=C.replay(remote.data,batch); merged.updatedAt=new Date().toISOString(); C.validate(merged);
       if(!batch.length){data=C.replay(merged,pending);remoteETag='';localSave();renderAfterSync();return;}
       const response=await fetch(API,{method:'PUT',headers:headers(),body:JSON.stringify({message:'Update Eternal Tomb production tracker',content:encode(JSON.stringify(merged,null,2)+'\n'),sha:remote.sha,branch:'main'})});
       if(response.status===409 && attempt<2)continue;
       if(!response.ok)throw remoteError(response,response.status===401 || response.status===403 ? 'Check your token and repository access in Settings.' : 'Team save failed. Live updates will retry.');
       pending.splice(0,batch.length); data=C.replay(merged,pending);remoteETag='';localSave();renderAfterSync();return;
     }
-  } catch(error) {syncFailed=true;localSave();setMessage(`Saved locally · ${error.message}`,true);}
+  } catch(error) {
+    if(error.code==='UNDO_CONFLICT'&&latestRemote){pending=pending.filter(op=>op.id!==error.changeId);data=C.validate(C.replay(latestRemote,pending));remoteETag='';syncFailed=false;localSave();renderSharedUpdate();requestUndo(error.event);setMessage('A teammate edited this work before the undo saved. Review the newer values to continue.',true);}
+    else{syncFailed=true;localSave();setMessage(`Saved locally · ${error.message}`,true);}
+  }
   finally {saving=false;if(pending.length && !syncFailed){clearTimeout(saveTimer);saveTimer=setTimeout(sync,800);}}
 }
 function renderAfterSync() {
@@ -208,7 +220,7 @@ const ROLES={sheet:'Main character sheet',front:'Front',back:'Back',left:'Left',
 const VERSION_LABELS={reference:'Concept reference',wip:'Work in progress',review:'Needs feedback',approved:'Approved'};
 const newId=prefix=>prefix+'_'+crypto.randomUUID().replaceAll('-','');
 function currentVersion() {
-  const asset=data.assets.find(a=>a.id===versionAsset)||data.assets[0];versionAsset=asset.id;
+  const asset=C.activeAssets(data).find(a=>a.id===versionAsset)||C.activeAssets(data)[0];if(!asset)return {asset:null,version:null};versionAsset=asset.id;
   const versions=C.activeVersions(asset),version=versions.find(v=>v.id===versionId)||versions.at(-1);versionId=version?.id||'';
   return {asset,version};
 }
@@ -222,11 +234,7 @@ function displayedVersion(editing=false) {
 function imageTile(image,asset,version) {
   return `<article class="review-image">${editableImage(`<button class="image-open" data-image="${image.id}" aria-label="Open ${esc(image.caption||ROLES[image.role])}"><img src="${esc(M.src(image.path))}" alt="${esc(image.caption||ROLES[image.role])}" loading="lazy"></button>`,versionImageTarget(asset,version,image),`${ROLES[image.role]} image`)}<div class="image-info"><span class="eyebrow">${esc(ROLES[image.role])}</span><p>${esc(image.caption)}</p><button class="text-button" data-cover="${image.id}">${asset.cover===image.path?'✓ Main asset image':'Use as main asset image'}</button></div></article>`;
 }
-function renderVersions() {
-  const {asset,version}=currentVersion();const versions=C.activeVersions(asset),previous=version&&versions[versions.indexOf(version)-1];
-  const sheet=version&&(version.images.filter(i=>i.role==='sheet').at(-1)||version.images.find(i=>i.role==='reference')||version.images[0]);
-  $('view').innerHTML=`<div class="section-heading"><div><h2>Versions & feedback</h2><p>Keep the history. Show the progress. Improve it together.</p></div><button class="button primary" id="newVersionButton" ${uploading?'disabled':''}>+ New version</button></div><div class="review-toolbar"><label>Asset<select id="versionAsset">${data.assets.map(a=>option(a.id,a.name,asset.id)).join('')}</select></label><label>Posting as<select id="feedbackIdentity">${option('','Choose your name',identity)}${data.team.map(x=>option(x,x,identity)).join('')}</select></label><span class="help">Each version keeps its own images and feedback.</span></div><div class="version-layout"><aside class="version-sidebar"><span class="eyebrow">VERSION HISTORY</span>${versionHistory(asset,version)}${deletedVersions(asset)}</aside><section class="version-main" data-asset="${asset.id}" data-version="${version?.id||''}">${version ? `<div class="panel"><div class="version-title-row"><div><span class="eyebrow">${esc(asset.name)}</span><h3>${esc(version.title)}</h3></div>${previous?`<button class="button subtle" id="compareButton">${comparison?'Hide comparison':'Compare previous'}</button>`:''}</div><div class="version-fields"><label>Version name<input data-vfield="title" value="${esc(version.title)}" maxlength="150" required></label><label>Owner<select data-vfield="owner">${teamOptions(version.owner)}</select></label><label>Review status<select data-vfield="status">${Object.entries(VERSION_LABELS).map(([id,text])=>option(id,text,version.status)).join('')}</select></label></div><label>Changes / review focus<textarea data-vfield="summary" maxlength="4000">${esc(version.summary)}</textarea></label>${comparison&&previous?`<div class="compare-grid"><div><span class="eyebrow">PREVIOUS · ${esc(previous.title)}</span>${previous.images.length?`<img src="${esc(M.src((previous.images.find(i=>i.role==='sheet')||previous.images[0]).path))}" alt="Previous version reference">`:'<div class="empty">No previous image</div>'}</div><div><span class="eyebrow">CURRENT · ${esc(version.title)}</span>${sheet?`<img src="${esc(M.src(sheet.path))}" alt="Current version reference">`:'<div class="empty">No current image</div>'}</div></div>`:''}<div class="sheet-heading"><h3>Main character sheet / current reference</h3><span class="muted">Click an image to inspect it</span></div>${sheet?`${editableImage(`<button class="main-sheet image-open" data-image="${sheet.id}" aria-label="Open main character sheet"><img src="${esc(M.src(sheet.path))}" alt="${esc(sheet.caption||'Main character sheet')}"></button>`,versionImageTarget(asset,version,sheet),'main character sheet')}<p class="image-caption">${esc(sheet.caption)}</p>`:'<div class="empty">Upload a character sheet or your current main reference.</div>'}<div class="angle-grid">${['front','back','left','right'].map(role=>{const img=version.images.filter(i=>i.role===role).at(-1);return img?`${editableImage(`<button class="angle-image image-open" data-image="${img.id}"><img src="${esc(M.src(img.path))}" alt="${ROLES[role]} view"><span>${ROLES[role]}</span></button>`,versionImageTarget(asset,version,img),`${ROLES[role]} view`)}`:`<button class="angle-placeholder" data-upload-angle="${role}"><span>+</span>${ROLES[role]} view<small>Upload an angle</small></button>`;}).join('')}</div><div class="sheet-heading"><h3>Clothing, details & progress</h3><span class="muted">${version.images.length} images in this version</span></div><div class="review-gallery">${version.images.filter(i=>(i.id!==sheet?.id||['clothing','clothing-progress','detail','progress'].includes(i.role))&&!['front','back','left','right'].includes(i.role)).map(i=>imageTile(i,asset,version)).join('')||'<div class="empty">Add clothing references, current clothing and detail renders below.</div>'}</div><form id="uploadForm" class="upload-panel"><h3>Upload progress images</h3><div class="field-grid"><label>Image type<select name="role">${Object.entries(ROLES).map(([id,text])=>option(id,text,'progress')).join('')}</select></label><label>Caption / what changed<input name="caption" maxlength="300" placeholder="e.g. v002 · shoulder cloth test"></label></div><label>Images<input type="file" name="images" id="progressFiles" accept="image/png,image/jpeg,image/webp" multiple required ${uploading?'disabled':''}></label><div class="upload-bottom"><span class="help">PNG, JPEG or WebP · up to 15 MB each<br>Images save here first, then share through team sync.</span><button class="button primary" type="submit" ${uploading?'disabled':''}>${uploading?'Saving images…':'Upload images ↑'}</button></div></form></div><div class="panel feedback-panel"><div class="section-heading"><div><span class="eyebrow">REVIEW THIS VERSION</span><h3>Feedback & comments</h3></div><span class="badge">${version.comments.filter(c=>!c.resolved).length} open</span></div><div class="comments">${version.comments.map(c=>`<article class="comment ${c.resolved?'resolved':''}"><div class="comment-meta"><strong>${esc(c.author)}</strong><span>${c.target?'→ '+esc(c.target):'→ Everyone'}${c.image?' · '+esc(version.images.find(i=>i.id===c.image)?.caption||ROLES[version.images.find(i=>i.id===c.image)?.role]||'Image'):''}</span><time>${new Date(c.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</time></div><p>${esc(c.body)}</p><label class="comment-resolve"><input type="checkbox" data-comment-resolve="${c.id}" ${c.resolved?'checked':''}>${c.resolved?'Resolved':'Mark resolved'}</label></article>`).join('')||'<div class="feedback-empty">No feedback yet. Ask for a specific improvement to make the next version easier.</div>'}</div><form id="feedbackForm"><div class="field-grid"><label>Feedback for<select name="target">${option('','Everyone','')}${data.team.map(x=>option(x,x,'')).join('')}</select></label><label>About<select name="image">${option('','This version','')}${version.images.map(i=>option(i.id,ROLES[i.role]+' · '+(i.caption||i.id),'')).join('')}</select></label></div><label>Your feedback<textarea name="body" required maxlength="6000" placeholder="What works? What needs improving? Suggest a concrete next step."></textarea></label><div class="dialog-actions"><button class="button primary" type="submit">Post feedback →</button></div></form></div>` : `<div class="panel"><div class="empty"><h3>A place for the next iteration</h3><p>Create a version, upload your current work and invite feedback.</p><button class="button primary" id="firstVersionButton">+ Create first version</button></div></div>`}</section></div>`;
-}
+function renderVersions(){renderVersionWorkbench();applyEditorAccess();}
 function openNewVersion(){const {asset}=currentVersion();const f=$('newVersionForm');f.elements.title.value=`v${String(asset.versions.length+1).padStart(3,'0')} · `;f.elements.summary.value='';f.elements.owner.innerHTML=teamOptions(identity||asset.owner);$('newVersionDialog').showModal();}
 async function uploadImages(form) {
   if(uploading)return;const {asset,version}=displayedVersion(true);if(!version)return;
@@ -262,9 +270,10 @@ async function replaceThumbnail(form) {
   try {
     const blob=await M.prepare(file),path=`uploads/${newId('image')}.webp`;await M.store(path,blob);
     if(target.kind==='hero')commit({kind:'project',field:'hero',value:path});
+    else if(target.kind==='task'){const ctx=workContext(target.context);if(!ctx.active)throw new Error('Restore this task before replacing its image.');commit({kind:'batch',context:ctx.key,label:'Replaced progress image',ops:[workOp(ctx,'taskImageField',{image:target.imageId,field:'path',value:path}),workOp(ctx,'taskImageField',{image:target.imageId,field:'caption',value:caption})]});refreshWorkDetail();}
     else if(target.kind==='cover')commit({kind:'field',group:'assets',id:target.assetId,field:'cover',value:path});
     else commit({kind:'replaceImage',group:'assets',id:target.assetId,version:target.versionKey,image:target.imageId,value:{path,caption}});
-    if(detail?.group==='assets'&&detail.id===target.assetId){const asset=data.assets.find(a=>a.id===detail.id);$('detailDialog').querySelector('.detail-cover').src=M.src(asset.cover||`images/${asset.image}.webp`);}
+    if(target.kind!=='task'&&detail?.group==='assets'&&detail.id===target.assetId){const asset=data.assets.find(a=>a.id===detail.id);$('detailDialog').querySelector('.detail-cover').src=M.src(asset.cover||`images/${asset.image}.webp`);}
     $('thumbnailDialog').close();
     if(!token)setMessage('Image saved in this browser · connect team sync to share');
   }catch(error){$('thumbnailError').textContent=error.message||'Could not replace this image. Please try again.';}
@@ -325,32 +334,31 @@ $('settingsForm').addEventListener('submit',async e=>{
   const title=f.elements.title.value.trim();if(!title){f.elements.title.reportValidity();return;}
   token=f.elements.token.value.trim();remoteETag='';retryAt=0;nextLiveCheck=0;try{localStorage.setItem(TOKEN_KEY,token);}catch{storageOK=false;}
   const allowed=await verifyEditorAccess();
-  identity=f.elements.identity.value;try{localStorage.setItem('eternal-tomb-feedback-name',identity);}catch{}
-  if(allowed)for(const [field,value] of Object.entries({title,deadline:f.elements.deadline.value,team,preview}))if(JSON.stringify(data[field])!==JSON.stringify(value))commit({kind:'project',field,value});
+  identity=f.elements.identity.value||identity;try{localStorage.setItem('eternal-tomb-feedback-name',identity);}catch{}
+  if(allowed)for(const [field,value] of Object.entries({title,deadline:f.elements.deadline.value,team,preview,...customSettingsValues(f)}))if(JSON.stringify(data[field])!==JSON.stringify(value))commit({kind:'project',field,value});
   if(token&&!allowed){setMessage(editorAccess.message,true);return;}
   $('settingsDialog').close();syncFailed=false;localSave();render();await refresh();
 });
 $('settingsForm').addEventListener('input',e=>e.target.setCustomValidity?.(''));
 $('importFile').addEventListener('change',async e=>{
   const file=e.target.files[0];if(!file)return;
-  try {if(file.size>100000000)throw new Error('Backup is too large.');const raw=JSON.parse(await file.text());const imported=C.validate(raw);const media=backupMediaEntries(raw);if(!confirm('Replace this project with the selected backup? Export your current project first if you need to keep it.'))return;for(const i of media)await M.store(i.path,new Blob([Uint8Array.from(atob(i.base64),x=>x.charCodeAt(0))],{type:i.type}));commit({kind:'replace',data:imported});}
+  try {if(file.size>100000000)throw new Error('Backup is too large.');const raw=JSON.parse(await file.text());const imported=C.validate(raw);const media=backupMediaEntries(raw);if(!confirm('Replace the project with this backup? The current project will remain recoverable through Undo in Activity.'))return;for(const i of media)await M.store(i.path,new Blob([Uint8Array.from(atob(i.base64),x=>x.charCodeAt(0))],{type:i.type}));commit({kind:'replace',data:imported});}
   catch(error){setMessage(error.message||'Could not import this backup.',true);}finally{e.target.value='';}
 });
-for(const dialog of document.querySelectorAll('dialog')){
-  dialog.addEventListener('click',e=>{if(e.target===dialog){if(dialog.id==='thumbnailDialog'&&uploading)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-}
+for(const dialog of document.querySelectorAll('dialog'))installSafeDialogDismissal(dialog);
+if(typeof installAnnotationControls==='function')installAnnotationControls();
 $('previewDialog').addEventListener('close',()=>{$('previewContent').querySelector('video')?.pause();});
 $('detailDialog').addEventListener('close',()=>{if(!$('detailDialog').open)detail=null;});
 function navigate(){
   captureReviewDraft();const parts=location.hash.slice(1).split('/'),[candidate,asset,version]=parts;
   if($('detailDialog').open)$('detailDialog').close();
-  tab=['overview','assets','cinematic','milestones','versions','tasks','calendar','review'].includes(candidate)?candidate:candidate==='task'?(asset==='shots'?'cinematic':'assets'):'overview';
+  tab=['overview','assets','cinematic','milestones','versions','tasks','calendar','review','activity'].includes(candidate)?candidate:candidate==='task'?(asset==='shots'?'cinematic':'assets'):'overview';
   if(candidate==='versions'&&asset){versionAsset=asset;versionId=version||'';comparison=false;}
   if(candidate==='calendar'&&/^\d{4}-\d{2}(?:-\d{2})?$/.test(asset||'')&&C.validDate(asset.slice(0,7)+'-01')){calendarMonth=asset.slice(0,7);calendarDay=asset.length===10&&C.validDate(asset)?asset:'';}
   if(candidate==='tasks')taskStatusFilter=C.statuses.includes(asset)?asset:'';
   if(candidate==='review'&&parts.length===4){reviewKey=parts.slice(1).join('/');reviewImage='';annotationPoint=null;}
   filter='';ownerFilter='';search='';render(true);
-  if(candidate==='task'&&['assets','shots'].includes(asset)){const item=data[asset].find(i=>i.id===version),task=item?.tasks.find(t=>t.id===parts[3]);if(item){if(!visibleItem(item)||(task&&!visibleTasks(item).includes(task))){scopeFilter='all';render();}openDetail(asset,version,parts[3]);}else setMessage('This task or section is no longer available.',true);}
+  if(candidate==='task'&&['assets','shots'].includes(asset)){const item=data[asset].find(i=>i.id===version),task=item?.tasks.find(t=>t.id===parts[3]);if(item&&!item.archived){if(!visibleItem(item)||(task&&!visibleTasks(item).includes(task))){scopeFilter='all';render();}openDetail(asset,version,parts[3]);}else setMessage('This task or section is no longer available.',true);}
 }
 
 window.addEventListener('hashchange',navigate);
