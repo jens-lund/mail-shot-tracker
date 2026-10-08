@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T10:12:31.689Z",
+  "updatedAt": "2026-10-08T10:12:34.866Z",
   "assets": [
     {
       "id": "knight",
@@ -200,7 +200,8 @@
               "id": "image_0ec07df10ff74ac0849ab3ae6f54c046",
               "path": "uploads/image_0ec07df10ff74ac0849ab3ae6f54c046.webp",
               "role": "progress",
-              "caption": "Design direction, Silhouette and 3D Blockout"
+              "caption": "Design direction, Silhouette and 3D Blockout",
+              "deletedAt": "2026-10-08T10:12:31.458Z"
             },
             {
               "id": "image_5c2484524dde414b94eba3197ad033e2",
@@ -1366,6 +1367,38 @@
           ],
           "before": null,
           "after": "2026-10-08T10:12:29.991Z",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_ab99307f414b4ff29d70464ba687b362",
+      "actor": "jens-lund",
+      "author": "Jens",
+      "createdAt": "2026-10-08T10:12:31.459Z",
+      "label": "Removed an image from Blockout + Silhuette + Design direction",
+      "href": "#task/assets/troll/design",
+      "targets": [
+        "Jens"
+      ],
+      "kind": "taskImageDeleted",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "tasks",
+            "@design",
+            "images",
+            "@image_0ec07df10ff74ac0849ab3ae6f54c046",
+            "deletedAt"
+          ],
+          "before": null,
+          "after": "2026-10-08T10:12:31.458Z",
           "beforeExists": false,
           "afterExists": true
         }
