@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:57:41.625Z",
+  "updatedAt": "2026-10-08T07:58:41.454Z",
   "assets": [
     {
       "id": "knight",
@@ -182,6 +182,12 @@
               "path": "uploads/image_a4c63b40998245f99513095173d9c0f8.webp",
               "role": "progress",
               "caption": "Design direction.png"
+            },
+            {
+              "id": "image_f309e02c3da249d387bad7b8935983b5",
+              "path": "uploads/image_f309e02c3da249d387bad7b8935983b5.webp",
+              "role": "progress",
+              "caption": "3D Silhouette from primitives"
             }
           ],
           "comments": []
