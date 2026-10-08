@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T10:14:19.827Z",
+  "updatedAt": "2026-10-08T20:44:59.901Z",
   "assets": [
     {
       "id": "knight",
@@ -316,7 +316,7 @@
           "deletedAt": ""
         }
       ],
-      "cover": "uploads/image_afee028f5ac24c279f71f846c77dbb37.webp",
+      "cover": "",
       "priority": "must",
       "removedTaskIds": [],
       "deletedTasks": []
@@ -1538,6 +1538,32 @@
           "before": null,
           "after": "funker ai bildet? hva må endres",
           "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_b25d13fe961a43b187c764631109a87d",
+      "actor": "NicoArtz20",
+      "author": "NicoArtz20",
+      "createdAt": "2026-10-08T20:44:59.408Z",
+      "label": "Edited Golem Character · cover",
+      "href": "#task/assets/troll",
+      "targets": [],
+      "kind": "field",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "cover"
+          ],
+          "before": "uploads/image_afee028f5ac24c279f71f846c77dbb37.webp",
+          "after": "",
+          "beforeExists": true,
           "afterExists": true
         }
       ],
