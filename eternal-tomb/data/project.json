@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T07:53:32.150Z",
+  "updatedAt": "2026-10-08T07:57:41.625Z",
   "assets": [
     {
       "id": "knight",
@@ -176,7 +176,14 @@
           "effort": "medium",
           "priority": "must",
           "owner": "Jens",
-          "images": [],
+          "images": [
+            {
+              "id": "image_a4c63b40998245f99513095173d9c0f8",
+              "path": "uploads/image_a4c63b40998245f99513095173d9c0f8.webp",
+              "role": "progress",
+              "caption": "Design direction.png"
+            }
+          ],
           "comments": []
         },
         {
