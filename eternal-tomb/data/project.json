@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-08T20:44:59.901Z",
+  "updatedAt": "2026-10-09T07:32:19.550Z",
   "assets": [
     {
       "id": "knight",
@@ -31,7 +31,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "Kevin",
+          "owner": "Nicolai",
           "images": [
             {
               "id": "image_a0829b9fcbad42068a63d35819e53992",
@@ -1563,6 +1563,36 @@
           ],
           "before": "uploads/image_afee028f5ac24c279f71f846c77dbb37.webp",
           "after": "",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_699bd7b4087b434e82af99ece8bcf20d",
+      "actor": "thekevhog",
+      "author": "Kevin",
+      "createdAt": "2026-10-09T07:32:17.821Z",
+      "label": "Edited Blockout · owner",
+      "href": "#task/assets/knight/design",
+      "targets": [
+        "Kevin"
+      ],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@design",
+            "owner"
+          ],
+          "before": "Kevin",
+          "after": "Nicolai",
           "beforeExists": true,
           "afterExists": true
         }
