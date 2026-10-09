@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-09T07:32:30.681Z",
+  "updatedAt": "2026-10-09T07:32:33.240Z",
   "assets": [
     {
       "id": "knight",
@@ -27,7 +27,7 @@
           "id": "design",
           "label": "Blockout",
           "description": "Approve silhouette, armour, cape and injury references.",
-          "status": "doing",
+          "status": "done",
           "due": "",
           "effort": "medium",
           "priority": "must",
@@ -1653,6 +1653,36 @@
           ],
           "before": "todo",
           "after": "doing",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_895f032c08d341d193f7fdf10c140d99",
+      "actor": "thekevhog",
+      "author": "Kevin",
+      "createdAt": "2026-10-09T07:32:30.909Z",
+      "label": "Edited Blockout",
+      "href": "#task/assets/knight/design",
+      "targets": [
+        "Kevin"
+      ],
+      "kind": "task",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@design",
+            "status"
+          ],
+          "before": "doing",
+          "after": "done",
           "beforeExists": true,
           "afterExists": true
         }
