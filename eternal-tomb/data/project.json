@@ -8,13 +8,13 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:08:51.649Z",
+  "updatedAt": "2026-10-16T08:10:38.976Z",
   "assets": [
     {
       "id": "knight",
       "name": "The wounded knight",
       "category": "MAIN CHARACTER",
-      "description": "Battered armour, a weary silhouette and a believable injured performance.",
+      "description": "A wounded knight from a cold, northern land.",
       "image": "knight",
       "owner": "",
       "due": "",
@@ -1850,6 +1850,32 @@
           ],
           "before": "",
           "after": "uploads/image_04911e3419d8405ea0bef2e71b431b62.webp",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_0299d457991947a89ad106903e3f1bfa",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:10:37.384Z",
+      "label": "Edited The wounded knight · description",
+      "href": "#task/assets/knight",
+      "targets": [],
+      "kind": "field",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "description"
+          ],
+          "before": "Battered armour, a weary silhouette and a believable injured performance.",
+          "after": "A wounded knight from a cold, northern land.",
           "beforeExists": true,
           "afterExists": true
         }
