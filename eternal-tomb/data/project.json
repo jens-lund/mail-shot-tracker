@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:53:21.766Z",
+  "updatedAt": "2026-10-16T08:54:44.854Z",
   "assets": [
     {
       "id": "knight",
@@ -90,9 +90,9 @@
         },
         {
           "id": "materials",
-          "label": "Materials",
+          "label": "Blockout",
           "description": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets, clothing.",
-          "status": "todo",
+          "status": "review",
           "due": "",
           "effort": "medium",
           "priority": "must",
@@ -103,6 +103,18 @@
               "path": "uploads/image_d6cc1d954ab84f69981f5df2ee3d77a6.webp",
               "role": "progress",
               "caption": "Bilde_2026-10-16_105317245.png"
+            },
+            {
+              "id": "image_9e78c3a19a3f412990f0124c5c9892ab",
+              "path": "uploads/image_9e78c3a19a3f412990f0124c5c9892ab.webp",
+              "role": "progress",
+              "caption": "image (1).png"
+            },
+            {
+              "id": "image_8356fa82e2a641bba8797529a923ae40",
+              "path": "uploads/image_8356fa82e2a641bba8797529a923ae40.webp",
+              "role": "progress",
+              "caption": "image.png"
             }
           ],
           "comments": [],
@@ -2196,6 +2208,200 @@
           "after": [
             "image_d6cc1d954ab84f69981f5df2ee3d77a6"
           ],
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_0aded25192f0417b9cc3b27e15af396d",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:53:25.731Z",
+      "label": "Added an image to Materials",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "addTaskImage",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "@image_9e78c3a19a3f412990f0124c5c9892ab"
+          ],
+          "before": null,
+          "after": {
+            "id": "image_9e78c3a19a3f412990f0124c5c9892ab",
+            "path": "uploads/image_9e78c3a19a3f412990f0124c5c9892ab.webp",
+            "role": "progress",
+            "caption": "image (1).png"
+          },
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "$order"
+          ],
+          "before": [
+            "image_d6cc1d954ab84f69981f5df2ee3d77a6"
+          ],
+          "after": [
+            "image_d6cc1d954ab84f69981f5df2ee3d77a6",
+            "image_9e78c3a19a3f412990f0124c5c9892ab"
+          ],
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_49ce3507e70d406bbd59c7bf698c2e92",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:53:30.407Z",
+      "label": "Added an image to Materials",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "addTaskImage",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "@image_8356fa82e2a641bba8797529a923ae40"
+          ],
+          "before": null,
+          "after": {
+            "id": "image_8356fa82e2a641bba8797529a923ae40",
+            "path": "uploads/image_8356fa82e2a641bba8797529a923ae40.webp",
+            "role": "progress",
+            "caption": "image.png"
+          },
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "$order"
+          ],
+          "before": [
+            "image_d6cc1d954ab84f69981f5df2ee3d77a6",
+            "image_9e78c3a19a3f412990f0124c5c9892ab"
+          ],
+          "after": [
+            "image_d6cc1d954ab84f69981f5df2ee3d77a6",
+            "image_9e78c3a19a3f412990f0124c5c9892ab",
+            "image_8356fa82e2a641bba8797529a923ae40"
+          ],
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_4c5dfd715d964158b5a1caf3aa5eb251",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:54:06.923Z",
+      "label": "Edited Materials · label",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "label"
+          ],
+          "before": "Materials",
+          "after": "Blockout",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_3b80005e8a694bbf8d52e8b4060036a0",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:54:08.355Z",
+      "label": "Edited Blockout",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "task",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "status"
+          ],
+          "before": "todo",
+          "after": "doing",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_7ffea29f6a5a45a88c19ab392758b8d0",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:54:31.945Z",
+      "label": "Edited Blockout",
+      "href": "#task/assets/knight/materials",
+      "targets": [
+        "*"
+      ],
+      "kind": "task",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "status"
+          ],
+          "before": "doing",
+          "after": "review",
           "beforeExists": true,
           "afterExists": true
         }
