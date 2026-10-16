@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-09T07:32:33.240Z",
+  "updatedAt": "2026-10-16T08:08:06.569Z",
   "assets": [
     {
       "id": "knight",
@@ -1690,8 +1690,157 @@
       "undoneAt": "",
       "deletedAt": "",
       "reverts": ""
+    },
+    {
+      "id": "change_6091e889101e47a7bbe0da37d7b118d1",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:06.054Z",
+      "label": "Edited project tagline",
+      "href": "#overview",
+      "targets": [],
+      "kind": "project",
+      "patches": [
+        {
+          "path": [
+            "tagline"
+          ],
+          "before": null,
+          "after": "A wounded knight. A hidden cavern. A home, a prison, a terrible ritual.",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_de2e9b72400744cbab42817292320a87",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:06.058Z",
+      "label": "Edited project genre",
+      "href": "#overview",
+      "targets": [],
+      "kind": "project",
+      "patches": [
+        {
+          "path": [
+            "genre"
+          ],
+          "before": null,
+          "after": "DARK FANTASY / SHORT FILM",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_2f66692878da40eabbe22b3d5ec2a2fd",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:06.061Z",
+      "label": "Edited project header label",
+      "href": "#overview",
+      "targets": [],
+      "kind": "project",
+      "patches": [
+        {
+          "path": [
+            "brandLabel"
+          ],
+          "before": null,
+          "after": "3D PRODUCTION TRACKER",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_e67924c2aeb3477da79820e4ed5cc7cd",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:06.063Z",
+      "label": "Edited project footer",
+      "href": "#overview",
+      "targets": [],
+      "kind": "project",
+      "patches": [
+        {
+          "path": [
+            "footer"
+          ],
+          "before": null,
+          "after": "BUILD THE WORLD. FINISH THE FILM.",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_56f195a56e2f4516adac498bb1b7afb5",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:06.066Z",
+      "label": "Edited project team colors",
+      "href": "#overview",
+      "targets": [],
+      "kind": "project",
+      "patches": [
+        {
+          "path": [
+            "memberColors",
+            "Jens"
+          ],
+          "before": null,
+          "after": "#79c8f5",
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "memberColors",
+            "Kevin"
+          ],
+          "before": null,
+          "after": "#b39ade",
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "memberColors",
+            "Nicolai"
+          ],
+          "before": null,
+          "after": "#ed92bd",
+          "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
     }
   ],
-  "memberColors": {},
-  "pageCopy": {}
+  "memberColors": {
+    "Jens": "#79c8f5",
+    "Kevin": "#b39ade",
+    "Nicolai": "#ed92bd"
+  },
+  "pageCopy": {},
+  "tagline": "A wounded knight. A hidden cavern. A home, a prison, a terrible ritual.",
+  "genre": "DARK FANTASY / SHORT FILM",
+  "brandLabel": "3D PRODUCTION TRACKER",
+  "footer": "BUILD THE WORLD. FINISH THE FILM."
 }
