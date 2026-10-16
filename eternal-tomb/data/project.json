@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:37:55.697Z",
+  "updatedAt": "2026-10-16T08:52:26.753Z",
   "assets": [
     {
       "id": "knight",
@@ -98,7 +98,8 @@
           "priority": "must",
           "owner": "",
           "images": [],
-          "comments": []
+          "comments": [],
+          "workSummary": "Prøver nå å blocke ut basic components til karakteren. Følger en 2D refrence for å gjøre det lettere for meg selv."
         },
         {
           "id": "rig",
@@ -2111,6 +2112,34 @@
           "before": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets,",
           "after": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets, clothing.",
           "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_f90aabd06fbf4550bf65412da31f9f35",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:52:24.797Z",
+      "label": "Edited Materials · workSummary",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "workSummary"
+          ],
+          "before": null,
+          "after": "Prøver nå å blocke ut basic components til karakteren. Følger en 2D refrence for å gjøre det lettere for meg selv.",
+          "beforeExists": false,
           "afterExists": true
         }
       ],
