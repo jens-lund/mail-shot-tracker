@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:54:44.854Z",
+  "updatedAt": "2026-10-16T08:55:34.868Z",
   "assets": [
     {
       "id": "knight",
@@ -336,7 +336,7 @@
           "deletedAt": ""
         }
       ],
-      "cover": "",
+      "cover": "uploads/image_4f16e9f23d0545c0962b25b812224a34.webp",
       "priority": "must",
       "removedTaskIds": [],
       "deletedTasks": []
@@ -2402,6 +2402,32 @@
           ],
           "before": "doing",
           "after": "review",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_ba25aa412e9f43f4ac5c6ed05048aed5",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:55:30.199Z",
+      "label": "Edited Golem Character · cover",
+      "href": "#task/assets/troll",
+      "targets": [],
+      "kind": "field",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@troll",
+            "cover"
+          ],
+          "before": "",
+          "after": "uploads/image_4f16e9f23d0545c0962b25b812224a34.webp",
           "beforeExists": true,
           "afterExists": true
         }
