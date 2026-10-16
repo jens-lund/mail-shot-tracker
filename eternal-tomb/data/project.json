@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:10:48.786Z",
+  "updatedAt": "2026-10-16T08:10:55.730Z",
   "assets": [
     {
       "id": "knight",
@@ -80,7 +80,7 @@
           "id": "model",
           "label": "Model",
           "description": "Finish visible armour, body, sword and cape geometry.",
-          "status": "todo",
+          "status": "done",
           "due": "",
           "effort": "medium",
           "priority": "must",
@@ -1964,6 +1964,36 @@
           ],
           "before": "",
           "after": "Kevin",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_c770bca55684453094a7c2cbbb8f91ad",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:10:48.757Z",
+      "label": "Edited Model",
+      "href": "#task/assets/knight/model",
+      "targets": [
+        "Kevin"
+      ],
+      "kind": "task",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@model",
+            "status"
+          ],
+          "before": "todo",
+          "after": "done",
           "beforeExists": true,
           "afterExists": true
         }
