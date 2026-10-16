@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:12:27.805Z",
+  "updatedAt": "2026-10-16T08:16:09.432Z",
   "assets": [
     {
       "id": "knight",
@@ -91,7 +91,7 @@
         {
           "id": "materials",
           "label": "Materials",
-          "description": "Worn steel, cloth and injury detail; check under cave lighting.",
+          "description": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets,",
           "status": "todo",
           "due": "",
           "effort": "medium",
@@ -2054,6 +2054,34 @@
           ],
           "before": "medium",
           "after": "large",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_6fc9e55f77fb4826a57b49819e6cb916",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:16:07.260Z",
+      "label": "Edited Materials · description",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "description"
+          ],
+          "before": "Worn steel, cloth and injury detail; check under cave lighting.",
+          "after": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets,",
           "beforeExists": true,
           "afterExists": true
         }
