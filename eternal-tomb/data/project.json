@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:52:26.753Z",
+  "updatedAt": "2026-10-16T08:53:21.766Z",
   "assets": [
     {
       "id": "knight",
@@ -97,7 +97,14 @@
           "effort": "medium",
           "priority": "must",
           "owner": "",
-          "images": [],
+          "images": [
+            {
+              "id": "image_d6cc1d954ab84f69981f5df2ee3d77a6",
+              "path": "uploads/image_d6cc1d954ab84f69981f5df2ee3d77a6.webp",
+              "role": "progress",
+              "caption": "Bilde_2026-10-16_105317245.png"
+            }
+          ],
           "comments": [],
           "workSummary": "Prøver nå å blocke ut basic components til karakteren. Følger en 2D refrence for å gjøre det lettere for meg selv."
         },
@@ -2140,6 +2147,56 @@
           "before": null,
           "after": "Prøver nå å blocke ut basic components til karakteren. Følger en 2D refrence for å gjøre det lettere for meg selv.",
           "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_764f02254ce847f3b222466a95ca5287",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:53:18.211Z",
+      "label": "Added an image to Materials",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "addTaskImage",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "@image_d6cc1d954ab84f69981f5df2ee3d77a6"
+          ],
+          "before": null,
+          "after": {
+            "id": "image_d6cc1d954ab84f69981f5df2ee3d77a6",
+            "path": "uploads/image_d6cc1d954ab84f69981f5df2ee3d77a6.webp",
+            "role": "progress",
+            "caption": "Bilde_2026-10-16_105317245.png"
+          },
+          "beforeExists": false,
+          "afterExists": true
+        },
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "images",
+            "$order"
+          ],
+          "before": [],
+          "after": [
+            "image_d6cc1d954ab84f69981f5df2ee3d77a6"
+          ],
+          "beforeExists": true,
           "afterExists": true
         }
       ],
