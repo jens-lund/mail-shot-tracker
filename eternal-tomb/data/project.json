@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:10:46.310Z",
+  "updatedAt": "2026-10-16T08:10:48.786Z",
   "assets": [
     {
       "id": "knight",
@@ -84,7 +84,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "",
+          "owner": "Kevin",
           "images": [],
           "comments": []
         },
@@ -1936,6 +1936,34 @@
           ],
           "before": "medium",
           "after": "large",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_f7e172464c044875bd52851320475900",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:10:47.206Z",
+      "label": "Edited Model · owner",
+      "href": "#task/assets/knight/model",
+      "targets": [],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@model",
+            "owner"
+          ],
+          "before": "",
+          "after": "Kevin",
           "beforeExists": true,
           "afterExists": true
         }
