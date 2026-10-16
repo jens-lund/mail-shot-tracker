@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:10:38.976Z",
+  "updatedAt": "2026-10-16T08:10:41.298Z",
   "assets": [
     {
       "id": "knight",
@@ -27,7 +27,7 @@
           "id": "design",
           "label": "Blockout",
           "description": "Approve silhouette, armour, cape and injury references.",
-          "status": "done",
+          "status": "doing",
           "due": "",
           "effort": "medium",
           "priority": "must",
@@ -1876,6 +1876,36 @@
           ],
           "before": "Battered armour, a weary silhouette and a believable injured performance.",
           "after": "A wounded knight from a cold, northern land.",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_fe03480aec0a4b77bceb0ca58472191c",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:10:38.845Z",
+      "label": "Edited Blockout",
+      "href": "#task/assets/knight/design",
+      "targets": [
+        "Kevin"
+      ],
+      "kind": "task",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@design",
+            "status"
+          ],
+          "before": "done",
+          "after": "doing",
           "beforeExists": true,
           "afterExists": true
         }
