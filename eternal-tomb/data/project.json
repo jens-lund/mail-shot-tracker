@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-16T08:08:06.569Z",
+  "updatedAt": "2026-10-16T08:08:51.649Z",
   "assets": [
     {
       "id": "knight",
@@ -150,7 +150,7 @@
         }
       ],
       "versions": [],
-      "cover": "",
+      "cover": "uploads/image_04911e3419d8405ea0bef2e71b431b62.webp",
       "priority": "must",
       "removedTaskIds": [],
       "deletedTasks": []
@@ -1825,6 +1825,32 @@
           "before": null,
           "after": "#ed92bd",
           "beforeExists": false,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_90005e34bd1741989265eb2bf3ceed60",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-10-16T08:08:48.211Z",
+      "label": "Edited The wounded knight · cover",
+      "href": "#task/assets/knight",
+      "targets": [],
+      "kind": "field",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "cover"
+          ],
+          "before": "",
+          "after": "uploads/image_04911e3419d8405ea0bef2e71b431b62.webp",
+          "beforeExists": true,
           "afterExists": true
         }
       ],
