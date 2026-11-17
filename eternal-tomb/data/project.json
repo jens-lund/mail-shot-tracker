@@ -8,7 +8,7 @@
     "Kevin",
     "Nicolai"
   ],
-  "updatedAt": "2026-10-30T08:42:41.799Z",
+  "updatedAt": "2026-11-17T11:52:31.491Z",
   "assets": [
     {
       "id": "knight",
@@ -96,7 +96,7 @@
           "due": "",
           "effort": "medium",
           "priority": "must",
-          "owner": "",
+          "owner": "Kevin",
           "images": [
             {
               "id": "image_d6cc1d954ab84f69981f5df2ee3d77a6",
@@ -2456,6 +2456,34 @@
           ],
           "before": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets, clothing.",
           "after": "Blocking out main compomnents. Helmet, boots, gloves, gauntlets, clothing. More design direction.^\n\nColors. Helmet varity. What the different components means. Metal Design. Leather Design. etc",
+          "beforeExists": true,
+          "afterExists": true
+        }
+      ],
+      "undoneAt": "",
+      "deletedAt": "",
+      "reverts": ""
+    },
+    {
+      "id": "change_cef1417946364868aaa55704a72b18b4",
+      "actor": "thekevhog",
+      "author": "thekevhog",
+      "createdAt": "2026-11-17T11:52:31.304Z",
+      "label": "Edited Blockout · owner",
+      "href": "#task/assets/knight/materials",
+      "targets": [],
+      "kind": "taskField",
+      "patches": [
+        {
+          "path": [
+            "assets",
+            "@knight",
+            "tasks",
+            "@materials",
+            "owner"
+          ],
+          "before": "",
+          "after": "Kevin",
           "beforeExists": true,
           "afterExists": true
         }
